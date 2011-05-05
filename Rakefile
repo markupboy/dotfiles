@@ -33,3 +33,15 @@ task :install do
   end
 end
 task :default => 'install'
+
+task :uninstall do
+  linkables = Dir.glob('*/**{.symlink}')
+  
+  linkables.each do |linkable|
+    file = linkable.split('/').last.split('.symlink')[0]
+    target = "#{ENV["HOME"]}/.#{file}"
+    if File.exists?(target) || File.symlink?(target)
+      puts "FileUtils.rm(#{target})"
+    end
+  end
+end
