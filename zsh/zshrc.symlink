@@ -1,8 +1,10 @@
-# shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
+######################################################
+# lots of stuff borrowed from Zach Holman here:      #
+# https://github.com/holman/dotfiles/blob/master/zsh #
+######################################################
 
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/Development
+# shortcut to this dotfiles path is $ZSH
+export ZSH=$HOME/Dropbox/Shared\ Libraries/dotfiles
 
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
@@ -14,6 +16,11 @@ then
   source ~/.localrc
 fi
 
+##############
+# completion #
+##############
+
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
+
+zmodload zsh/complist
+autoload -Uz compinit && compinit
