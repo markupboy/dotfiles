@@ -1,0 +1,29 @@
+# visual bell
+vbell_msg "[[[ ding ]]]"
+vbell on
+
+
+autodetach on
+
+# default to utf8 char encoding
+defutf8 on
+
+# disable startup message
+startup_message off
+
+# set up some basic screens
+screen -t project 0 
+screen -t "dev server" 1 
+screen -t sandbox 2 
+screen -t irc 3 irssi
+# screen -t mail 4 vmail
+select 0
+
+# set up UI
+hardstatus alwayslastline
+hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{C}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}%]'
+
+# bind some keys 
+# f1 and f2, forward and back
+bindkey -k k1 prev
+bindkey -k k2 next

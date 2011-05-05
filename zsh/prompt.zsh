@@ -1,93 +1,132 @@
-autoload colors && colors
-# cheers, @ehrenmurdick
-# http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
-
-git_branch() {
-  echo $(/usr/bin/git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
-}
-
-git_dirty() {
-  st=$(/usr/bin/git status 2>/dev/null | tail -n 1)
-  if [[ $st == "" ]]
-  then
-    echo ""
-  else
-    if [[ $st == "nothing to commit (working directory clean)" ]]
-    then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
-    else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
-    fi
-  fi
-}
-
-git_prompt_info () {
- ref=$(/usr/bin/git symbolic-ref HEAD 2>/dev/null) || return
-# echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
- echo "${ref#refs/heads/}"
-}
-
-project_name () {
-  name=$(pwd | awk -F'Development/' '{print $2}' | awk -F/ '{print $1}')
-  echo $name
-}
-
-project_name_color () {
-#  name=$(project_name)
-  echo "%{\e[0;35m%}${name}%{\e[0m%}"
-}
-
-unpushed () {
-  /usr/bin/git cherry -v origin/$(git_branch) 2>/dev/null
-}
-
-need_push () {
-  if [[ $(unpushed) == "" ]]
-  then
-    echo " "
-  else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
-  fi
-}
-
-rvm_prompt(){
-  if $(which rvm &> /dev/null)
-  then
-	  echo "%{$fg_bold[yellow]%}$(rvm tools identifier)%{$reset_color%}"
+###################
+# prompt bar fill #
+###################
+function precmd {
+	local TERMWIDTH
+	(( TERMWIDTH = ${COLUMNS} - 1 ))
+	PR_FILLBAR=""
+	PR_PWDLEN=""
+	local promptsize=${#${(%):---(%n@%m:%l)---()--}}
+	local pwdsize=${#${(%):-%~}}
+	if [[ "$promptsize + $pwdsize" -gt $TERMWIDTH ]]; then
+		((PR_PWDLEN=$TERMWIDTH - $promptsize))
 	else
-	  echo ""
-  fi
+		PR_FILLBAR="\${(l.(($TERMWIDTH - ($promptsize + $pwdsize)))..${PR_HBAR}.)}"
+	fi
 }
 
-# This keeps the number of todos always available the right hand side of my
-# command line. I filter it to only count those tagged as "+next", so it's more
-# of a motivation to clear out the list.
-todo(){
-  if $(which todo.sh &> /dev/null)
-  then
-    num=$(echo $(todo.sh ls +next | wc -l))
-    let todos=num-2
-    if [ $todos != 0 ]
-    then
-      echo "$todos"
+##############
+# git prompt #
+##############
+
+git_prompt() {
+  unset __CURRENT_GIT_BRANCH
+  unset __CURRENT_GIT_BRANCH_STATUS
+  unset __CURRENT_GIT_BRANCH_IS_DIRTY
+
+  local st="$(git status 2>/dev/null)"
+  if [[ -n "$st" ]]; then
+    local -a arr
+    arr=(${(f)st})
+
+    if [[ $arr[1] =~ 'Not currently on any branch.' ]]; then
+      __CURRENT_GIT_BRANCH='no-branch'
     else
-      echo ""
+      __CURRENT_GIT_BRANCH="${arr[1][(w)4]}";
     fi
-  else
-    echo ""
+
+    if [[ $arr[2] =~ 'Your branch is' ]]; then
+      if [[ $arr[2] =~ 'ahead' ]]; then
+        __CURRENT_GIT_BRANCH_STATUS='ahead'
+      elif [[ $arr[2] =~ 'diverged' ]]; then
+        __CURRENT_GIT_BRANCH_STATUS='diverged'
+      else
+        __CURRENT_GIT_BRANCH_STATUS='behind'
+      fi
+    fi
+
+    if [[ ! $st =~ 'nothing to commit' ]]; then
+      __CURRENT_GIT_BRANCH_IS_DIRTY='1'
+    fi
+  fi
+    
+  
+
+  if [ -n "$__CURRENT_GIT_BRANCH" ]; then
+    local s="$PR_CYAN("
+    s+="$PR_GREEN$__CURRENT_GIT_BRANCH"
+    case "$__CURRENT_GIT_BRANCH_STATUS" in
+      ahead)
+      s+="↑"
+      ;;
+      diverged)
+      s+="↕"
+      ;;
+      behind)
+      s+="↓"
+      ;;
+    esac
+    if [ -n "$__CURRENT_GIT_BRANCH_IS_DIRTY" ]; then
+      s+="⚡"
+    fi
+    s+="$PR_CYAN)"
+
+  echo $s
   fi
 }
 
-directory_name(){
-  echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
+
+setprompt () {
+	setopt prompt_subst
+	autoload colors zsh/terminfo
+	if [[ "$terminfo[colors]" -ge 8 ]]; then
+		colors
+	fi
+	for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+		eval PR_$color='%{$fg[${(L)color}]%}'
+		eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+		(( count = $count + 1 ))
+	done
+	PR_NO_COLOUR="%{$terminfo[sgr0]%}"
+	typeset -A altchar
+	set -A altchar ${(s..)terminfo[acsc]}
+	PR_SET_CHARSET="%{$terminfo[enacs]%}"
+	PR_SHIFT_IN="%{$terminfo[smacs]%}"
+	PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
+	PR_HBAR=${altchar[q]:--}
+	PR_ULCORNER=${altchar[l]:--}
+	PR_LLCORNER=${altchar[m]:--}
+	PR_LRCORNER=${altchar[j]:--}
+	PR_URCORNER=${altchar[k]:--}
+	case $TERM in
+		xterm*)	PR_TITLEBAR=$'%{\e]0;%(!.-=*[ROOT]*=- | .)%n@%m:%~ | ${COLUMNS}x${LINES} | %y\a%}';;
+		screen) PR_TITLEBAR=$'%{\e_screen \005 (\005t) | %(!.-=[ROOT]=- | .)%n@%m:%~ | ${COLUMNS}x${LINES} | %y\e\\%}';;
+		*) PR_TITLEBAR='';;
+	esac
+
+  PROMPT='$PR_SET_CHARSET$PR_STITLE${(e)PR_TITLEBAR}\
+$PR_CYAN$PR_SHIFT_IN$PR_ULCORNER$PR_CYAN$PR_HBAR$PR_SHIFT_OUT(\
+$PR_RED%m$PR_CYAN:$PR_GREEN%$PR_PWDLEN<...<%~%<<\
+$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_HBAR${(e)PR_FILLBAR}$PR_CYAN$PR_HBAR$PR_SHIFT_OUT
+$PR_CYAN$PR_SHIFT_IN$PR_LLCORNER$PR_CYAN$PR_HBAR$PR_SHIFT_OUT\
+${(e)PR_APM}$PR_GREEN$(git_prompt)\
+$PR_CYAN$PR_SHIFT_IN $PR_SHIFT_OUT>\
+$PR_NO_COLOUR '
+
+  PS2='$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT(\
+$PR_MAGENTA%_$PR_CYAN)$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
 }
 
-export PROMPT=$'\n$(rvm_prompt) in $(directory_name) $(project_name_color)$(git_dirty)$(need_push)\n› '
-set_prompt () {
-  export RPROMPT="%{$fg_bold[grey]%}$(todo)%{$reset_color%}"
-}
+setprompt
 
-precmd() {
-  title "zsh" "%m" "%55<...<%~"
-  set_prompt
-}
+# Initial Display
+echo "                       _                 _                  "
+echo " Welcome back,        | |               | |                 "
+echo "     ____   ____  ____| |  _ _   _ ____ | | _   ___  _   _  "
+echo "    |    \ / _  |/ ___) | / ) | | |  _ \| || \ / _ \| | | | "
+echo "    | | | ( ( | | |   | |< (| |_| | | | | |_) ) |_| | |_| | "
+echo "    |_|_|_|\_||_|_|   |_| \_)\____| ||_/|____/ \___/ \__  | "
+echo "                                  |_|               (____/  "
+echo " "
