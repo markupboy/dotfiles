@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# download -
+# downloads a file using `wget` to your ~/Downloads directory
+#
+# this is terrible and brittle, but it works for now.  will fix later
+currentPath=`pwd`
+cd ~/Downloads
+wget $1
+cd $currentPath
