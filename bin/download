@@ -6,5 +6,5 @@
 # this is terrible and brittle, but it works for now.  will fix later
 currentPath=`pwd`
 cd ~/Downloads
-wget $1
+aria2c $1
 cd $currentPath
