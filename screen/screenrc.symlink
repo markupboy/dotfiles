@@ -12,9 +12,10 @@ startup_message off
 
 # set up some basic screens
 screen -t project 0 
-screen -t "dev server" 1 
-screen -t sandbox 2 
-screen -t remote 3 
+screen -t sandbox 1 
+screen -t remote 2 
+screen -t "dev server" 3
+screen -t compass 4
 # screen -t irc 4 irssi
 # screen -t mail 5 vmail
 select 0
