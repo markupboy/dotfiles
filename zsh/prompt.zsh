@@ -120,13 +120,3 @@ $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
 }
 
 setprompt
-
-# Initial Display
-echo "                       _                 _                  "
-echo " Welcome back,        | |               | |                 "
-echo "     ____   ____  ____| |  _ _   _ ____ | | _   ___  _   _  "
-echo "    |    \ / _  |/ ___) | / ) | | |  _ \| || \ / _ \| | | | "
-echo "    | | | ( ( | | |   | |< (| |_| | | | | |_) ) |_| | |_| | "
-echo "    |_|_|_|\_||_|_|   |_| \_)\____| ||_/|____/ \___/ \__  | "
-echo "                                  |_|               (____/  "
-echo " "
