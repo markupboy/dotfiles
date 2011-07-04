@@ -12,7 +12,9 @@ fi
 #commands
 alias s='screen -U'
 alias h='history'
+alias mm='mate .'
 alias o='open'
+alias oo="open ."
 alias rm='rm -i'
 alias ls='ls -G'
 alias ll='ls -lahG'
@@ -26,7 +28,6 @@ alias top='top -o cpu'
 alias vim='nocorrect vim'
 alias mate='nocorrect mate'
 alias m='nocorrect mate'
-alias mm='m .'
 alias touch='nocorrect touch'
 alias mv='nocorrect mv -i'    
 alias cp='nocorrect cp'       
