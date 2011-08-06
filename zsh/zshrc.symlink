@@ -16,6 +16,13 @@ then
   source ~/.localrc
 fi
 
+# if you're using cinderella/smeagol you'll want
+# to load your .cinderella file
+if [[ -a ~/.cinderella.profile ]]
+then
+  source ~/.cinderella.profile
+fi
+
 ##############
 # completion #
 ##############
