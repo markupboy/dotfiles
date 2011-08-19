@@ -3,11 +3,10 @@ set anti
 set lines=999 columns=84
 set guioptions=egmrt
 
-" Command + t to :CommandT
 if has("gui_macvim")
   macmenu &File.New\ Tab key=<nop>
-  map <D-t> :CommandT<CR>
-endif
+  map <D-t> <Plug>PeepOpen
+end
 
 " Open Command+T in a new tab
 let g:CommandTAcceptSelectionTabMap='<CR>'
