@@ -1,5 +1,6 @@
 #zsh/dotfile specific
 alias dotmate='mate $ZSH'
+alias dotvim='mvim $ZSH'
 alias dotcd='cd $ZSH'
 
 alias reload!='. ~/.zshrc && clear'
