@@ -7,7 +7,7 @@ setopt correctall
 setopt extended_glob
 
 setopt HIST_NO_STORE # don't save 'history' cmd in history
-setopt SHARE_HISTORY # share history between open shells
+# setopt SHARE_HISTORY # share history between open shells
 
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache/$HOST
