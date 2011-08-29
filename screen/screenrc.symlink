@@ -15,7 +15,7 @@ screen -t project 0
 screen -t sandbox 1 
 screen -t remote 2 
 screen -t "dev server" 3
-screen -t compass 4
+screen -t watcher 4
 # screen -t irc 4 irssi
 # screen -t mail 5 vmail
 select 0
