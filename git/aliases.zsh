@@ -3,6 +3,8 @@ alias dcommit='git svn dcommit'
 alias svnrebase='git svn rebase'
 
 #git
+alias git='hub'
+
 alias checkout='git checkout'
 alias co='git checkout'
 alias rebase='git rebase'
