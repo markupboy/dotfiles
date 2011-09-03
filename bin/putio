@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+#
+# putio
+# Blake Walters / @markupboy
+#
+# Downloads a file from the put.io via the command line
+#
+# Example:
+#
+#   putio http://put.io/URL
+#
+# This requires wget
+#
+#   brew install wget
+#
+# Requires you set your Put.io credentials in ~/.putio as a simple file of:
+#
+#   username
+#   password
+
+config_file = "#{ENV['HOME']}/.putio"
+
+unless File.exist?(config_file)
+  puts "You need to type your username and password (one per line) into "+
+       "`~/.putio`"
+  exit!(1)
+end
+
+user,password = File.read(config_file).split("\n")
+
+`wget --http-user=#{user} --http-password=#{password}  #{ARGV[0]} -O FILENAME.EXT`
