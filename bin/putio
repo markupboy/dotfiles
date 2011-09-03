@@ -28,4 +28,4 @@ end
 
 user,password = File.read(config_file).split("\n")
 
-`wget --http-user=#{user} --http-password=#{password}  #{ARGV[0]} -O FILENAME.EXT`
+`wget --http-user=#{user} --http-password=#{password}  #{ARGV[0]}`
