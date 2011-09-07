@@ -2,20 +2,6 @@
 alias dcommit='git svn dcommit'
 alias svnrebase='git svn rebase'
 
-#git
-# alias git='hub'
-
-alias checkout='git checkout'
-alias co='git checkout'
-alias rebase='git rebase'
-alias commit='git commit'
-alias push='git push origin HEAD'
-alias pull='git pull'
-alias merge='git merge'
-alias status='git status -sb'
-alias gdiff='git difftool'
-alias add='git add'
-
 #shorter aliases
 alias g='git'
 alias gh='hub'
