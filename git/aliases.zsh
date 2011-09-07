@@ -17,6 +17,8 @@ alias gdiff='git difftool'
 alias add='git add'
 
 #shorter aliases
+alias g='git'
+alias gh='hub'
 alias gb='git branch'
 alias gmv='git mv'
 alias gr='git rebase'
