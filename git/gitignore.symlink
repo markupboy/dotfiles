@@ -1,4 +1,6 @@
+*conflicted*
 .DS_Store
+.sass-cache
 .svn
 .tissues
 *~
