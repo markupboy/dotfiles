@@ -32,3 +32,5 @@ alias touch='nocorrect touch'
 alias mv='nocorrect mv -i'    
 alias cp='nocorrect cp'       
 alias mkdir='nocorrect mkdir'
+
+alias fliptable='echo "(╯°□°）╯︵ ┻━┻" | pbcopy && echo "(╯°□°）╯︵ ┻━┻"'
