@@ -11,7 +11,6 @@ alias gr='git rebase'
 alias gc='git commit'
 alias gco='git checkout'
 alias gca='git commit -a'
-alias gcaa="git add . && git commit -a"
 alias gp='git push'
 alias gl='git pull --prune'
 alias gm='git merge'
