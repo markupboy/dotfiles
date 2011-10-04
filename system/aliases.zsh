@@ -23,6 +23,7 @@ alias c='clear'
 alias getpath='pwd|tr -d "\r\n"|pbcopy|echo "current path copied to clipboard"'
 alias ping='ping -oq'
 alias top='top -o cpu'
+alias getip="getIP"
 
 #nocorrect when you might get a new dir or file
 alias vim='nocorrect vim'
