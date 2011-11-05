@@ -1,6 +1,6 @@
 colorscheme handcrafted
 set anti
-set lines=999 columns=84
+set lines=60 columns=150
 set guioptions=egmrt
 
 if has("gui_macvim")
