@@ -1,0 +1,9 @@
+name=`osascript -e 'tell application "iTunes" to if player state is playing then get name of current track'`
+artist=`osascript -e 'tell application "iTunes" to if player state is playing then get artist of current track'`
+album=`osascript -e 'tell application "iTunes" to if player state is playing then get album of current track'`
+echo $name
+if [[ $album ]]; then
+	echo "$artist • $album"
+else
+	echo "$artist"
+fi
