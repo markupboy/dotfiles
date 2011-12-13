@@ -1,6 +1,6 @@
 ## install
 
-- `git clone git://github.com/holman/dotfiles ~/.dotfiles`
+- `git clone git://github.com/markupboy/dotfiles ~/.dotfiles`
 - `cd ~/.dotfiles`
 - `rake install`
 
