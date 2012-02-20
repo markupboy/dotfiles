@@ -24,6 +24,9 @@ alias getpath='pwd|tr -d "\r\n"|pbcopy|echo "current path copied to clipboard"'
 alias ping='ping -oq'
 alias top='top -o cpu'
 alias getip="getIP"
+alias mate1="/Applications/TextMate.app/Contents/Resources/mate"
+alias st="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl ."
+alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
 #nocorrect when you might get a new dir or file
 alias vim='nocorrect vim'
