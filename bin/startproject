@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkproject "$1"
+# cd $PROJECT_HOME/$1
+# pip install django
+# python $WORKON_HOME/$1/bin/django-admin.py startproject --template=$TEMPLATE_PATH $1
