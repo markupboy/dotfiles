@@ -20,10 +20,11 @@ alias ls='ls -G'
 alias ll='ls -lahG'
 alias ip='getIP'
 alias c='clear'
-alias getpath='pwd|tr -d "\r\n"|pbcopy|echo "current path copied to clipboard"'
+alias getpath='echo -n $PWD|pbcopy|echo "current path copied to clipboard"'
 alias ping='ping -oq'
 alias top='top -o cpu'
 alias getip="getIP"
+alias ack='ACK_PAGER_COLOR="less -x4SRFX" ack -a'
 alias mate1="/Applications/TextMate.app/Contents/Resources/mate"
 alias st="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl ."
 alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
@@ -36,5 +37,7 @@ alias touch='nocorrect touch'
 alias mv='nocorrect mv -i'    
 alias cp='nocorrect cp'       
 alias mkdir='nocorrect mkdir'
+
+
 
 alias fliptable='echo "(╯°□°）╯︵ ┻━┻" | pbcopy && echo "(╯°□°）╯︵ ┻━┻"'
