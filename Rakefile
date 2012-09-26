@@ -1,5 +1,21 @@
 require 'rake'
 
+desc "Get everything prepped for dotfile installation"
+task :setup do
+  #homebrew
+  if `which brew` == ""
+    ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+  end
+  File.open("./brew/recipe", "r") do |file_handle|
+    file_handle.each do |formula|
+      `brew install #{formula}`
+    end
+  end
+
+  #oh-my-zsh
+  `ln -s ../oh-my-zsh $HOME/.oh-my-zsh`
+end
+
 desc "Hook our dotfiles into system-standard positions."
 task :install do
   linkables = Dir.glob('*/**{.symlink}')
