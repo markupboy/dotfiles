@@ -1,10 +1,6 @@
-######################################################
-# lots of stuff borrowed from Zach Holman here:      #
-# https://github.com/holman/dotfiles/blob/master/zsh #
-######################################################
-
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/Dropbox/Shared\ Libraries/dotfiles
+export DOTFILES=$HOME/Dropbox/Shared\ Libraries/dotfiles
 
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
@@ -16,16 +12,13 @@ then
   source ~/.localrc
 fi
 
-# if you're using cinderella/smeagol you'll want
-# to load your .cinderella file
-if [[ -a ~/.cinderella.profile ]]
-then
-  source ~/.cinderella.profile
-fi
+eval "$(rbenv init -)"
 
 ##############
 # completion #
 ##############
+
+source /Users/markupboy/Dropbox/Sites/github/forks/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # initialize autocomplete here, otherwise functions won't be loaded
 
