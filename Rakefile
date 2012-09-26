@@ -4,20 +4,24 @@ desc "Get everything prepped for dotfile installation"
 task :setup do
   #homebrew
   if `which brew` == ""
+    puts "Installing Homebrew..."
     `ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"`
   end
   File.open("./brew/recipe", "r") do |file_handle|
     file_handle.each do |formula|
+      puts "Installing #{formula}..."
       `brew install #{formula}`
     end
   end
 
   #oh-my-zsh
+  puts "Linking oh-my-zsh..."
   `ln -s $HOME/Dropbox/Shared\\ Libraries/oh-my-zsh $HOME/.oh-my-zsh`
 end
 
 desc "Hook our dotfiles into system-standard positions."
 task :install do
+  puts "Linking dotfiles..."
   linkables = Dir.glob('*/**{.symlink}')
 
   skip_all = false
