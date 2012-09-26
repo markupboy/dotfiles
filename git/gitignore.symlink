@@ -6,3 +6,5 @@
 *~
 *.swp
 *.rbc
+vendor/bundle
+.DS_Store
