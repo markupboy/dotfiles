@@ -4,7 +4,7 @@ desc "Get everything prepped for dotfile installation"
 task :setup do
   #homebrew
   if `which brew` == ""
-    ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+    `ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"`
   end
   File.open("./brew/recipe", "r") do |file_handle|
     file_handle.each do |formula|
