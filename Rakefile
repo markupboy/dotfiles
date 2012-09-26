@@ -13,7 +13,7 @@ task :setup do
   end
 
   #oh-my-zsh
-  `ln -s $HOME/Dropbox/Shared\ Libraries/oh-my-zsh $HOME/.oh-my-zsh`
+  `ln -s $HOME/Dropbox/Shared\\ Libraries/oh-my-zsh $HOME/.oh-my-zsh`
 end
 
 desc "Hook our dotfiles into system-standard positions."
