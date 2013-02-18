@@ -11,23 +11,19 @@ defutf8 on
 startup_message off
 
 # set up some basic screens
-screen -t project 0 
+screen -t main 0 
 screen -t sandbox 1 
-screen -t remote 2 
-screen -t tunnel 3
+screen -t log 2 
+screen -t remote 3 
 screen -t watcher 4
+screen -t workers 5
+screen -t api 6
 select 0
 
 # set up UI
 caption string "%?%F%{= Bk}%? %C%A %D %d-%m-%Y %{= kB} %t%= %?%F%{= Bk}%:%{= wk}%? %n "
 hardstatus alwayslastline
-hardstatus string '%{wk}[ %{b}%H %{w}][%= %{wk}%?%-Lw%?%{=b ky}_%{y}%n*%f %t%?(%u)%?%{=y kb}_%{= kw}%?%+Lw%?%?%= %{w}%]'
-# hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{C}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}%]'
+hardstatus string '%{wk}[ %{b}%H %{w}][%= %{wk}%?%-Lw%?%{=b ky}_%{y}%n*%f %t%?(%u)%?%{=y kb}_%{= kw}%?%+Lw%?%?%= %]'
 
-
-# bind some keys 
-# f1 and f2, forward and back
-bindkey -k k1 prev
-bindkey -k k2 next
-
-shell -$SHELL
+# increase the scrollback buffer
+defscrollback 100000
