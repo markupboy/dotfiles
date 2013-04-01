@@ -1,0 +1,16 @@
+#!/bin/bash
+
+case "$1" in
+  *_EDITMSG|*MERGE_MSG|*_TAGMSG )
+    /usr/bin/vim "$1"
+    ;;
+  # *.md )
+  #   /usr/local/bin/mmdc "$1"
+  #   ;;
+  # *.txt )
+  #   /usr/local/bin/mmdc "$1"
+  #   ;;
+  * )
+    /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl -w "$1"
+    ;;
+esac
