@@ -23,3 +23,13 @@ alias gaa='git-all'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gu="git undo"
 alias gpu="git push -f origin HEAD^:master"
+
+# add and remove new/deleted files from git index automatically
+alias gitar="git ls-files -d -m -o -z --exclude-standard | xargs -0 git update-index --add --remove"
+
+# git push
+alias gpd="git push origin develop"
+alias gpm="git push origin master"
+
+# Remove git from a project
+alias ungit="find . -name '.git' -exec rm -rf {} \;"

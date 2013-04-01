@@ -34,10 +34,33 @@ alias vim='nocorrect vim'
 alias mate='nocorrect mate'
 alias m='nocorrect mate'
 alias touch='nocorrect touch'
-alias mv='nocorrect mv -i'    
-alias cp='nocorrect cp'       
+alias mv='nocorrect mv -i'
+alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 
 # Quick way to rebuild the Launch Services database and get rid
 # of duplicates in the Open With submenu.
 alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+
+# make executable
+alias ax="chmod a+x"
+
+# google chrome
+alias chrome="open -a \"Google Chrome Canary\""
+
+#copy output of last command to clipboard
+alias cl="fc -e -|pbcopy"
+alias copylast="fc -e -|pbcopy"
+
+# top
+alias cpu='top -o cpu'
+alias mem='top -o rsize' # memory
+
+# recursively delete Dropbox conflicted files
+alias rmdbc="find . -name *\ \(*conflicted* -exec rm {} \;"
+
+# mute the system volume
+alias stfu="osascript -e 'set volume output muted true'"
+
+# interactive fasd
+alias zi="fasd -e cd -i"
