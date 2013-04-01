@@ -29,4 +29,3 @@ source /Users/markupboy/Dropbox/Sites/github/forks/zsh-syntax-highlighting/zsh-s
 zmodload zsh/complist
 autoload -Uz compinit && compinit
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
