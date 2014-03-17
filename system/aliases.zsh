@@ -1,3 +1,21 @@
+#commands
+alias s='screen -U'
+alias h='history'
+alias o='open'
+alias oo="open ."
+alias rm='rm -i'
+# alias ls='ls -G'
+# alias ll='ls -lahG'
+alias ip='getIP'
+alias c='clear'
+alias getpath='echo -n $PWD|pbcopy|echo "current path copied to clipboard"'
+alias ping='ping -oq'
+alias top='top -o cpu'
+alias getip="getIP"
+alias ack='ACK_PAGER_COLOR="less -x4SRFX" ack -a'
+alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ."
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
@@ -8,26 +26,6 @@ then
   alias ll="gls -l --color"
   alias la='gls -A --color'
 fi
-
-#commands
-alias s='screen -U'
-alias h='history'
-alias mm='mate .'
-alias o='open'
-alias oo="open ."
-alias rm='rm -i'
-alias ls='ls -G'
-alias ll='ls -lahG'
-alias ip='getIP'
-alias c='clear'
-alias getpath='echo -n $PWD|pbcopy|echo "current path copied to clipboard"'
-alias ping='ping -oq'
-alias top='top -o cpu'
-alias getip="getIP"
-alias ack='ACK_PAGER_COLOR="less -x4SRFX" ack -a'
-alias mate1="/Applications/TextMate.app/Contents/Resources/mate"
-alias st="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl ."
-alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
 #nocorrect when you might get a new dir or file
 alias vim='nocorrect vim'
@@ -55,6 +53,7 @@ alias copylast="fc -e -|pbcopy"
 # top
 alias cpu='top -o cpu'
 alias mem='top -o rsize' # memory
+# alias htop='htop −−sort−key cpu'
 
 # recursively delete Dropbox conflicted files
 alias rmdbc="find . -name *\ \(*conflicted* -exec rm {} \;"
@@ -62,5 +61,3 @@ alias rmdbc="find . -name *\ \(*conflicted* -exec rm {} \;"
 # mute the system volume
 alias stfu="osascript -e 'set volume output muted true'"
 
-# interactive fasd
-alias zi="fasd -e cd -i"
