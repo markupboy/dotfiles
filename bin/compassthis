@@ -1,9 +1,0 @@
-#!/bin/sh
-#
-# compassthis
-# Blake Walters / @markupboy
-#
-# send current directory to a new screen and begin watching with compass
-#
-# requires compass, screen
-screen -t compass compass watch `pwd`
