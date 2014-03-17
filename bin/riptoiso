@@ -1,0 +1,5 @@
+#!/bin/sh
+infile=$1
+outfile=$2
+
+hdiutil makehybrid -iso -joliet -o $outfile $infile
