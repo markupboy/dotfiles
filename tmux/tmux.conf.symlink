@@ -113,9 +113,9 @@ set -g visual-activity on
 
 # Highlighting the active window in status bar
 setw -g window-status-current-bg black
-setw -g window-status-current-fg yellow
-setw -g window-status-activity-bg green
-setw -g window-status-activity-fg black
+setw -g window-status-current-fg green
+setw -g window-status-activity-bg black
+setw -g window-status-activity-fg yellow
 
 # :kB: focus up
 # unbind Tab
