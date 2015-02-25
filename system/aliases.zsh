@@ -15,6 +15,7 @@ alias getip="getIP"
 alias ack='ACK_PAGER_COLOR="less -x4SRFX" ack -a'
 alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ."
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+alias mmserver="bundle exec middleman server --host=0.0.0.0"
 
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
