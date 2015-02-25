@@ -21,6 +21,17 @@ then
   export PATH="$HOME/.rbenv/bin:$PATH"
 fi
 
+if [[ -a /usr/local/terraform ]]
+then
+  export PATH="/usr/local/terraform:$PATH"
+  export ATLAS_TOKEN=ig4PJgusvKQQcyCqWAsqiCJdKqCKKzvUzmpEw3b5ATezEzK_UyUvvjqnAQtmpRb2Z4k
+fi
+
+if [[ -a /usr/local/packer ]]
+then
+  export PATH="/usr/local/packer:$PATH"
+fi
+
 ##############
 # completion #
 ##############
