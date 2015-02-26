@@ -1,5 +1,5 @@
 #commands
-alias s='screen -U'
+# alias s='screen -U'
 alias h='history'
 alias o='open'
 alias oo="open ."
@@ -30,8 +30,6 @@ fi
 
 #nocorrect when you might get a new dir or file
 alias vim='nocorrect vim'
-alias mate='nocorrect mate'
-alias m='nocorrect mate'
 alias touch='nocorrect touch'
 alias mv='nocorrect mv -i'
 alias cp='nocorrect cp'
