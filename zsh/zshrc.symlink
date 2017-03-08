@@ -1,7 +1,8 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/Dropbox/Shared\ Libraries/dotfiles
 export DOTFILES=$HOME/Dropbox/Shared\ Libraries/dotfiles
-export PROJECTS=~/Sites/bigcartel
+export PROJECTS=~/Code/invision
+export DEFAULT_USER=markupboy
 
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
@@ -24,7 +25,6 @@ fi
 if [[ -a /usr/local/terraform ]]
 then
   export PATH="/usr/local/terraform:$PATH"
-  export ATLAS_TOKEN=ig4PJgusvKQQcyCqWAsqiCJdKqCKKzvUzmpEw3b5ATezEzK_UyUvvjqnAQtmpRb2Z4k
 fi
 
 if [[ -a /usr/local/packer ]]
@@ -36,10 +36,7 @@ fi
 # completion #
 ##############
 
-source /Users/markupboy/Dropbox/Sites/github/forks/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # initialize autocomplete here, otherwise functions won't be loaded
 
 zmodload zsh/complist
 autoload -Uz compinit && compinit
-### Added by the Heroku Toolbelt
