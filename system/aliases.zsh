@@ -34,6 +34,8 @@ alias touch='nocorrect touch'
 alias mv='nocorrect mv -i'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
+alias rspec='nocorrect rspec'
+alias ember='nocorrect ember'
 
 # Quick way to rebuild the Launch Services database and get rid
 # of duplicates in the Open With submenu.
@@ -59,4 +61,3 @@ alias rmdbc="find . -name *\ \(*conflicted* -exec rm {} \;"
 
 # mute the system volume
 alias stfu="osascript -e 'set volume output muted true'"
-
