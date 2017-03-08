@@ -45,7 +45,7 @@ alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/
 alias ax="chmod a+x"
 
 # google chrome
-alias chrome="open -a \"Google Chrome Canary\""
+alias chrome="open -a \"Google Chrome\""
 
 #copy output of last command to clipboard
 alias cl="fc -e -|pbcopy"
