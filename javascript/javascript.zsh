@@ -1,1 +1,0 @@
-alias bower='noglob bower'

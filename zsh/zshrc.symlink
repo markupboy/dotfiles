@@ -8,9 +8,9 @@ export DEFAULT_USER=markupboy
 for config_file ($ZSH/**/*.zsh) source $config_file
 
 # editor
-export EDITOR="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl --wait"
+export EDITOR="/usr/local/bin/atom -w"
 
-# use .localrc for SUPER SECRET CRAP that you don't
+# use .localrc for SUPER SECRET stuff that you don't
 # want in your public, versioned repo.
 if [[ -a ~/.localrc ]]
 then
@@ -30,6 +30,11 @@ fi
 if [[ -a /usr/local/packer ]]
 then
   export PATH="/usr/local/packer:$PATH"
+fi
+
+if [[ -a /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin ]]
+then
+  export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 fi
 
 ##############

@@ -1,11 +1,8 @@
 #commands
-# alias s='screen -U'
 alias h='history'
 alias o='open'
 alias oo="open ."
 alias rm='rm -i'
-# alias ls='ls -G'
-# alias ll='ls -lahG'
 alias ip='getIP'
 alias c='clear'
 alias getpath='echo -n $PWD|pbcopy|echo "current path copied to clipboard"'
@@ -34,12 +31,6 @@ alias touch='nocorrect touch'
 alias mv='nocorrect mv -i'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
-alias rspec='nocorrect rspec'
-alias ember='nocorrect ember'
-
-# Quick way to rebuild the Launch Services database and get rid
-# of duplicates in the Open With submenu.
-alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
 # make executable
 alias ax="chmod a+x"
@@ -53,11 +44,7 @@ alias copylast="fc -e -|pbcopy"
 
 # top
 alias cpu='top -o cpu'
-alias mem='top -o rsize' # memory
-# alias htop='htop −−sort−key cpu'
+alias mem='top -o rsize'
 
-# recursively delete Dropbox conflicted files
-alias rmdbc="find . -name *\ \(*conflicted* -exec rm {} \;"
-
-# mute the system volume
-alias stfu="osascript -e 'set volume output muted true'"
+# Pipe my public key to my clipboard
+alias getkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
