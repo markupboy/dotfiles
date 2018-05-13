@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/Dropbox/Shared\ Libraries/dotfiles
 export DOTFILES=$HOME/Dropbox/Shared\ Libraries/dotfiles
@@ -45,3 +47,5 @@ fi
 
 zmodload zsh/complist
 autoload -Uz compinit && compinit
+
+# zprof
