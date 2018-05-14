@@ -13,8 +13,10 @@ SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   dir           # Current directory section
   host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  docker        # Docker section
+  git
+  node
+  golang
+  docker
   exec_time     # Execution time
   line_sep      # Line break
   jobs          # Background jobs indicator
@@ -22,7 +24,12 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 SPACESHIP_CHAR_SUFFIX=" "
+SPACESHIP_CHAR_SYMBOL="›"
 SPACESHIP_DIR_TRUNC_REPO=false
+SPACESHIP_GIT_STATUS_ADDED="%F{yellow}+%F{red}"
+SPACESHIP_GIT_STATUS_UNTRACKED="%F{blue}?%F{red}"
+SPACESHIP_GIT_STATUS_DELETED="%F{green}x%F{red}"
+SPACESHIP_GIT_STATUS_MODIFIED="%F{red}!%F{red}"
 
 
 
