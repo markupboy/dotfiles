@@ -1,5 +1,0 @@
-#!/bin/sh
-#
-# Assume unchanged
-
-git update-index --no-assume-unchanged

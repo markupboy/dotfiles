@@ -1,6 +1,0 @@
-#!/bin/sh
-#
-# twitch -
-# watch a twitch stream using the source quality through livestreamer
-#
-livestreamer twitch.tv/$1 source

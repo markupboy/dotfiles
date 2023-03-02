@@ -1,18 +1,16 @@
 #commands
-alias h='history'
 alias o='open'
 alias oo="open ."
 alias rm='rm -i'
 alias ip='getIP'
 alias c='clear'
 alias getpath='echo -n $PWD|pbcopy|echo "current path copied to clipboard"'
-alias ping='ping -oq'
 alias top='top -o cpu'
 alias getip="getIP"
 alias ack='ACK_PAGER_COLOR="less -x4SRFX" ack -a'
-alias st="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ."
-alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-alias mmserver="bundle exec middleman server --host=0.0.0.0"
+alias h="history"
+
+alias qdl='qobuz-dl dl'
 
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
@@ -32,19 +30,8 @@ alias mv='nocorrect mv -i'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 
-# make executable
-alias ax="chmod a+x"
-
-# google chrome
-alias chrome="open -a \"Google Chrome\""
-
-#copy output of last command to clipboard
-alias cl="fc -e -|pbcopy"
-alias copylast="fc -e -|pbcopy"
-
-# top
-alias cpu='top -o cpu'
-alias mem='top -o rsize'
-
 # Pipe my public key to my clipboard
 alias getkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
+
+# chrome cli
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"

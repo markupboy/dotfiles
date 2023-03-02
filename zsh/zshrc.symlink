@@ -1,17 +1,5 @@
 # zmodload zsh/zprof
 
-# shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/Dropbox/Shared\ Libraries/dotfiles
-export DOTFILES=$HOME/Dropbox/Shared\ Libraries/dotfiles
-export PROJECTS=~/Code/invision
-export DEFAULT_USER=markupboy
-
-# source every .zsh file in this rep
-for config_file ($ZSH/**/*.zsh) source $config_file
-
-# editor
-export EDITOR="/usr/local/bin/atom -w"
-
 # use .localrc for SUPER SECRET stuff that you don't
 # want in your public, versioned repo.
 if [[ -a ~/.localrc ]]
@@ -19,21 +7,31 @@ then
   source ~/.localrc
 fi
 
-if [[ -a ~/.rbenv ]]
-then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-fi
 
-if [[ -a /usr/local/terraform ]]
-then
-  export PATH="/usr/local/terraform:$PATH"
-fi
 
-if [[ -a /usr/local/packer ]]
+# shortcut to this dotfiles path is $ZSH
+export ZSH=$HOME/Sync/Shared\ Libraries/dotfiles
+if [[ $WIN ]]
 then
-  export PATH="/usr/local/packer:$PATH"
+  export ZSH=/mnt/c/Users/blake/Sync/Shared\ Libraries/dotfiles
 fi
+export DOTFILES=$ZSH
 
+
+export DEFAULT_USER=markupboy
+
+# source every .zsh file in this rep
+for config_file ($ZSH/**/*.zsh) source $config_file
+
+# editor
+export EDITOR="/usr/local/bin/code --wait"
+
+# highlight theme fixes
+if [[ -a ~/.dircolors ]]
+then
+  [ -e ~/.dircolors ] && eval $(dircolors -b ~/.dircolors) || 
+      eval $(dircolors -b)
+fi
 
 ##############
 # completion #
@@ -42,6 +40,8 @@ fi
 # initialize autocomplete here, otherwise functions won't be loaded
 
 zmodload zsh/complist
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -i
 
 # zprof
+
+

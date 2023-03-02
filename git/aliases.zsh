@@ -19,3 +19,4 @@ alias gaa='git-all'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gu="git undo"
 alias gpu="git push -f origin HEAD^:master"
+alias gaa="git add -A"

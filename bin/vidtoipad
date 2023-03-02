@@ -1,6 +1,0 @@
-#!/bin/bash
-for f in $@
-do
-  file=${f##*/}
-  /Applications/HandBrakeCLI -i $f -o ${file%.*}.m4v --preset="iPad"
-done
