@@ -1,15 +1,22 @@
+# brew bundle --file ~/Sync/dotfiles/Brewfile
+
 cask_args appdir: "/Applications"
 
 brew "mas"
 
-mas "Moom", id: 419330170
-mas "The Unarchiver", id: 425424353
-mas "DaisyDisk", id: 411643860
-mas "Speedtest", id: 1153157709
-mas "Soulver", id: 413965349
-mas "Microsoft Remote Desktop", id: 1295203466
-mas "Lungo", id: 1263070803
+mas "Airmail", id: 918858936
 mas "Deliveries", id: 924726344
+mas "Lungo", id: 1263070803
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "Moom", id: 419330170
+mas "NotePlan 3", id: 1505432629
+mas "Slack", id: 803453959
+mas "Soulver 3", id: 1508732804
+mas "Speedtest", id: 1153157709
+mas "The Unarchiver", id: 425424353
+mas "WhatsApp", id: 1147396723
+mas "WireGuard", id: 1451685025
+mas "Yoink", id: 457622435
 
 cask "1Password"
 cask "alfred"
@@ -30,7 +37,10 @@ brew "git"
 brew "htop"
 brew "iperf3"
 brew "jq"
+brew "nmap"
+brew "python@3.11"
 brew "the_silver_searcher"
 brew "tig"
 brew "tldr"
+brew "wakeonlan"
 brew "wget"
