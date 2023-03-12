@@ -119,7 +119,7 @@ install_dotfiles () {
 
 install_dotfiles
 
-If we're on a Mac, let's install and setup homebrew.
+# If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]
 then
   info "installing dependencies"

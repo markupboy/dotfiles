@@ -4,7 +4,7 @@
 
 set -e
 
-cd "$(dirname $0)"/..
+cd "$DOTFILES"
 
 # find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+find . -name install.sh | while read installer ; do sh -c "echo ${installer} && ${installer}" ; done

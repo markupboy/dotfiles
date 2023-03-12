@@ -48,6 +48,6 @@ done
 echo "› brew update"
 brew update
 
-# # Install software
-# echo "› $ZSH/script/install"
-# $ZSH/script/install
+# Install software
+echo "› script/install"
+"$dotfilesDirectory/script/install"
