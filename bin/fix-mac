@@ -1,8 +1,0 @@
-#!/bin/sh
-# A collection of commands to set up a new mac, requires sudo
-
-# remove eject warning for external media
-defaults write /Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist DADisableEjectNotification -bool YES && sudo pkill diskarbitrationd
-
-# faster show and hide dock
-defaults write com.apple.dock autohide-delay -float 0; defaults write com.apple.dock autohide-time-modifier -float 0.5 ;killall Dock
