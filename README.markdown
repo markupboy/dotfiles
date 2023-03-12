@@ -2,7 +2,7 @@
 
 - `git clone git://github.com/markupboy/dotfiles ~/.dotfiles`
 - `cd ~/.dotfiles`
-- `rake install`
+- `script/bootstrap`
 
 The install rake task will symlink the appropriate files in `.dotfiles` to your
 home directory. Everything is configured and tweaked within `~/.dotfiles`,
@@ -11,16 +11,7 @@ though.
 The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
 which sets up a few paths that'll be different on your particular machine.
 
-## topical
+## credits
 
-Everything's built around topic areas. If you're adding a new area to your
-forked dotfiles — say, "Javascript" — you can simply add a `javascript`
-directory and put files in there. Anything with an extension of `.zsh` will get automatically included into your shell. Anything with an extension of `.symlink`
-will get symlinked without extension into `$HOME` when you run `rake install`.
-
-## what's inside
-
-A lot of what's inside is just aliases: `gs` for `git status`, `gl` for `git
-pull --rebase --prune`, for example. You can browse the `aliases.zsh` files in
-each topic directory. There's also a collection of scripts in `bin` you can
-browse. 
+This has been a long-lived fork of [Zach Holman's dotfiles](https://github.com/holman/dotfiles).
+Credit to him for the structure, soem of the code, and the inspiration
