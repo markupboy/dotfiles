@@ -25,4 +25,4 @@ defaults write com.apple.dock "autohide-time-modifier" -float "0.5" && killall D
 defaults write com.apple.screencapture "type" -string "jpg" 
 
 # remove eject warning for external media
-defaults write /Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist DADisableEjectNotification -bool YES && sudo pkill diskarbitrationd
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist DADisableEjectNotification -bool YES && sudo pkill diskarbitrationd
