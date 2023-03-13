@@ -11,7 +11,7 @@ shell () {
     cd "$ohmyzsh" && git pull origin master
   else  
     echo "> install oh-my-zsh"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --keep-zshrc"
+    ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --keep-zshrc"
   fi
 }
 
