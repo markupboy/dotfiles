@@ -8,10 +8,11 @@ then
 fi
 
 # shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/Sync/Shared\ Libraries/dotfiles
-if [[ $WIN ]]
+if [ "$(uname -s)" = "Darwin" ]
 then
-  export ZSH=/mnt/c/Users/blake/Sync/Shared\ Libraries/dotfiles
+  export ZSH=$HOME/Sync/Shared\ Libraries/dotfiles
+else
+  export ZSH=$HOME/.dotfiles
 fi
 export DOTFILES=$ZSH
 
