@@ -26,3 +26,6 @@ defaults write com.apple.screencapture "type" -string "jpg"
 
 # remove eject warning for external media
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist DADisableEjectNotification -bool YES && sudo pkill diskarbitrationd
+
+# don't write .DS_Store files over SMB (requires re-login)
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
