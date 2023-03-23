@@ -1,16 +1,11 @@
 #commands
-alias o='open'
-alias oo="open ."
 alias rm='rm -i'
 alias ip='getIP'
 alias c='clear'
-alias getpath='echo -n $PWD|pbcopy|echo "current path copied to clipboard"'
 alias top='top -o cpu'
 alias getip="getIP"
 alias ack='ACK_PAGER_COLOR="less -x4SRFX" ack -a'
 alias h="history"
-
-alias qdl='qobuz-dl dl'
 
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
@@ -32,6 +27,3 @@ alias mkdir='nocorrect mkdir'
 
 # Pipe my public key to my clipboard
 alias getkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
-
-# chrome cli
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
