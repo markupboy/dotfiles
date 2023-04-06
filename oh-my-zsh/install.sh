@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 ohmyzsh="$HOME/.oh-my-zsh"
 spaceship_prompt="$ohmyzsh/custom/themes/spaceship-prompt"
