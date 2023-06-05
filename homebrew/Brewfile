@@ -40,6 +40,7 @@ brew "iperf3"
 brew "jq"
 brew "php" # necessary for some alfred workflows
 brew "python@3.11"
+brew "soundsource"
 brew "the_silver_searcher"
 brew "tig"
 brew "tldr"
