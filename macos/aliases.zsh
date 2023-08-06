@@ -5,4 +5,7 @@ if [[ $(uname) == "Darwin" ]]; then
 
     # chrome cli
     alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+
+    # tailscale
+    alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 fi
