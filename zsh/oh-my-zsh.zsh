@@ -29,4 +29,4 @@ plugins=(
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black'
