@@ -14,21 +14,19 @@ mas "NotePlan 3", id: 1505432629
 mas "Soulver 3", id: 1508732804
 mas "Speedtest", id: 1153157709
 mas "The Unarchiver", id: 425424353
-mas "WhatsApp", id: 1147396723
-mas "WireGuard", id: 1451685025
 mas "Yoink", id: 457622435
 
 cask "1Password"
 cask "alfred"
 cask "bartender"
-cask "carbon-copy-cloner"
+# cask "carbon-copy-cloner"
 cask "docker"
 cask "fantastical"
-# cask "google-chrome"
+cask "google-chrome"
 cask "iterm2"
 cask "keyboard-maestro"
 cask "rocket"
-# cask "slack"
+cask "slack"
 cask "spotify"
 cask "visual-studio-code"
 cask "vlc"
