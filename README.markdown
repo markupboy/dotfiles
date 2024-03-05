@@ -4,7 +4,7 @@
 - `cd ~/.dotfiles`
 - `script/bootstrap`
 
-The install rake task will symlink the appropriate files in `.dotfiles` to your
+The bootstrap script will symlink the appropriate files in `.dotfiles` to your
 home directory. Everything is configured and tweaked within `~/.dotfiles`,
 though.
 
