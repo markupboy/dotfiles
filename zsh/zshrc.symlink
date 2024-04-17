@@ -31,4 +31,10 @@ for config_file ($ZSH/**/*.zsh) source $config_file
 zmodload zsh/complist
 autoload -Uz compinit && compinit -i
 
+#########
+# iterm #
+#########
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 # zprof
