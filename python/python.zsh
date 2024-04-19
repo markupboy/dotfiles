@@ -1,1 +1,4 @@
-. "$HOME/.cargo/env"
+if [[ -a ~/.cargo ]]
+then
+    . "$HOME/.cargo/env"
+fi
