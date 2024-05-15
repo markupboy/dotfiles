@@ -7,6 +7,8 @@ SPACESHIP_PROMPT_ORDER=(
   node
   golang
   docker
+  python
+  venv
   exec_time     # Execution time
   line_sep      # Line break
   jobs          # Background jobs indicator

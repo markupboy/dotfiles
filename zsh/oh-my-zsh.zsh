@@ -20,6 +20,7 @@ plugins=(
   macos
   rake
   zsh-syntax-highlighting 
+  pyenv
   docker 
   docker-compose
   zsh-autosuggestions
