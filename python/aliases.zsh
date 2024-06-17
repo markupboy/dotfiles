@@ -1,0 +1,1 @@
+alias pyvenv='noglob pyenv virtualenv'
