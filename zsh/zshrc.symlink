@@ -32,3 +32,26 @@ zmodload zsh/complist
 autoload -Uz compinit && compinit -i
 
 # zprof
+
+echo "⠀⠀⠀⠀⠀⠀⠀⣀⣀⣠⣤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣤⠶⠛⠉⠉⠁⠀⠉⠉⠛⠳⣦⣀⠀⠀⠀⠀
+⠀⠀⣴⠟⠁⠀⠀⠀⠀⢀⣤⣶⣤⡀⠀⠀⠙⢷⡀⠀⠀
+⠀⣾⠃⠀⠀⠀⠀⣐⣾⣿⣿⣿⢆⣯⠳⣦⣤⣈⢻⡄⠀
+⣸⠇⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⡟⠛⠶⣷⣿⣿⡇⣿⠀
+⣿⠀⠀⠀⠀⢀⣸⣿⣿⡿⢿⣿⣿⣄⠈⡉⠉⠉⠀⢸⡆
+⢿⣀⣠⣴⣷⣿⣿⡟⠉⢠⠆⠉⠉⠻⠿⠿⠀⠀⠀⣼⠃
+⠸⣿⣿⣿⣿⡿⣿⣷⣶⡺⠞⠃⠀⠀⠀⠀⠀⠀⢠⡟⠀
+⠀⠹⣿⣿⢟⠗⠀⠈⠉⠁⠀⠀⠀⢀⠀⣀⠀⣠⡟⠁⠀
+⠀⠀⠈⠳⣤⡀⣀⣰⣶⣶⣴⣷⣶⣿⣷⣿⡿⠋⠀⠀⠀
+⠀⠀⠀⠀⠈⠙⠻⢿⣿⣿⣿⣿⡿⠿⠛⠉⠀⠀⠀⠀⠀"
+
+messages=( 
+  "Dodgson, Dodgson, we've got Dodgson here! See? Nobody cares."
+  "Uh uh uh! You didn't say the magic word!"
+  "Ah, no wonder you're extinct. I'm gonna run you over when I come back down!"
+  "My glasses... I can afford more glasses"
+  "You think that kind of automation is easy? Or cheap?"
+  "Don't get cheap on me, Dodgson."
+  "I am totally unappreciated in my time.")
+
+echo "\r\n${messages[$(( $RANDOM % ${#messages[@]} + 1 ))]}\r\n"
