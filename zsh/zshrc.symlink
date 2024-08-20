@@ -33,19 +33,8 @@ autoload -Uz compinit && compinit -i
 
 # zprof
 
-echo "⠀⠀⠀⠀⠀⠀⠀⣀⣀⣠⣤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⢀⣤⠶⠛⠉⠉⠁⠀⠉⠉⠛⠳⣦⣀⠀⠀⠀⠀
-⠀⠀⣴⠟⠁⠀⠀⠀⠀⢀⣤⣶⣤⡀⠀⠀⠙⢷⡀⠀⠀
-⠀⣾⠃⠀⠀⠀⠀⣐⣾⣿⣿⣿⢆⣯⠳⣦⣤⣈⢻⡄⠀
-⣸⠇⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⡟⠛⠶⣷⣿⣿⡇⣿⠀
-⣿⠀⠀⠀⠀⢀⣸⣿⣿⡿⢿⣿⣿⣄⠈⡉⠉⠉⠀⢸⡆
-⢿⣀⣠⣴⣷⣿⣿⡟⠉⢠⠆⠉⠉⠻⠿⠿⠀⠀⠀⣼⠃
-⠸⣿⣿⣿⣿⡿⣿⣷⣶⡺⠞⠃⠀⠀⠀⠀⠀⠀⢠⡟⠀
-⠀⠹⣿⣿⢟⠗⠀⠈⠉⠁⠀⠀⠀⢀⠀⣀⠀⣠⡟⠁⠀
-⠀⠀⠈⠳⣤⡀⣀⣰⣶⣶⣴⣷⣶⣿⣷⣿⡿⠋⠀⠀⠀
-⠀⠀⠀⠀⠈⠙⠻⢿⣿⣿⣿⣿⡿⠿⠛⠉⠀⠀⠀⠀⠀"
-
 messages=( 
+  "Yeah, no wonder you're extinct"
   "Dodgson, Dodgson, we've got Dodgson here! See? Nobody cares."
   "Uh uh uh! You didn't say the magic word!"
   "Ah, no wonder you're extinct. I'm gonna run you over when I come back down!"
