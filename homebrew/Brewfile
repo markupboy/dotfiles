@@ -35,6 +35,7 @@ brew "soundsource"
 
 # command line tools
 brew "aria2"
+brew "coreutils"
 brew "gallery-dl"
 brew "git"
 brew "htop"
