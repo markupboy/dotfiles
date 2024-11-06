@@ -14,21 +14,18 @@ then
 else
   export ZSH=$HOME/.dotfiles
 fi
+
 export DOTFILES=$ZSH
-
-
 export DEFAULT_USER=markupboy
 
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
 
-##############
-# completion #
-##############
-
-# initialize autocomplete here, otherwise functions won't be loaded
-
+# initialize autocomplete
 zmodload zsh/complist
 autoload -Uz compinit && compinit -i
 
 # zprof
+
+
+
