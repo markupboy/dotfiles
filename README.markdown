@@ -1,6 +1,6 @@
 ## install
 
-- `git clone git://github.com/markupboy/dotfiles ~/.dotfiles`
+- `git clone https://github.com/markupboy/dotfiles.git ~/.dotfiles`
 - `cd ~/.dotfiles`
 - `script/bootstrap`
 
