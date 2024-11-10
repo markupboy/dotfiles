@@ -14,12 +14,9 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'scrooloose/syntastic'
 Plugin 'rking/ag.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'pangloss/vim-javascript'
 Plugin 'LargeFile'
 Plugin 'kien/ctrlp.vim'
 Plugin 'chriskempson/base16-vim'
-Plugin 'othree/yajs.vim'
-Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Plugin 'flazz/vim-colorschemes'
@@ -243,24 +240,7 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-" Gist settings
-let g:gist_clip_command = 'pbcopy'
-let g:gist_open_browser_after_post = 1
-
 " NERDTree setting
 nmap <leader>n :NERDTreeToggle<cr>
 
 colorscheme hybrid
-
-" Set the Gvim options
-if has("gui_running")
-    set guifont=Powerline\ Consolas:h11
-    set columns=140
-    set lines=40
-    set sessionoptions=blank,buffers,curdir,folds,localoptions,options,resize,tabpages,winpos,winsize
-    map <C-Z> :mksession! ~/.vim/.session <CR>
-    map <C-X> :source ~/.vim/.session <CR>
-    colorscheme hybrid
-    set fuopt+=maxhorz
-    set guioptions=egmt
-endif
