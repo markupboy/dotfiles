@@ -9,15 +9,13 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim' " required
 
-Plugin 'tpope/vim-fugitive'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline'
 Plugin 'scrooloose/syntastic'
 Plugin 'rking/ag.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'pangloss/vim-javascript'
-Plugin 'jsbeautify'
 Plugin 'LargeFile'
-Plugin 'mattn/gist-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'othree/yajs.vim'
@@ -25,7 +23,6 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'mustache/vim-mustache-handlebars'
 
 " end Plugins
 call vundle#end()
