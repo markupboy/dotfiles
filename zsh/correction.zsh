@@ -1,6 +1,4 @@
-##############
-# correction #
-##############
+# correction settings
 setopt correct
 setopt correctall
 

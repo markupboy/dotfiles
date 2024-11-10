@@ -1,7 +1,4 @@
-###############
-# keybindings #
-###############
-
+# keybindings
 bindkey '^[OH' beginning-of-line
 bindkey '^[OF' end-of-line
 bindkey '^[[5~' up-line-or-history
