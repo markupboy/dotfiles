@@ -23,6 +23,7 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'joshdick/onedark.vim'
 
 " end Plugins
 call vundle#end()
@@ -197,7 +198,7 @@ let g:syntastic_always_populate_loc_list=1
 " call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'onedark'
 
 " Setup ctrlp
 let g:ctrlp_max_files = 10000
