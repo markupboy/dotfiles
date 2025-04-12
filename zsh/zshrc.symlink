@@ -18,9 +18,10 @@ for config_file ($ZSH/**/*.zsh) source $config_file
 
 # initialize autocomplete
 zmodload zsh/complist
-autoload -Uz compinit && compinit -i
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 # zprof
-
-
-
