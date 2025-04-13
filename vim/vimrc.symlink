@@ -243,4 +243,4 @@ vnoremap <silent> # :<C-U>
 " NERDTree setting
 nmap <leader>n :NERDTreeToggle<cr>
 
-colorscheme hybrid
+colorscheme onedark
