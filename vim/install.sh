@@ -11,5 +11,3 @@ curl -s -o ~/.vim/autoload/onedark.vim https://raw.githubusercontent.com/joshdic
 
 mkdir -p ~/.vim/autoload/airline/themes
 curl -s -o ~/.vim/autoload/airline/themes/onedark.vim https://raw.githubusercontent.com/joshdick/onedark.vim/refs/heads/main/autoload/airline/themes/onedark.vim
-
-# vim +PluginInstall +qall

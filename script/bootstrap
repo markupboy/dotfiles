@@ -151,5 +151,9 @@ then
   fi
 fi
 
+if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+  vim +PluginInstall +qall
+fi
+
 echo ''
 echo '  All installed!'
