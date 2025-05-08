@@ -49,10 +49,10 @@ done
 
 # Upgrade homebrew
 echo "› brew update"
-brew update
+/opt/homebrew/bin/brew update
 
 echo "› brew upgrade"
-brew upgrade
+/opt/homebrew/bin/brew upgrade
 
 # Install software
 echo "› script/install"
