@@ -9,20 +9,26 @@ set -e
 
 echo ''
 
+sanitize() {
+    local input="$1"
+    local sanitized="${input//%/%%}"
+    echo "$sanitized"
+}
+
 info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+  printf "\r  [ \033[00;34m..\033[0m ] $(sanitize "$1")\n"
 }
 
 user () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+  printf "\r  [ \033[0;33m??\033[0m ] $(sanitize "$1")\n"
 }
 
 success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $(sanitize "$1")\n"
 }
 
 fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $(sanitize "$1")\n"
   echo ''
   exit
 }
@@ -155,6 +161,9 @@ if [ -d "$HOME/.vim/bundle/Vundle.vim" ]; then
   vim +PluginInstall +qall
 fi
 
+bold="\033[1m"
+reset="\033[0m"
+
 echo ''
 echo '  All installed!'
-echo '  Be sure to run brew bundle to install all other tools and apps'
+echo -e '  Be sure to run ${bold}brew bundle${reset} in a new terminal session to install all other tools and apps'
