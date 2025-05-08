@@ -8,7 +8,6 @@ mas "Airmail", id: 918858936
 mas "DaisyDisk", id: 411643860
 mas "Lungo", id: 1263070803
 mas "Microsoft Remote Desktop", id: 1295203466
-mas "Moom", id: 419330170
 mas "NotePlan 3", id: 1505432629
 mas "Parcel", id: 639968404
 mas "Soulver 3", id: 1508732804
@@ -17,20 +16,20 @@ mas "The Unarchiver", id: 425424353
 mas "Yoink", id: 457622435
 
 # mac apps
-brew "1Password"
-brew "alfred"
-brew "bartender"
-brew "carbon-copy-cloner"
-brew "cursor"
-brew "docker"
-brew "fantastical"
-brew "google-chrome"
-brew "ghostty"
-brew "rocket"
-brew "slack"
-brew "spotify"
-brew "visual-studio-code"
-brew "vlc"
+cask "1Password"
+cask "alfred"
+cask "bartender"
+cask "carbon-copy-cloner"
+cask "cursor"
+cask "docker"
+cask "fantastical"
+cask "google-chrome"
+cask "ghostty"
+cask "rocket"
+cask "slack"
+cask "spotify"
+cask "visual-studio-code"
+cask "vlc"
 
 # command line tools
 brew "aria2"
