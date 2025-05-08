@@ -18,7 +18,15 @@ then
   then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
   fi
+else
+  echo "  Homebrew already installed"
+fi
 
+if [ ! -f $HOME/Brewfile ]; then
+  echo "  Linking Brewfile."
+  ln -s Brewfile $HOME/Brewfile 
+else
+  echo "  Brewfile already exists."
 fi
 
 exit 0
