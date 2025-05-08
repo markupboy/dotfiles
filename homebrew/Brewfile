@@ -1,37 +1,37 @@
 # brew bundle --file ${PWD}/Brewfile
 
-cask_args appdir: "/Applications"
+# cask_args appdir: "/Applications"
 
-brew "mas"
+# brew "mas"
 
-mas "Airmail", id: 918858936
-mas "DaisyDisk", id: 411643860
-mas "Lungo", id: 1263070803
-mas "Microsoft Remote Desktop", id: 1295203466
-mas "NotePlan 3", id: 1505432629
-mas "Parcel", id: 639968404
-mas "Soulver 3", id: 1508732804
-mas "Speedtest", id: 1153157709
-mas "Tailscale", id: 1475387142
-mas "The Unarchiver", id: 425424353
-mas "Yoink", id: 457622435
+# mas "Airmail", id: 918858936
+# mas "DaisyDisk", id: 411643860
+# mas "Lungo", id: 1263070803
+# mas "Microsoft Remote Desktop", id: 1295203466
+# mas "NotePlan 3", id: 1505432629
+# mas "Parcel", id: 639968404
+# mas "Soulver 3", id: 1508732804
+# mas "Speedtest", id: 1153157709
+# mas "Tailscale", id: 1475387142
+# mas "The Unarchiver", id: 425424353
+# mas "Yoink", id: 457622435
 
 # mac apps
-cask "1Password"
-cask "alfred"
-cask "bartender"
-cask "carbon-copy-cloner"
-cask "cursor"
-cask "docker"
-cask "fantastical"
-cask "google-chrome"
-cask "ghostty"
-cask "moom"
-cask "rocket"
-cask "slack"
-cask "spotify"
-cask "visual-studio-code"
-cask "vlc"
+# cask "1Password"
+# cask "alfred"
+# cask "bartender"
+# cask "carbon-copy-cloner"
+# cask "cursor"
+# cask "docker"
+# cask "fantastical"
+# cask "google-chrome"
+# cask "ghostty"
+# cask "moom"
+# cask "rocket"
+# cask "slack"
+# cask "spotify"
+# cask "visual-studio-code"
+# cask "vlc"
 
 # command line tools
 brew "aria2"
