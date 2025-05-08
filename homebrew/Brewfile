@@ -12,6 +12,7 @@ mas "NotePlan 3", id: 1505432629
 mas "Parcel", id: 639968404
 mas "Soulver 3", id: 1508732804
 mas "Speedtest", id: 1153157709
+mas "Tailscale", id: 1475387142
 mas "The Unarchiver", id: 425424353
 mas "Yoink", id: 457622435
 
@@ -25,6 +26,7 @@ cask "docker"
 cask "fantastical"
 cask "google-chrome"
 cask "ghostty"
+cask "moom"
 cask "rocket"
 cask "slack"
 cask "spotify"
