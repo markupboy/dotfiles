@@ -1,0 +1,5 @@
+font-family = "Powerline Consolas"
+font-size = 12
+adjust-cell-width = -12%
+adjust-cell-height = 5%
+theme = "one-dark.conf"
