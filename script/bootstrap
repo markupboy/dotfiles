@@ -151,7 +151,7 @@ then
   fi
 fi
 
-if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
+if [ -d "$HOME/.vim/bundle/Vundle.vim" ]; then
   vim +PluginInstall +qall
 fi
 
