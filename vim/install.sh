@@ -8,7 +8,7 @@ curl -o ~/.vim/autoload/onedark.vim https://raw.githubusercontent.com/joshdick/o
 mkdir -p ~/.vim/autoload/airline/themes
 curl -o ~/.vim/autoload/airline/themes/onedark.vim https://raw.githubusercontent.com/joshdick/onedark.vim/refs/heads/main/autoload/airline/themes/onedark.vim
 
-if [ ! -f $HOME/.vim/bundle/Vundle.vim ]; then
+if [ ! -d "$HOME/.vim/bundle/Vundle.vim" ]; then
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   vim +PluginInstall +qall
 fi
