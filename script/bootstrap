@@ -157,3 +157,4 @@ fi
 
 echo ''
 echo '  All installed!'
+echo '  Be sure to run brew bundle to install all other tools and apps'
