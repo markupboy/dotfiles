@@ -22,7 +22,8 @@ fi
 
 if [ ! -f $HOME/Brewfile ]; then
   echo "  Linking Brewfile."
-  ln -s Brewfile $HOME/Brewfile 
+  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  ln -s $SCRIPT_DIR/Brewfile $HOME/Brewfile 
 else
   echo "  Brewfile already exists."
 fi
