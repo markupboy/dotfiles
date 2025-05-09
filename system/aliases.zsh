@@ -20,7 +20,7 @@ then
 fi
 
 #nocorrect when you might get a new dir or file
-alias vim='nocorrect vim'
+alias vim='nocorrect nvim'
 alias touch='nocorrect touch'
 alias mv='nocorrect mv -i'
 alias cp='nocorrect cp'

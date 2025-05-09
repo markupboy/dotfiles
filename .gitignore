@@ -1,6 +1,6 @@
 # Project Specific Files #
 ##########################
-vim/vim.symlink/.netrwhist
+nvim/plugin
 
 # Compiled source #
 ###################
