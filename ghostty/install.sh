@@ -1,5 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-GHOSTTY_CONFIG_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 mkdir -p $HOME/.config
-ln -s $GHOSTTY_CONFIG_DIR $HOME/.config/ghostty
+
+# Get the directory of the script
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Create or overwrite the symbolic link
+ln -sf "$script_dir" "$HOME/.config/ghostty"
