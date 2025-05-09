@@ -1,0 +1,5 @@
+[user]
+        name = Blake Walters
+        email = blake@markupboy.com
+[credential]
+        helper = osxkeychain
