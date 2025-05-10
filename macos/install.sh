@@ -1,5 +1,6 @@
 #!/bin/sh
 
+echo "••• Running MacOS software update"
 if [ "$(uname -s)" == "Darwin" ]
 then
   echo "› sudo softwareupdate -i -a"

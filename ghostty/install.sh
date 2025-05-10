@@ -1,6 +1,6 @@
 #!/bin/bash
-
 if [ ! -d "$HOME/.config/ghostty" ]; then
+  echo "••• Installing ghostty"
   mkdir -p $HOME/.config
 
   # Get the directory of the script
@@ -8,4 +8,6 @@ if [ ! -d "$HOME/.config/ghostty" ]; then
 
   # Create or overwrite the symbolic link
   ln -s "$script_dir" "$HOME/.config/ghostty"
+else
+  echo "•••x Skipping ghostty"
 fi

@@ -8,24 +8,24 @@
 # Check for Homebrew
 if test ! $(which brew)
 then
-  echo "  Installing Homebrew for you."
+  echo "••• Installing Homebrew for you."
 
   # Install the correct homebrew for Mac or Linux
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   
-  echo "Eval'ing brew shellenv."
+  echo "•••> Eval'ing brew shellenv."
   eval "$(/opt/homebrew/bin/brew shellenv)"
   
 else
-  echo "  Homebrew already installed"
+  echo "•••x Homebrew already installed"
 fi
 
 if [ ! -f $HOME/Brewfile ]; then
-  echo "  Linking Brewfile."
+  echo "•••> Linking Brewfile."
   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   ln -s $SCRIPT_DIR/Brewfile $HOME/Brewfile 
 else
-  echo "  Brewfile already exists."
+  echo "•••x Brewfile already exists."
 fi
 
 exit 0
