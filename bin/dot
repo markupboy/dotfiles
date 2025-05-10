@@ -1,14 +1,16 @@
-#!/bin/sh
+#!/bin/zsh
 #
 # dot
 #
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
 
-set -e
+parentDirectory=$(dirname "$(realpath "$0")")
+dotfilesDirectory=$(dirname "$parentDirectory")
 
-parentDirectory="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P)"
-dotfilesDirectory="$(cd "$( dirname "$parentDirectory" )" && pwd -P)"
+source $dotfilesDirectory/util/log.zsh
+
+set -e
 
 displayUsageAndExit() {
 	echo "dot -- dotfiles management"
@@ -38,25 +40,25 @@ while test $# -gt 0; do
 	shift
 done
 
-echo "••• Set macOS defaults"
+log "Set macOS defaults"
 "$dotfilesDirectory/macos/set-defaults.sh"
 
-echo "••• Set macOS hostname"
+log "Set macOS hostname"
 "$dotfilesDirectory/macos/set-hostname.sh"
 
-echo "••• Install homebrew"
+log "Install homebrew"
 "$dotfilesDirectory/homebrew/install.sh" 2>&1
 
-echo "••• Upgrade homebrew"
-echo "•••› brew update"
+log "Upgrade homebrew"
+log "brew update"
 /opt/homebrew/bin/brew update
 
-echo "•••› brew upgrade"
+log "brew upgrade"
 /opt/homebrew/bin/brew upgrade
 
-echo "•••› brew cleanup"
+log "brew cleanup"
 /opt/homebrew/bin/brew cleanup
 
-echo "••• Install software"
-echo "•••› script/install"
+log "Install software"
+log "script/install"
 "$dotfilesDirectory/script/install"
