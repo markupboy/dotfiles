@@ -22,12 +22,4 @@ else
   dotlog "skip" "Homebrew already installed"
 fi
 
-if [ ! -f $HOME/Brewfile ]; then
-  dotlog "info" "Linking Brewfile"
-  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-  ln -s $SCRIPT_DIR/Brewfile $HOME/Brewfile 
-else
-  dotlog "skip" "Brewfile already exists"
-fi
-
 exit 0
