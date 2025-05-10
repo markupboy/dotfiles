@@ -40,25 +40,25 @@ while test $# -gt 0; do
 	shift
 done
 
-log "Set macOS defaults"
+dotlog "info" "Set macOS defaults"
 "$dotfilesDirectory/macos/set-defaults.sh"
 
-log "Set macOS hostname"
+dotlog "info" "Set macOS hostname"
 "$dotfilesDirectory/macos/set-hostname.sh"
 
-log "Install homebrew"
+dotlog "info" "Install homebrew"
 "$dotfilesDirectory/homebrew/install.sh" 2>&1
 
-log "Upgrade homebrew"
-log "brew update"
+dotlog "info" "Upgrade homebrew"
+dotlog "info" "brew update"
 /opt/homebrew/bin/brew update
 
-log "brew upgrade"
+dotlog "info" "brew upgrade"
 /opt/homebrew/bin/brew upgrade
 
-log "brew cleanup"
+dotlog "info" "brew cleanup"
 /opt/homebrew/bin/brew cleanup
 
-log "Install software"
-log "script/install"
+dotlog "info" "Install software"
+dotlog "info" "script/install"
 "$dotfilesDirectory/script/install"

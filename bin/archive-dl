@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# usage: archive-dl url match
-
-lynx -dump -listonly $1 | ag $2

@@ -1,11 +1,9 @@
 #!/bin/zsh
-parentDirectory=$(dirname "$(realpath "$0")")
-dotfilesDirectory=$(dirname "$parentDirectory")
 
-source $dotfilesDirectory/util/log.zsh
+source $DOTFILES/util/log.zsh
 
 if [ ! -d "$HOME/.config/ghostty" ]; then
-  install "Installing ghostty"
+  dotlog "install" "Installing ghostty"
   mkdir -p $HOME/.config
 
   # Get the directory of the script
@@ -14,5 +12,5 @@ if [ ! -d "$HOME/.config/ghostty" ]; then
   # Create or overwrite the symbolic link
   ln -s "$script_dir" "$HOME/.config/ghostty"
 else
-  skip "Skipping ghostty"
+  dotlog "skip" "Skipping ghostty"
 fi

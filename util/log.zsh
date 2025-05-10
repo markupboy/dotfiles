@@ -11,24 +11,30 @@ CYAN=$fg[cyan]
 RESET=$reset_color
 
 # Logging Functions
-log() {
-    echo -e "${CYAN}[INFO]${RESET} $1"
-}
-
-install() {
-    echo -e "${GREEN}[INSTALL]${RESET} $1"
-}
-
-skip() {
-    echo -e "${YELLOW}[SKIPPING]${RESET} $1"
-}
-
-error() {
-    echo -e "${RED}[ERROR]${RESET} $1"
-}
-
-divider() {
-    echo -e "${CYAN}----------------------------------------${RESET}"
+dotlog() {
+    local type=$1
+    shift
+    local message="$@"
+    case $type in
+        info)
+            echo -e "${CYAN}[INFO]${RESET} $message"
+            ;;
+        install)
+            echo -e "${GREEN}[INSTALL]${RESET} $message"
+            ;;
+        skip)
+            echo -e "${YELLOW}[SKIPPING]${RESET} $message"
+            ;;
+        error)
+            echo -e "${RED}[ERROR]${RESET} $message"
+            ;;
+        divider)
+            echo -e "${CYAN}----------------------------------------${RESET}"
+            ;;
+        *)
+            echo -e "${CYAN}[INFO]${RESET} $message"
+            ;;
+    esac
 }
 
 spinner() {

@@ -5,7 +5,7 @@
         protocol = https
 [alias]
         co = checkout
-        wtf     = !$ZSH/bin/git-wtf
+        wtf = !$ZSH/bin/git-wtf
 [color]
         diff = auto
         status = auto

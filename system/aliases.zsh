@@ -4,7 +4,6 @@ alias ip='getIP'
 alias c='clear'
 alias top='top -o cpu'
 alias getip="getIP"
-alias ack='ACK_PAGER_COLOR="less -x4SRFX" ack -a'
 alias h="history"
 alias whatismyip="getip"
 

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Use AirDrop over every interface
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 
