@@ -1,6 +1,7 @@
 # Project Specific Files #
 ##########################
 nvim/plugin
+nvim/lazy-lock.json
 
 # Compiled source #
 ###################
