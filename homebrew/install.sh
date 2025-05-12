@@ -8,8 +8,10 @@
 source $DOTFILES/util/log.zsh
 
 # Check for Homebrew
-if test ! $(which brew)
+if command -v brew >/dev/null 2>&1; 
 then
+  dotlog "skip" "Homebrew already installed"
+else
   dotlog "install" "Installing Homebrew for you"
 
   # Install the correct homebrew for Mac or Linux
@@ -17,9 +19,6 @@ then
   
   dotlog "info" "Eval'ing brew shellenv"
   eval "$(/opt/homebrew/bin/brew shellenv)"
-  
-else
-  dotlog "skip" "Homebrew already installed"
 fi
 
 exit 0
