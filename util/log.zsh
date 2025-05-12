@@ -17,7 +17,7 @@ dotlog() {
     local message="$@"
     case $type in
         info)
-            echo -e "${CYAN}[INFO]${RESET} $message"
+            echo -e "${CYAN}[INFO]    ${RESET} $message"
             ;;
         install)
             echo -e "${GREEN}[INSTALL]${RESET} $message"
@@ -26,7 +26,7 @@ dotlog() {
             echo -e "${YELLOW}[SKIPPING]${RESET} $message"
             ;;
         error)
-            echo -e "${RED}[ERROR]${RESET} $message"
+            echo -e "${RED}[ERROR]   ${RESET} $message"
             ;;
         divider)
             echo -e "${CYAN}----------------------------------------${RESET}"
