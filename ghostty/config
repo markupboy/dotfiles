@@ -1,10 +1,42 @@
+# appearance
 theme = "one-dark.conf"
-
 font-family = "Powerline Consolas"
 font-size = 12
-
 adjust-cell-width = -12%
 adjust-cell-height = 5%
-
-background-opacity = 0.9
+background-opacity = 0.8
+unfocused-split-opacity = 0.65
 background-blur = true
+background-blur-radius = 40
+cursor-style = block
+cursor-style-blink = false
+cursor-invert-fg-bg = true
+mouse-hide-while-typing = true
+
+# macOS-specific settings
+macos-option-as-alt = true
+macos-non-native-fullscreen = visible-menu
+macos-icon = holographic
+
+# OS controls
+clipboard-read = "allow"
+clipboard-paste-protection = false
+
+# window controls
+confirm-close-surface = true
+window-decoration = true
+window-padding-x = 5
+window-padding-y = 5
+window-padding-balance = true
+window-save-state = always
+
+# auto update settings
+auto-update = download
+auto-update-channel = stable
+
+# custom keybindings
+keybind = super+r=reload_config 
+keybind = super+i=inspector:toggle
+keybind = super+f=toggle_fullscreen
+keybind = super+left=previous_tab
+keybind = super+right=next_tab
