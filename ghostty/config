@@ -17,7 +17,6 @@ mouse-hide-while-typing = true
 macos-option-as-alt = true
 macos-non-native-fullscreen = visible-menu
 macos-titlebar-style = tabs
-# macos-icon = holographic
 macos-icon = custom-style
 macos-icon-ghost-color = #66ff66
 macos-icon-screen-color = #888888
@@ -34,6 +33,7 @@ window-padding-x = 5
 window-padding-y = 5
 window-padding-balance = true
 window-save-state = always
+window-title-font-family = "Consolas"
 
 # auto update settings
 auto-update = download
