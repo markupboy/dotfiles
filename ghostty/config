@@ -16,7 +16,12 @@ mouse-hide-while-typing = true
 # macOS-specific settings
 macos-option-as-alt = true
 macos-non-native-fullscreen = visible-menu
-macos-icon = holographic
+macos-titlebar-style = tabs
+# macos-icon = holographic
+macos-icon = custom-style
+macos-icon-ghost-color = #66ff66
+macos-icon-screen-color = #888888
+macos-icon-frame = aluminum
 
 # OS controls
 clipboard-read = "allow"
