@@ -16,13 +16,14 @@ DISABLE_AUTO_UPDATE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
   brew
-  github
-  macos
-  rake
-  zsh-syntax-highlighting 
-  pyenv
   docker 
   docker-compose
+  github
+  macos
+  pyenv
+  rake
+  uv
+  zsh-syntax-highlighting 
   zsh-autosuggestions
   )
 
