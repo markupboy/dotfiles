@@ -16,12 +16,13 @@ export DEFAULT_USER=markupboy
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
 
+
 # initialize autocomplete
-zmodload zsh/complist
+if [[ -a ~/.zsh/completions ]]
+then
+  fpath=(~/.zsh/completions $fpath)
+fi
 autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit
-done
-compinit -C
+compinit
 
 # zprof
