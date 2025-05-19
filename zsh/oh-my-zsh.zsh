@@ -20,6 +20,8 @@ plugins=(
   docker-compose
   github
   macos
+  node
+  nvm
   pyenv
   rake
   uv
