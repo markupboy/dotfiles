@@ -39,7 +39,7 @@ vim.opt.colorcolumn = "80"
 
 -- remappings
 -- file explorer
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<cr>", {silent = true, noremap = true})
 
 -- telescope (file finder)
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
