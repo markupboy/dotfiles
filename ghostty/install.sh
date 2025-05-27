@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source $DOTFILES/util/log.zsh
-
 if [ ! -d "$HOME/.config/ghostty" ]; then
   dotlog "install" "Installing ghostty"
   mkdir -p $HOME/.config

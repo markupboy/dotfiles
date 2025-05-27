@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source $DOTFILES/util/log.zsh
-
 ohmyzsh="$HOME/.oh-my-zsh"
 spaceship_prompt="$ohmyzsh/custom/themes/spaceship-prompt"
 

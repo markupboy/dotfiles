@@ -7,4 +7,4 @@ set -e
 cd "$DOTFILES"
 
 # find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "echo '[INSTALL] ${installer}' && ${installer}" ; done
+find . -name install.sh | while read installer ; do zsh -c "dotlog 'install' '${installer}' && ${installer}" ; done

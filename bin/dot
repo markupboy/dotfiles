@@ -8,8 +8,6 @@
 parentDirectory=$(dirname "$(realpath "$0")")
 dotfilesDirectory=$(dirname "$parentDirectory")
 
-source $dotfilesDirectory/util/log.zsh
-
 set -e
 
 displayUsageAndExit() {

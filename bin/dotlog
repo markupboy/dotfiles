@@ -1,0 +1,40 @@
+#!/bin/zsh
+
+# Load colors if available
+autoload -U colors && colors
+
+# Define colors
+FG_BLACK=$fg[black]
+FG_GREEN=$fg[green]
+BG_GREEN=$bg[green]
+FG_RED=$fg[red]
+BG_RED=$bg[red]
+FG_YELLOW=$fg[yellow]
+BG_YELLOW=$bg[yellow]
+FG_CYAN=$fg[cyan]
+BG_CYAN=$bg[cyan]
+RESET=$reset_color
+
+local type=$1
+shift
+local message="$@"
+case $type in
+    info)
+        echo -e "${BG_CYAN}${FG_BLACK} info ${RESET} $message"
+        ;;
+    install)
+        echo -e "${BG_GREEN}${FG_BLACK} install ${RESET} $message"
+        ;;
+    skip)
+        echo -e "${BG_YELLOW}${FG_BLACK} skipping ${RESET} $message"
+        ;;
+    error)
+        echo -e "${BG_RED}${FG_BLACK} error ${RESET} $message"
+        ;;
+    divider)
+        echo -e "${FG_CYAN}_________________________________${RESET}"
+        ;;
+    *)
+        echo -e "${BG_CYAN} info ${RESET} $message"
+        ;;
+esac

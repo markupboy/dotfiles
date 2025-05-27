@@ -2,8 +2,6 @@
 #
 # set up dotfiles
 
-source $DOTFILES/util/log.zsh
-
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT="$(pwd -P)"
 

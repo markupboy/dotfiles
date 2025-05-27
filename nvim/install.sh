@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source $DOTFILES/util/log.zsh
-
 if [ ! -d "$HOME/.config/nvim" ]; then
   dotlog "install" "Installing nvim"
   mkdir -p $HOME/.config
