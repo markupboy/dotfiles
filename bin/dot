@@ -21,6 +21,10 @@ displayUsageAndExit() {
 	exit
 }
 
+break_line() {
+	echo "\n"
+}
+
 while test $# -gt 0; do
 	case "$1" in
 		"-h"|"--help")
@@ -40,22 +44,28 @@ done
 
 dotlog "info" "Set macOS defaults"
 "$dotfilesDirectory/macos/set-defaults.sh"
+break_line
 
 dotlog "info" "Set macOS hostname"
 "$dotfilesDirectory/macos/set-hostname.sh"
+break_line
 
 dotlog "info" "Install homebrew"
 "$dotfilesDirectory/homebrew/install.sh" 2>&1
+break_line
 
 dotlog "info" "Upgrade homebrew"
 dotlog "info" "brew update"
 /opt/homebrew/bin/brew update
+break_line
 
 dotlog "info" "brew upgrade"
 /opt/homebrew/bin/brew upgrade
+break_line
 
 dotlog "info" "brew cleanup"
 /opt/homebrew/bin/brew cleanup
+break_line
 
 dotlog "info" "Install software"
 dotlog "info" "script/install"
