@@ -25,8 +25,14 @@ case $type in
     install)
         echo -e "${BG_GREEN}${FG_BLACK} install ${RESET} $message"
         ;;
+    success)
+        echo -e "${BG_GREEN}${FG_BLACK} ok ${RESET} $message"
+        ;;
     skip)
         echo -e "${BG_YELLOW}${FG_BLACK} skipping ${RESET} $message"
+        ;;
+    user)
+        echo -e "${BG_YELLOW}${FG_BLACK} user ${RESET} $message"
         ;;
     error)
         echo -e "${BG_RED}${FG_BLACK} error ${RESET} $message"

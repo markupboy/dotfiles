@@ -2,6 +2,8 @@
 #
 # set up dotfiles
 
+export PATH=".:./bin:$PATH"
+
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT="$(pwd -P)"
 
@@ -15,41 +17,24 @@ sanitize() {
     print -r -- "${input}"
 }
 
-info () {
-  print -P "\r  [ %F{blue}..%f ] $(sanitize "$1")"
-}
-
-user () {
-  print -P "\r  [ %F{yellow}??%f ] $(sanitize "$1")"
-}
-
-success () {
-  print -P "\r\033[2K  [ %F{green}OK%f ] $(sanitize "$1")"
-}
-
-fail () {
-  print -P "\r\033[2K  [%F{red}FAIL%f] $(sanitize "$1")"
-  echo ''
-  exit 1
-}
 
 setup_gitconfig () {
   if [[ ! -f git/gitconfig.local.symlink ]]; then
-    info 'setup gitconfig'
+    dotlog "info" 'setup gitconfig'
 
     git_credential='cache'
     if [[ "$(uname)" == "Darwin" ]]; then
       git_credential='osxkeychain'
     fi
 
-    user ' - What is your github author name?'
+    dotlog "user" ' - What is your github author name?'
     read -r git_authorname
-    user ' - What is your github author email?'
+    dotlog "user" ' - What is your github author email?'
     read -r git_authoremail
 
     sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
 
-    success 'gitconfig'
+    dotlog "success" 'gitconfig'
   fi
 }
 
@@ -65,7 +50,7 @@ link_file () {
       if [[ "$currentSrc" == "$src" ]]; then
         skip=true
       else
-        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+        dotlog "user" "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -k action
 
@@ -86,27 +71,27 @@ link_file () {
 
     if [[ "$overwrite" == "true" ]]; then
       rm -rf "$dst"
-      success "removed $dst"
+      dotlog "success" "removed $dst"
     fi
 
     if [[ "$backup" == "true" ]]; then
       mv "$dst" "${dst}.backup"
-      success "moved $dst to ${dst}.backup"
+      dotlog "success" "moved $dst to ${dst}.backup"
     fi
 
     if [[ "$skip" == "true" ]]; then
-      success "skipped $src"
+      dotlog "success" "skipped $src"
     fi
   fi
 
   if [[ "$skip" != "true" ]]; then
     ln -s "$1" "$2"
-    success "linked $1 to $2"
+    dotlog "success" "linked $1 to $2"
   fi
 }
 
 install_dotfiles () {
-  info 'installing dotfiles'
+  dotlog "info" 'installing dotfiles'
 
   local overwrite_all=false backup_all=false skip_all=false
 
@@ -123,10 +108,10 @@ install_dotfiles
 # If we're on a Mac, let's install and setup homebrew.
 if [[ "$(uname)" == "Darwin" ]]; then
   dotlog "info" "installing dependencies"
-  if source bin/dot | while read -r data; do info "$data"; done; then
-    success "dependencies installed"
+  if source bin/dot | while read -r data; do echo "$data"; done; then
+    dotlog "success" "dependencies installed"
   else
-    fail "error installing dependencies"
+    dotlog "error" "error installing dependencies"
   fi
 fi
 
