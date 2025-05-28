@@ -5,9 +5,6 @@
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
 
-parentDirectory=$(dirname "$(realpath "$0")")
-dotfilesDirectory=$(dirname "$parentDirectory")
-
 set -e
 
 displayUsageAndExit() {
@@ -31,7 +28,7 @@ while test $# -gt 0; do
 			displayUsageAndExit
 			;;
 		"-e"|"--edit")
-			exec "$EDITOR" "$dotfilesDirectory"
+			exec "$EDITOR" "$DOTFILES"
 			exit
 			;;
 		*)
@@ -43,15 +40,15 @@ while test $# -gt 0; do
 done
 
 dotlog "info" "Set macOS defaults"
-"$dotfilesDirectory/macos/set-defaults.sh"
+"$DOTFILES/macos/set-defaults.sh"
 break_line
 
 dotlog "info" "Set macOS hostname"
-"$dotfilesDirectory/macos/set-hostname.sh"
+"$DOTFILES/macos/set-hostname.sh"
 break_line
 
 dotlog "info" "Install homebrew"
-"$dotfilesDirectory/homebrew/install.sh" 2>&1
+"$DOTFILES/homebrew/install.sh" 2>&1
 break_line
 
 dotlog "info" "Upgrade homebrew"
@@ -69,4 +66,4 @@ break_line
 
 dotlog "info" "Install software"
 dotlog "info" "script/install"
-"$dotfilesDirectory/script/install"
+"$DOTFILES/script/install"
