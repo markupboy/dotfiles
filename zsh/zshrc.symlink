@@ -9,12 +9,10 @@ fi
 
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
-
 export DOTFILES=$ZSH
 
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
-
 
 # initialize autocomplete
 if [[ -a ~/.zsh/completions ]]
