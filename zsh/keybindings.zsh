@@ -7,5 +7,8 @@ bindkey "^r" history-incremental-search-backward
 bindkey ' ' magic-space			# also do history expansion on space
 bindkey '^I' complete-word	# complete on tab, leave expansion to _expand
 
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
+
 bindkey '^[[3~' delete-char
 bindkey '^?' backward-delete-char
