@@ -4,8 +4,15 @@ read_only = " 󰌾"
 [docker_context]
 symbol = " "
 
+[terraform]
+symbol = " "
+
 [git_branch]
 symbol = " "
+
+[git_status]
+ahead = ""
+behind = ""
 
 [git_commit]
 tag_symbol = '  '
