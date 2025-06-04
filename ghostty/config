@@ -1,9 +1,7 @@
 # appearance
 theme = "one-dark.conf"
-font-family = "Powerline Consolas"
+font-family = "Consolas Nerd Font Mono"
 font-size = 12
-adjust-cell-width = -12%
-adjust-cell-height = 5%
 background-opacity = 0.8
 unfocused-split-opacity = 0.65
 background-blur = true
