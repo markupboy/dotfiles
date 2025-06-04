@@ -1,0 +1,39 @@
+[directory]
+read_only = " 󰌾"
+
+[docker_context]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[git_commit]
+tag_symbol = '  '
+
+[golang]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[nodejs]
+symbol = " "
+
+
+[os.symbols]
+Linux = " "
+Macos = " "
+Ubuntu = " "
+Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+
+[python]
+symbol = " "
