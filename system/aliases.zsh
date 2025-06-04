@@ -4,7 +4,6 @@ alias ip='getIP'
 alias c='clear'
 alias top='top -o cpu'
 alias getip="getIP"
-alias h="history"
 alias whatismyip="getip"
 
 # grc overides for ls
