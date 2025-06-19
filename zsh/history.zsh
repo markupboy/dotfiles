@@ -3,4 +3,4 @@ HISTSIZE=10000
 SAVEHIST=10000
 DIRSTACKSIZE=20
 
-alias h="history"
+alias h="history 1"
