@@ -17,7 +17,7 @@ macos-option-as-alt = true
 macos-non-native-fullscreen = visible-menu
 macos-titlebar-style = tabs
 macos-icon = custom-style
-macos-icon-ghost-color = #66ff66
+macos-icon-ghost-color = #cf6757
 macos-icon-screen-color = #888888
 macos-icon-frame = aluminum
 
