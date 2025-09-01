@@ -3,7 +3,6 @@
 # mac apps
 cask "1Password"
 cask "alfred"
-cask "bluos-controller"
 cask "bartender"
 cask "carbon-copy-cloner"
 cask "cursor"
