@@ -26,15 +26,15 @@ autoload -Uz compinit
 compinit
 
 # initialize plugins
-export PLUGIN_PATH=/opt/homebrew
+export ZSH_PLUGIN_PATH=/opt/homebrew/share
 
 if [[ $WIN ]]
 then
-  export PLUGIN_PATH=/usr/share
+  export ZSH_PLUGIN_PATH=/usr/share
 fi
 
-source $PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 
 
