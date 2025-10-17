@@ -1,6 +1,5 @@
 #commands
 alias rm='rm -i'
-alias ip='getIP'
 alias c='clear'
 alias top='top -o cpu'
 alias getip="getIP"
