@@ -39,6 +39,9 @@ auto-update = download
 auto-update-channel = stable
 
 # custom keybindings
+keybind = home=text:\x01
+keybind = end=text:\x05
+
 keybind = super+r=reload_config 
 keybind = super+i=inspector:toggle
 keybind = super+f=toggle_fullscreen
