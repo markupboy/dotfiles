@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if command -v uv >/dev/null 2>&1
 then
     if [[ ! -f ~/.zsh/completions/_uv ]]

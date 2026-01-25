@@ -9,6 +9,8 @@ if [ ! -d "$HOME/.config/ghostty" ]; then
 
   # Create or overwrite the symbolic link
   ln -s "$script_dir" "$HOME/.config/ghostty"
+
+  dotlog "info" "Be sure to install ghostty for your platform"
 else
   dotlog "skip" "Skipping ghostty"
 fi

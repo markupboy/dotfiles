@@ -9,6 +9,8 @@ if [ ! -d "$HOME/.config/nvim" ]; then
 
   # Create or overwrite the symbolic link
   ln -s "$script_dir" "$HOME/.config/nvim"
+
+  dotlog "info" "Be sure to install neovim for your platform"
 else
   dotlog "skip" "Skipping nvim"
 fi
