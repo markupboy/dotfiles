@@ -39,30 +39,32 @@ while test $# -gt 0; do
 	shift
 done
 
-dotlog "info" "Set macOS defaults"
-"$DOTFILES/macos/set-defaults.sh"
-break_line
+if ! [[ $LINUX || $WIN ]]; then
+	dotlog "info" "Set macOS defaults"
+	"$DOTFILES/macos/set-defaults.sh"
+	break_line
 
-dotlog "info" "Set macOS hostname"
-"$DOTFILES/macos/set-hostname.sh"
-break_line
+	dotlog "info" "Set macOS hostname"
+	"$DOTFILES/macos/set-hostname.sh"
+	break_line
 
-dotlog "info" "Install homebrew"
-"$DOTFILES/homebrew/install.sh" 2>&1
-break_line
+	dotlog "info" "Install homebrew"
+	"$DOTFILES/homebrew/install.sh" 2>&1
+	break_line
 
-dotlog "info" "Upgrade homebrew"
-dotlog "info" "brew update"
-/opt/homebrew/bin/brew update
-break_line
+	dotlog "info" "Upgrade homebrew"
+	dotlog "info" "brew update"
+	/opt/homebrew/bin/brew update
+	break_line
 
-dotlog "info" "brew upgrade"
-/opt/homebrew/bin/brew upgrade
-break_line
+	dotlog "info" "brew upgrade"
+	/opt/homebrew/bin/brew upgrade
+	break_line
 
-dotlog "info" "brew cleanup"
-/opt/homebrew/bin/brew cleanup
-break_line
+	dotlog "info" "brew cleanup"
+	/opt/homebrew/bin/brew cleanup
+	break_line
+fi
 
 dotlog "info" "Install software"
 dotlog "info" "script/install"
