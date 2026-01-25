@@ -102,8 +102,18 @@ install_dotfiles () {
   done
 }
 
+run_installers () {
+  dotlog "user" ' - Run topic installers [y/N]?'
+  read -r proceed_with_install
+
+  if [[ $proceed_with_install = "y" ]]; then
+    zsh $DOTFILES_ROOT/script/install
+  fi
+}
+
 setup_gitconfig
 install_dotfiles
+run_installers
 
 # If we're on a Mac, let's install and setup homebrew.
 if [[ "$(uname)" == "Darwin" ]]; then
