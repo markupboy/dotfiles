@@ -33,6 +33,11 @@ then
   export ZSH_PLUGIN_PATH=/usr/share
 fi
 
+if [[ $LINUX ]]
+then
+ export ZSH_PLUGIN_PATH=/usr/share/zsh/plugins
+fi
+
 source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
