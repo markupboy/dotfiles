@@ -1,2 +1,2 @@
 style = "full"
-keymap_mode = "vim-normal"
+enter_accept = false
