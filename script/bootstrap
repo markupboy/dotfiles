@@ -128,4 +128,4 @@ fi
 echo ''
 echo '  All installed!'
 echo '  Be sure to install homebrew packages, in a new terminal session, run:'
-echo "    brew bundle --file=$DOTFILES/homebrew/Brewfile"
+echo "    brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile"
