@@ -3,6 +3,7 @@
 nvim/plugin
 nvim/lazy-lock.json
 git/gitconfig.local.symlink
+.claude
 
 # Compiled source #
 ###################
