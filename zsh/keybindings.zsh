@@ -10,10 +10,8 @@ bindkey '^[[6~' down-line-or-history
 bindkey ' ' magic-space			# also do history expansion on space
 bindkey '^I' complete-word	# complete on tab, leave expansion to _expand
 
-# remove when using atuin for shell history
-# bindkey "^r" history-incremental-search-backward
-# bindkey "^[[A" history-search-backward
-# bindkey "^[[B" history-search-forward
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
 
 bindkey '^[[3~' delete-char
 bindkey '^?' backward-delete-char
