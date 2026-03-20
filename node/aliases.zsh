@@ -1,0 +1,1 @@
+alias nvm="fnm"
