@@ -23,7 +23,11 @@ then
   fpath=(~/.zsh/completions $fpath)
 fi
 autoload -Uz compinit
-compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # initialize plugins
 export ZSH_PLUGIN_PATH=/opt/homebrew/share
@@ -38,7 +42,7 @@ then
  export ZSH_PLUGIN_PATH=/usr/share/zsh/plugins
 fi
 
-source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 

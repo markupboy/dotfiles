@@ -12,7 +12,7 @@ The `dot` command will sync any changes, rerun the topic installers,
 and, on MacOS, set OS defaults and tend to homebrew updates.
 
 These dotfiles assume/require neovim, Starship prompt, and the zsh
-plugins zsh-auto-suggestions and zsh-syntax-highlighting.
+plugins zsh-auto-suggestions and zsh-fast-syntax-highlighting.
 
 ## credits
 
