@@ -3,4 +3,4 @@ if [[ ! -f ~/.cache/ls_colors ]] || [[ ~/.dotfiles/zsh/colors.zsh -nt ~/.cache/l
   mkdir -p ~/.cache
   vivid generate one-dark > ~/.cache/ls_colors
 fi
-export LS_COLORS="$(cat ~/.cache/ls_colors)"
+export LS_COLORS="$(<~/.cache/ls_colors)"
