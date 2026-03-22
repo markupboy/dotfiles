@@ -25,7 +25,16 @@ setup_gitconfig () {
     dotlog "user" ' - What is your github author email?'
     read -r git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
+    # Escape sed special characters in user input
+    git_authorname_escaped="${git_authorname//\\/\\\\}"
+    git_authorname_escaped="${git_authorname_escaped//\//\\/}"
+    git_authorname_escaped="${git_authorname_escaped//&/\\&}"
+
+    git_authoremail_escaped="${git_authoremail//\\/\\\\}"
+    git_authoremail_escaped="${git_authoremail_escaped//\//\\/}"
+    git_authoremail_escaped="${git_authoremail_escaped//&/\\&}"
+
+    sed -e "s/AUTHORNAME/$git_authorname_escaped/g" -e "s/AUTHOREMAIL/$git_authoremail_escaped/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
 
     dotlog "success" 'gitconfig'
   fi
