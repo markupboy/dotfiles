@@ -31,7 +31,6 @@ The repository follows a topic-based organization where each directory represent
 - **macos/**: macOS-specific settings and preferences
 - **node/**: Node.js configuration (uses fnm, not nvm)
 - **nvim/**: Neovim configuration managed with lazy.nvim (see Neovim section below)
-- **python/**: Python configuration
 - **rust/**: Rust toolchain configuration (sources cargo env)
 - **script/**: Setup and installation scripts (`bootstrap`, `install`)
 - **starship/**: Starship prompt installation and configuration

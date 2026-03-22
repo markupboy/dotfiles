@@ -32,7 +32,6 @@ symbol = "󰍛 "
 [nodejs]
 symbol = " "
 
-
 [os.symbols]
 Linux = " "
 Macos = " "
