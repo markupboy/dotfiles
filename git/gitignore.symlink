@@ -1,10 +1,2 @@
-*conflicted*
 .DS_Store
-.sass-cache
-.svn
-.tissues
-*~
-*.swp
-*.rbc
-vendor/bundle
-.rake_tasks*
+

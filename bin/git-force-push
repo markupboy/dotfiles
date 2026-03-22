@@ -10,7 +10,7 @@ printf "Are you sure you want to force push to '%s'? [y/N] " "$branch"
 read -r response
 
 if [[ "$response" =~ ^[Yy]$ ]]; then
-  git push --force
+  git push --force-with-lease
 else
   echo "Force push cancelled."
 fi
