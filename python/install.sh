@@ -7,4 +7,6 @@ then
         mkdir -p ~/.zsh/completions
         uv generate-shell-completion zsh > ~/.zsh/completions/_uv
     fi
+else
+    echo "Please install uv, details at https://docs.astral.sh/uv"
 fi
