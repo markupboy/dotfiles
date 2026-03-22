@@ -1,10 +1,3 @@
-return {
-  {
-    "olimorris/onedarkpro.nvim",
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme("onedark")
+vim.cmd.colorscheme("onedark_pro_night_flat")
 
-    end
-  },
-}
+return {}
