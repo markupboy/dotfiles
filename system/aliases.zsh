@@ -5,15 +5,13 @@ alias top='top -o cpu'
 alias getip="getIP"
 alias whatismyip="getip"
 
-# grc overides for ls
-#   Made possible through contributions from generous benefactors like
-#   `brew install coreutils`
+# eza overides for ls
 if command -v eza &>/dev/null
 then
-  alias ls="eza"
-  alias l="eza -lAh"
-  alias ll="eza -l"
-  alias la='eza -A'
+  alias ls="eza --icons --group-directories-first"
+  alias l="eza --icons --group-directories-first -lAh"
+  alias ll="eza --icons --group-directories-first -l"
+  alias la='eza --icons --group-directories-first -A'
 fi
 
 #nocorrect when you might get a new dir or file

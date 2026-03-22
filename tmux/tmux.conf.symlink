@@ -1,8 +1,7 @@
 set-option -g default-command "reattach-to-user-namespace -l zsh"
 set -g default-terminal "screen-256color"
-
-
-### Unbind existing tmux key bindings (except 0-9).
+set -g mouse on   
+set -s escape-time 0 
 
 # Set the prefix to ^A.
 unbind C-b
@@ -10,7 +9,6 @@ set -g prefix ^A
 bind a send-prefix
 
 # Bind appropriate commands similar to screen.
-# lockscreen ^X x
 unbind ^X
 bind ^X lock-server
 unbind x
