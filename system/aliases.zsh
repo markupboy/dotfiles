@@ -8,12 +8,12 @@ alias whatismyip="getip"
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
-if command -v gls &>/dev/null
+if command -v eza &>/dev/null
 then
-  alias ls="gls -F --color"
-  alias l="gls -lAh --color"
-  alias ll="gls -l --color"
-  alias la='gls -A --color'
+  alias ls="eza -F"
+  alias l="eza -lAh"
+  alias ll="eza -l"
+  alias la='eza -A'
 fi
 
 #nocorrect when you might get a new dir or file
@@ -25,3 +25,4 @@ alias mkdir='nocorrect mkdir'
 
 # Pipe my public key to my clipboard
 alias getkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
+
