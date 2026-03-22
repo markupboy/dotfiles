@@ -10,7 +10,7 @@ alias whatismyip="getip"
 #   `brew install coreutils`
 if command -v eza &>/dev/null
 then
-  alias ls="eza -F"
+  alias ls="eza"
   alias l="eza -lAh"
   alias ll="eza -l"
   alias la='eza -A'
