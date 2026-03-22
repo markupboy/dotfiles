@@ -7,5 +7,4 @@
 *.swp
 *.rbc
 vendor/bundle
-.DS_Store
 .rake_tasks*

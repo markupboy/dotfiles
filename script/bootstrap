@@ -11,13 +11,6 @@ set -e
 
 echo ''
 
-# Using zsh's built-in parameter expansion
-sanitize() {
-    local input="$1"
-    print -r -- "${input}"
-}
-
-
 setup_gitconfig () {
   if [[ ! -f git/gitconfig.local.symlink ]]; then
     dotlog "info" 'setup gitconfig'
