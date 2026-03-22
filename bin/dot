@@ -52,17 +52,19 @@ if ! [[ $LINUX || $WIN ]]; then
 	"$DOTFILES/homebrew/install.sh" 2>&1
 	break_line
 
+	BREW_BIN="$(command -v brew || echo /opt/homebrew/bin/brew)"
+
 	dotlog "info" "Upgrade homebrew"
 	dotlog "info" "brew update"
-	/opt/homebrew/bin/brew update
+	"$BREW_BIN" update
 	break_line
 
 	dotlog "info" "brew upgrade"
-	/opt/homebrew/bin/brew upgrade
+	"$BREW_BIN" upgrade
 	break_line
 
 	dotlog "info" "brew cleanup"
-	/opt/homebrew/bin/brew cleanup
+	"$BREW_BIN" cleanup
 	break_line
 fi
 
