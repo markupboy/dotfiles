@@ -7,5 +7,6 @@ if [[ $LINUX ]]; then
   else
     dotlog "skip" "Skipping starship prompt"
   fi
-  dotlog "skip" "Skipping starship prompt"
+  else
+    dotlog "skip" "Skipping starship prompt"
 fi
