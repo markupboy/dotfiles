@@ -1,8 +1,10 @@
 ## install
 
+- `xcode-select --install`
 - `git clone https://github.com/markupboy/dotfiles.git ~/.dotfiles`
 - `cd ~/.dotfiles`
 - `script/bootstrap`
+- in a new terminal session - `brew bundle --file ~/.dotfiles/homebrew/Brewfile`
 
 The bootstrap script will set up a gitconfig, symlink the appropriate
 files in `.dotfiles` to your home directory, and optionally run the
@@ -13,6 +15,9 @@ and, on MacOS, set OS defaults and tend to homebrew updates.
 
 These dotfiles assume/require neovim, Starship prompt, and the zsh
 plugins zsh-auto-suggestions and zsh-fast-syntax-highlighting.
+
+Be sure to install the `Consolas` and `Consolas Nerd Font Mono` fonts for
+the full experience.
 
 ## credits
 
