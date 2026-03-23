@@ -129,5 +129,5 @@ fi
 
 echo ''
 echo '  All installed!'
-echo '  Be sure to install homebrew packages, in a new terminal session, run:'
-echo "    brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile"
+echo '  Installing homebrew packages in a fresh shell session...'
+zsh -lc "brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile"
