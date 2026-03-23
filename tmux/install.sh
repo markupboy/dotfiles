@@ -1,3 +1,6 @@
+#!/bin/zsh
+set -e
+
 if [ ! -d "$HOME/.tmux/plugins" ]; then
   dotlog "install" "Setting up tmux"
   

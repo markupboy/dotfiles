@@ -1,3 +1,6 @@
+#!/bin/zsh
+set -e
+
 if command -v atuin >/dev/null 2>&1;
 then 
   dotlog "skip" "Atuin already installed"

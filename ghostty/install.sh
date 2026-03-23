@@ -1,4 +1,5 @@
 #!/bin/zsh
+set -e
 
 if [ ! -d "$HOME/.config/ghostty" ]; then
   dotlog "install" "Installing ghostty"

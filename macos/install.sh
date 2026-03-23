@@ -1,4 +1,5 @@
 #!/bin/zsh
+set -e
 
 if [[ "$(uname)" == "Darwin" ]]; then
   dotlog "info" "Running MacOS software update"

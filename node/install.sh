@@ -1,3 +1,6 @@
+#!/bin/zsh
+set -e
+
 if command -v fnm >/dev/null 2>&1;
 then 
   dotlog "skip" "fnm already installed"

@@ -1,4 +1,5 @@
 #!/bin/zsh
+set -e
 
 if [[ $LINUX ]]; then
   if [ ! -f "/usr/local/bin/starship" ]; then

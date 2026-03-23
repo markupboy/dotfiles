@@ -1,4 +1,5 @@
 #!/bin/zsh
+set -e
 
 if [ ! -d "$HOME/.config/nvim" ]; then
   dotlog "install" "Installing nvim"
