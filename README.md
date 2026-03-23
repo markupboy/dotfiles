@@ -1,10 +1,17 @@
-## install
+## Installation
+
+### Automated Install
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/markupboy/dotfiles/main/script/remote-install | bash
+```
+
+### Manual Install
 
 - `xcode-select --install`
 - `git clone https://github.com/markupboy/dotfiles.git ~/.dotfiles`
 - `cd ~/.dotfiles`
 - `script/bootstrap`
-- in a new terminal session - `brew bundle --file ~/.dotfiles/homebrew/Brewfile`
 
 The bootstrap script will set up a gitconfig, symlink the appropriate
 files in `.dotfiles` to your home directory, and optionally run the

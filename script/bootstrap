@@ -9,6 +9,16 @@ DOTFILES_ROOT="$(pwd -P)"
 
 set -e
 
+# Ensure Xcode Command Line Tools are installed on macOS
+if [[ "$(uname)" == "Darwin" ]]; then
+  if ! xcode-select -p &>/dev/null; then
+    dotlog "info" "installing Xcode Command Line Tools..."
+    xcode-select --install
+    echo "Press any key when the installation has completed."
+    read -k 1
+  fi
+fi
+
 echo ''
 
 setup_gitconfig () {
