@@ -46,8 +46,8 @@ then
 fi
 
 source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
+source $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 # zprof
