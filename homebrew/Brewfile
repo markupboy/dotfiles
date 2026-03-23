@@ -23,6 +23,7 @@ cask "vlc"
 # command line tools
 brew "aria2"
 brew "awscli"
+brew "bat"
 brew "btop"
 brew "coreutils"
 brew "eza"

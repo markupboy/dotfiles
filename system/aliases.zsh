@@ -21,6 +21,13 @@ then
   alias ag="rg"
 fi
 
+# bat overrides for cat
+if command -v rg &>/dev/null
+then
+  alias cat="bat"
+fi
+
+
 #nocorrect when you might get a new dir or file
 alias vim='nocorrect nvim'
 alias touch='nocorrect touch'
