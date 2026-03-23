@@ -2,4 +2,4 @@
 #
 # Clear local repo of merged branches
 
-git branch --merged | grep -v "\*" | grep -v master | grep -v dev | xargs -n 1 git branch -d
+git branch --merged | grep -v "\*" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -d
