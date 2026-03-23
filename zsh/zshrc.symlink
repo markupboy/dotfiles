@@ -14,6 +14,17 @@ export ZSH=$HOME/.dotfiles
 export DOTFILES=$ZSH
 export EDITOR=nvim
 
+# Platform detection
+case "$(uname -s)" in
+  Linux*)
+    if grep -qi microsoft /proc/version 2>/dev/null; then
+      export WIN=1
+    else
+      export LINUX=1
+    fi
+    ;;
+esac
+
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
 
@@ -45,9 +56,12 @@ then
  export ZSH_PLUGIN_PATH=/usr/share/zsh/plugins
 fi
 
-source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+  source $ZSH_PLUGIN_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
-source $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+  source $ZSH_PLUGIN_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 # zprof

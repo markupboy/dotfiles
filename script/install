@@ -4,10 +4,15 @@
 
 set -e
 
+export DOTFILES="${DOTFILES:-$(cd "$(dirname "$0")/.." && pwd -P)}"
+
 cd "$DOTFILES"
 
 # find the installers and run them iteratively
 for installer in **/install.sh; do
   dotlog "install" "./${installer}"
-  ./"${installer}"
+  if ! ./"${installer}"; then
+    dotlog "error" "Failed: ./${installer}"
+    exit 1
+  fi
 done

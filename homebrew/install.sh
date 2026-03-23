@@ -25,5 +25,3 @@ then
 else
   dotlog "skip" "Skipping homebrew"
 fi
-
-exit 0

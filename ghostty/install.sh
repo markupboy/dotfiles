@@ -3,7 +3,7 @@ set -e
 
 if [ ! -d "$HOME/.config/ghostty" ]; then
   dotlog "install" "Installing ghostty"
-  mkdir -p $HOME/.config
+  mkdir -p "$HOME/.config"
 
   # Get the directory of the script
   script_dir=$(dirname "$(realpath "$0")")

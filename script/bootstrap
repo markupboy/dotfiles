@@ -13,9 +13,12 @@ set -e
 if [[ "$(uname)" == "Darwin" ]]; then
   if ! xcode-select -p &>/dev/null; then
     dotlog "info" "installing Xcode Command Line Tools..."
-    xcode-select --install
-    echo "Press any key when the installation has completed."
-    read -k 1 </dev/tty
+    xcode-select --install 2>/dev/null
+    dotlog "info" "Waiting for Xcode Command Line Tools installation..."
+    until xcode-select -p &>/dev/null; do
+      sleep 5
+    done
+    dotlog "success" "Xcode Command Line Tools installed"
   fi
 fi
 
@@ -129,5 +132,3 @@ fi
 
 echo ''
 echo '  All installed!'
-echo '  Installing homebrew packages in a fresh shell session...'
-zsh -lc "brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile"
