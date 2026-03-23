@@ -7,6 +7,9 @@
 
 set -e
 
+# Resolve DOTFILES if not already set (e.g. when sourced from bootstrap)
+export DOTFILES="${DOTFILES:-$(cd "$(dirname "$0")/.." && pwd -P)}"
+
 displayUsageAndExit() {
 	echo "dot -- dotfiles management"
 	echo ""
