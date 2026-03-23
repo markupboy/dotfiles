@@ -14,6 +14,13 @@ then
   alias la='eza --icons --group-directories-first -A'
 fi
 
+# ripgrep overrides for grep and ag
+if command -v rg &>/dev/null
+then
+  alias grep="rg"
+  alias ag="rg"
+fi
+
 #nocorrect when you might get a new dir or file
 alias vim='nocorrect nvim'
 alias touch='nocorrect touch'
