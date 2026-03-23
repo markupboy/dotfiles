@@ -15,7 +15,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     dotlog "info" "installing Xcode Command Line Tools..."
     xcode-select --install
     echo "Press any key when the installation has completed."
-    read -k 1
+    read -k 1 </dev/tty
   fi
 fi
 
@@ -31,9 +31,9 @@ setup_gitconfig () {
     fi
 
     dotlog "user" ' - What is your github author name?'
-    read -r git_authorname
+    read -r git_authorname </dev/tty
     dotlog "user" ' - What is your github author email?'
-    read -r git_authoremail
+    read -r git_authoremail </dev/tty
 
     # Escape sed special characters in user input
     git_authorname_escaped="${git_authorname//\\/\\\\}"
@@ -64,7 +64,7 @@ link_file () {
       else
         dotlog "user" "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read -k action
+        read -k action </dev/tty
 
         case "$action" in
           o) overwrite=true ;;
