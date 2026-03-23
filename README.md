@@ -1,12 +1,12 @@
 ## Installation
 
-### Automated Install
+### Automated
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/markupboy/dotfiles/main/script/remote-install | bash
 ```
 
-### Manual Install
+### Manual
 
 - `xcode-select --install`
 - `git clone https://github.com/markupboy/dotfiles.git ~/.dotfiles`
@@ -26,7 +26,7 @@ plugins zsh-auto-suggestions and zsh-fast-syntax-highlighting.
 Be sure to install the `Consolas` and `Consolas Nerd Font Mono` fonts for
 the full experience.
 
-## credits
+## Credits
 
 This has been a long-lived, now much deviated fork of
 [Zach Holman's dotfiles](https://github.com/holman/dotfiles). Credit
