@@ -3,7 +3,7 @@
 ### Automated
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/markupboy/dotfiles/main/script/remote-install | bash
+curl -fsSL https://raw.githubusercontent.com/markupboy/dotfiles/main/script/remote.sh | bash
 ```
 
 ### Manual

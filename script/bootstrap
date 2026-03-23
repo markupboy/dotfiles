@@ -131,4 +131,3 @@ echo ''
 echo '  All installed!'
 echo '  Installing homebrew packages in a fresh shell session...'
 zsh -lc "brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile"
-zsh -lc "brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile-casks"
