@@ -1,5 +1,7 @@
-if [ ! -d "$HOME/.local/share/fnm" ]; then
-  curl -fsSL https://fnm.vercel.app/install | bash
+if command -v fnm >/dev/null 2>&1;
+then 
+  dotlog "skip" "fnm already installed"
 else
-  dotlog "skip" "Skipping node"
+  dotlog "install" "Installing fnm"
+  /bin/bash -c "$(curl -fsSL https://fnm.vercel.app/install)"
 fi
