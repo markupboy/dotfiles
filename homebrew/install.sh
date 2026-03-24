@@ -1,10 +1,5 @@
 #!/bin/zsh
 set -e
-#
-# Homebrew
-#
-# This installs some of the common dependencies needed (or at least desired)
-# using Homebrew.
 
 BREW_BIN="$(command -v brew || echo /opt/homebrew/bin/brew)"
 
