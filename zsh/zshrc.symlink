@@ -37,6 +37,8 @@ then
   fpath=(~/.zsh/completions $fpath)
 fi
 autoload -Uz compinit
+# Filter missing fpath directories to suppress compinit warnings (e.g. Docker Desktop not running in WSL)
+fpath=(${^fpath[@]}(N-/))
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
   compinit
 else
