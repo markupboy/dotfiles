@@ -125,13 +125,19 @@ else
   dotlog "error" "error installing dependencies"
 fi
 
-# Use a login shell for brew bundle — the current shell won't have brew on
-# PATH yet since homebrew was just installed. A login shell sources
-# homebrew.zsh which sets up the correct PATH.
-if command -v brew &>/dev/null \
-  || [[ -f /opt/homebrew/bin/brew ]] \
-  || [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] \
-  || [[ -f "$HOME/.linuxbrew/bin/brew" ]]; then
-  dotlog "install" "Installing homebrew packages in a fresh shell session..."
-  zsh -lc "brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile"
+# Locate the brew binary — it won't be on PATH in the current shell after
+# a fresh install since .zshrc hasn't been reloaded.
+BREW_BIN="$(command -v brew 2>/dev/null || true)"
+if [[ -z "$BREW_BIN" ]]; then
+  for p in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew "$HOME/.linuxbrew/bin/brew"; do
+    if [[ -f "$p" ]]; then
+      BREW_BIN="$p"
+      break
+    fi
+  done
+fi
+
+if [[ -n "$BREW_BIN" ]]; then
+  dotlog "install" "Installing homebrew packages..."
+  "$BREW_BIN" bundle --file="$HOME/.dotfiles/homebrew/Brewfile"
 fi
