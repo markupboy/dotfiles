@@ -117,17 +117,21 @@ install_dotfiles () {
 setup_gitconfig
 install_dotfiles
 
-# If we're on a Mac, let's install and setup homebrew.
-if [[ "$(uname)" == "Darwin" ]]; then
-  dotlog "info" "installing dependencies"
-  if source bin/dot; then
-    dotlog "success" "dependencies installed"
-  else
-    dotlog "error" "error installing dependencies"
-  fi
+# Install dependencies (macOS defaults/hostname + Homebrew on all platforms)
+dotlog "info" "installing dependencies"
+if source bin/dot; then
+  dotlog "success" "dependencies installed"
+else
+  dotlog "error" "error installing dependencies"
 fi
 
-if command -v brew &>/dev/null; then
+# Use a login shell for brew bundle — the current shell won't have brew on
+# PATH yet since homebrew was just installed. A login shell sources
+# homebrew.zsh which sets up the correct PATH.
+if command -v brew &>/dev/null \
+  || [[ -f /opt/homebrew/bin/brew ]] \
+  || [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] \
+  || [[ -f "$HOME/.linuxbrew/bin/brew" ]]; then
   dotlog "install" "Installing homebrew packages in a fresh shell session..."
   zsh -lc "brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile"
 fi
