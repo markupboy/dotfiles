@@ -69,10 +69,6 @@ if ! [[ $LINUX || $WIN ]]; then
 	dotlog "info" "brew cleanup"
 	"$BREW_BIN" cleanup
 	break_line
-
-	dotlog "info" "brew bundle"
-	"$BREW_BIN" bundle --file="$DOTFILES/homebrew/Brewfile"
-	break_line
 fi
 
 dotlog "info" "Install software"
