@@ -22,7 +22,7 @@ then
 fi
 
 # bat overrides for cat
-if command -v rg &>/dev/null
+if command -v bat &>/dev/null
 then
   alias cat="bat"
 fi
