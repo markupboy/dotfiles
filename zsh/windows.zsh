@@ -12,6 +12,6 @@ fi
 if [[ -a /home/linuxbrew/.linuxbrew/bin ]]
 then
     export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     umask 002
 fi
