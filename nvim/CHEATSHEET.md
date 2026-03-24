@@ -104,14 +104,27 @@ In the file explorer: `a` to create, `d` to delete, `r` to rename, `Enter` to op
 | Key              | Action                           |
 |------------------|----------------------------------|
 | `Space f f`      | Find files                       |
-| `Space f g`      | Find git-tracked files           |
-| `Space f r`      | Live grep (search file contents) |
+| `Space f g`      | Live grep (search file contents) |
 | `Space f b`      | List open buffers                |
 | `Space f h`      | Find files (including hidden)    |
-| `Space p w s`    | Grep for word under cursor       |
-| `Space p W s`    | Grep for WORD under cursor       |
+| `Space f w`      | Grep for word under cursor       |
+| `Space f W`      | Grep for WORD under cursor       |
+| `Space f G`      | Find git-tracked files           |
 
 In Telescope: type to filter, `Enter` to open, `Esc` to close.
+
+### Which-Key (Keybinding Help)
+
+Press `Space` and wait — a popup shows all available keybindings.
+
+### Git Signs
+
+Git change indicators appear in the sign column (left gutter) for tracked files.
+
+| Key              | Action                           |
+|------------------|----------------------------------|
+| `] c`            | Next changed hunk                |
+| `[ c`            | Previous changed hunk            |
 
 ### Auto Features (just work)
 

@@ -4,24 +4,24 @@ return {
   cmd = "Telescope",
   keys = {
     { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-    { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
-    { "<leader>fr", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-    { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+    { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Find by Grep" },
+    { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
     { "<leader>fh", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Hidden Files" },
+    { "<leader>fG", "<cmd>Telescope git_files<cr>", desc = "Find Git Files" },
+    {
+      "<leader>fw",
+      function()
+        require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>") })
+      end,
+      desc = "Find Word",
+    },
+    {
+      "<leader>fW",
+      function()
+        require("telescope.builtin").grep_string({ search = vim.fn.expand("<cWORD>") })
+      end,
+      desc = "Find WORD",
+    },
   },
-
-  config = function()
-    require('telescope').setup({})
-
-    local builtin = require('telescope.builtin')
-
-    vim.keymap.set('n', '<leader>pws', function()
-      local word = vim.fn.expand("<cword>")
-      builtin.grep_string({ search = word })
-    end)
-    vim.keymap.set('n', '<leader>pWs', function()
-      local word = vim.fn.expand("<cWORD>")
-      builtin.grep_string({ search = word })
-    end)
-  end
+  opts = {},
 }
