@@ -28,6 +28,6 @@ the full experience.
 
 ## Credits
 
-This has been a long-lived, now much deviated fork of
-[Zach Holman's dotfiles](https://github.com/holman/dotfiles). Credit
-to him for the structure, some of the code, and the inspiration.
+This has been a long-lived (now more than 15 years 🎉), much deviated
+fork of [Zach Holman's dotfiles](https://github.com/holman/dotfiles).
+Credit to him for the structure, some of the code, and the inspiration.
