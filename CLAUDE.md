@@ -35,7 +35,7 @@ The repository follows a topic-based organization where each directory represent
 - **script/**: Setup and installation scripts (`bootstrap`, `install`)
 - **starship/**: Starship prompt installation and configuration
 - **system/**: General system aliases (includes eza-based `ls` replacements) and PATH setup
-- **tmux/**: Tmux configuration (Ctrl+A prefix, screen-like bindings) and aliases (`T`, `Ta`, `Tr`)
+- **tmux/**: Tmux configuration and aliases (`T`, `Ta`, `Tr`)
 - **util/**: General utility scripts and tests
 - **zsh/**: Shell configuration with `.zsh` files that are automatically sourced
 
