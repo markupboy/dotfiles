@@ -6,12 +6,13 @@ set -e
 # This installs some of the common dependencies needed (or at least desired)
 # using Homebrew.
 
+BREW_BIN="$(command -v brew || echo /opt/homebrew/bin/brew)"
+
 if ! [[ $WIN || $LINUX ]]; 
 then
 
   # Check for Homebrew
-  if command -v brew >/dev/null 2>&1; 
-  then
+  if [ -f "$BREW_BIN" ]; then
     dotlog "skip" "Homebrew already installed"
   else
     dotlog "install" "Installing Homebrew for you"
@@ -20,7 +21,7 @@ then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     
     dotlog "info" "Eval'ing brew shellenv"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    eval "$($BREW_BIN shellenv)"
   fi
 else
   dotlog "skip" "Skipping homebrew"

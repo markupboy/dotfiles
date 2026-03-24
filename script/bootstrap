@@ -127,5 +127,5 @@ if [[ "$(uname)" == "Darwin" ]]; then
   fi
 fi
 
-dotlog "install "Installing homebrew packages in a fresh shell session..."
+dotlog "install" "Installing homebrew packages in a fresh shell session..."
 zsh -lc "brew bundle --file=$HOME/.dotfiles/homebrew/Brewfile"
