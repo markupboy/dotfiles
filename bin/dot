@@ -50,12 +50,15 @@ if ! [[ $LINUX || $WIN ]]; then
 	dotlog "info" "Set macOS hostname"
 	"$DOTFILES/macos/set-hostname.sh"
 	break_line
+fi
 
-	dotlog "info" "Install homebrew"
-	"$DOTFILES/homebrew/install.sh" 2>&1
-	break_line
+# Install and update Homebrew (works on macOS and Linux)
+dotlog "info" "Install homebrew"
+"$DOTFILES/homebrew/install.sh" 2>&1
+break_line
 
-	BREW_BIN="$(command -v brew || echo /opt/homebrew/bin/brew)"
+if command -v brew &>/dev/null; then
+	BREW_BIN="$(command -v brew)"
 
 	dotlog "info" "Upgrade homebrew"
 	dotlog "info" "brew update"

@@ -36,5 +36,13 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 
 # Pipe my public key to my clipboard
-alias getkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
+if command -v pbcopy &>/dev/null; then
+  alias getkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo '=> Public key copied to pasteboard.'"
+elif command -v xclip &>/dev/null; then
+  alias getkey="cat ~/.ssh/id_rsa.pub | xclip -selection clipboard && echo '=> Public key copied to clipboard.'"
+elif command -v wl-copy &>/dev/null; then
+  alias getkey="cat ~/.ssh/id_rsa.pub | wl-copy && echo '=> Public key copied to clipboard.'"
+elif [[ -n $WIN ]]; then
+  alias getkey="cat ~/.ssh/id_rsa.pub | clip.exe && echo '=> Public key copied to clipboard.'"
+fi
 

@@ -1,3 +1,8 @@
 #!/bin/sh
 
+if [ "$(uname)" != "Darwin" ]; then
+  echo "dns-flush: only supported on macOS" >&2
+  exit 1
+fi
+
 sudo killall -HUP mDNSResponder

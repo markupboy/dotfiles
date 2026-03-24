@@ -1,9 +1,10 @@
 if [[ -d /opt/homebrew ]]; then
-  export HOMEBREW_PREFIX="/opt/homebrew"
-  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-  export HOMEBREW_REPOSITORY="/opt/homebrew"
-  fpath[1,0]="/opt/homebrew/share/zsh/site-functions"
-  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-  [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
-  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+  # macOS ARM
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -d /home/linuxbrew/.linuxbrew ]]; then
+  # Linux (default Linuxbrew location)
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ -d "$HOME/.linuxbrew" ]]; then
+  # Linux (user-local Linuxbrew)
+  eval "$("$HOME/.linuxbrew/bin/brew" shellenv)"
 fi
