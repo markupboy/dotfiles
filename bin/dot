@@ -42,6 +42,16 @@ while test $# -gt 0; do
 	shift
 done
 
+dotlog "info" "Pulling latest from origin/main"
+git -C "$DOTFILES" fetch origin main
+if git -C "$DOTFILES" status --porcelain | grep -q .; then
+	dotlog "info" "Local changes detected — rebasing onto origin/main"
+	git -C "$DOTFILES" rebase origin/main
+else
+	git -C "$DOTFILES" merge --ff-only origin/main
+fi
+break_line
+
 if ! [[ $LINUX || $WIN ]]; then
 	dotlog "info" "Set macOS defaults"
 	"$DOTFILES/macos/set-defaults.sh"
