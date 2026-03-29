@@ -35,29 +35,4 @@ alias mv='nocorrect mv -i'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 
-# Pipe my public key to my clipboard
-getkey() {
-  local keyfile
-  if [[ -f ~/.ssh/id_ed25519.pub ]]; then
-    keyfile=~/.ssh/id_ed25519.pub
-  elif [[ -f ~/.ssh/id_rsa.pub ]]; then
-    keyfile=~/.ssh/id_rsa.pub
-  else
-    echo "Error: No public key found (~/.ssh/id_ed25519.pub or ~/.ssh/id_rsa.pub)" >&2
-    return 1
-  fi
-
-  if command -v pbcopy &>/dev/null; then
-    cat "$keyfile" | pbcopy && echo "=> Public key copied to pasteboard."
-  elif command -v xclip &>/dev/null; then
-    cat "$keyfile" | xclip -selection clipboard && echo "=> Public key copied to clipboard."
-  elif command -v wl-copy &>/dev/null; then
-    cat "$keyfile" | wl-copy && echo "=> Public key copied to clipboard."
-  elif [[ -n $WIN ]]; then
-    cat "$keyfile" | clip.exe && echo "=> Public key copied to clipboard."
-  else
-    echo "Error: No clipboard command found" >&2
-    return 1
-  fi
-}
 

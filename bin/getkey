@@ -1,0 +1,94 @@
+#!/bin/sh
+#
+# getkey - copy your SSH public key to the clipboard
+#
+# Checks ~/.ssh for local keys first, then falls back to 1Password CLI.
+
+pubkey=""
+
+# Try local key files first
+if [ -f "$HOME/.ssh/id_ed25519.pub" ]; then
+  pubkey=$(cat "$HOME/.ssh/id_ed25519.pub")
+elif [ -f "$HOME/.ssh/id_rsa.pub" ]; then
+  pubkey=$(cat "$HOME/.ssh/id_rsa.pub")
+fi
+
+# Fall back to 1Password
+cache_file="${XDG_CACHE_HOME:-$HOME/.cache}/getkey_last"
+
+if [ -z "$pubkey" ] && command -v op >/dev/null 2>&1; then
+  titles=$(op item list --categories "SSH Key" --format json 2>/dev/null \
+    | sed -n 's/.*"title": *"\([^"]*\)".*/\1/p' | sort)
+  count=$(printf '%s\n' "$titles" | grep -c .)
+
+  if [ "$count" -gt 0 ]; then
+    if [ "$count" -eq 1 ]; then
+      key_title="$titles"
+    else
+      # Load last selection as default
+      last=""
+      default_num=""
+      if [ -f "$cache_file" ]; then
+        last=$(cat "$cache_file")
+        default_num=$(printf '%s\n' "$titles" | grep -nxF "$last" | head -1 | cut -d: -f1)
+      fi
+
+      echo "No local SSH key found. Select a key from 1Password:"
+      i=1
+      printf '%s\n' "$titles" | while IFS= read -r title; do
+        if [ "$i" = "$default_num" ]; then
+          printf "  %d) %s (last used)\n" "$i" "$title"
+        else
+          printf "  %d) %s\n" "$i" "$title"
+        fi
+        i=$((i + 1))
+      done
+
+      if [ -n "$default_num" ]; then
+        printf "Choice [1-%d] (%d): " "$count" "$default_num"
+      else
+        printf "Choice [1-%d]: " "$count"
+      fi
+      read -r choice
+
+      # Use default if empty
+      if [ -z "$choice" ] && [ -n "$default_num" ]; then
+        choice="$default_num"
+      fi
+
+      if ! printf '%s' "$choice" | grep -qE '^[0-9]+$' || [ "$choice" -lt 1 ] || [ "$choice" -gt "$count" ]; then
+        echo "Invalid selection." >&2
+        exit 1
+      fi
+
+      key_title=$(printf '%s\n' "$titles" | sed -n "${choice}p")
+    fi
+
+    pubkey=$(op item get "$key_title" --fields "public_key" 2>/dev/null)
+
+    # Cache the selection
+    if [ -n "$pubkey" ]; then
+      mkdir -p "$(dirname "$cache_file")"
+      printf '%s' "$key_title" > "$cache_file"
+    fi
+  fi
+fi
+
+if [ -z "$pubkey" ]; then
+  echo "Error: No SSH public key found (checked ~/.ssh and 1Password)" >&2
+  exit 1
+fi
+
+# Copy to clipboard
+if command -v pbcopy >/dev/null 2>&1; then
+  printf '%s' "$pubkey" | pbcopy && echo "=> Public key copied to pasteboard."
+elif command -v xclip >/dev/null 2>&1; then
+  printf '%s' "$pubkey" | xclip -selection clipboard && echo "=> Public key copied to clipboard."
+elif command -v wl-copy >/dev/null 2>&1; then
+  printf '%s' "$pubkey" | wl-copy && echo "=> Public key copied to clipboard."
+elif [ -n "$WIN" ]; then
+  printf '%s' "$pubkey" | clip.exe && echo "=> Public key copied to clipboard."
+else
+  echo "Error: No clipboard command found" >&2
+  exit 1
+fi
