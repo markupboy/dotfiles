@@ -1,5 +1,6 @@
 # --- General Tmux Settings ---
-set -g default-terminal "screen-256color" # Enable 256 colors
+set -g default-terminal "tmux-256color"                # Enable 256 colors
+set -sa terminal-overrides ",*-256color*:RGB"          # True color support
 set -g mouse on                           # Enable mouse support for resizing panes, scrolling
 set -s escape-time 0                      # Reduce escape key delay (important for Vim users)
 set -g history-limit 10000                # Increase scrollback buffer
