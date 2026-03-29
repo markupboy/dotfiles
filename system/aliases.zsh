@@ -14,10 +14,10 @@ then
   alias la='eza --icons --group-directories-first -A'
 fi
 
-# ripgrep overrides for grep and ag
+# ripgrep aliases
 if command -v rg &>/dev/null
 then
-  alias grep="rg"
+  alias search="rg"
   alias ag="rg"
 fi
 
