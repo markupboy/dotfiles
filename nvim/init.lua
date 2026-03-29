@@ -25,6 +25,17 @@ vim.opt.undofile = true
 -- searching
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- splits
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- UX
+vim.opt.cursorline = true
+vim.opt.clipboard = "unnamedplus"
+vim.opt.inccommand = "split"
 
 -- misc
 vim.opt.termguicolors = true
@@ -36,6 +47,12 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
+
+-- window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- lazy (plugin manager)
 require("config.lazy")
