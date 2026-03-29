@@ -31,6 +31,16 @@
 	rebase = true
 [rerere]
 	enabled = true
+[fetch]
+	prune = true
+[push]
+	autoSetupRemote = true
+[rebase]
+	autoStash = true
+[diff]
+	colorMoved = default
+[merge]
+	conflictstyle = zdiff3
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
