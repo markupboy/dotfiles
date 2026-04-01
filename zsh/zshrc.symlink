@@ -25,12 +25,6 @@ case "$(uname -s)" in
     ;;
 esac
 
-# source every .zsh file in this rep
-for config_file ($ZSH/**/*.zsh) source "$config_file"
-
-# Move to directories without cd
-setopt autocd
-
 # initialize autocomplete
 if [[ -a ~/.zsh/completions ]]
 then
@@ -44,6 +38,12 @@ if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
 else
   compinit -C
 fi
+
+# source every .zsh file in this rep
+for config_file ($ZSH/**/*.zsh) source "$config_file"
+
+# Move to directories without cd
+setopt autocd
 
 # initialize plugins
 export ZSH_PLUGIN_PATH=/opt/homebrew/share
