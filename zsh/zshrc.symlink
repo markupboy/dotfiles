@@ -13,6 +13,7 @@ export TERM='xterm-256color'
 export ZSH=$HOME/.dotfiles
 export DOTFILES=$ZSH
 export EDITOR=nvim
+export PATH="$HOME/.local/bin:$PATH"
 
 # Platform detection
 case "$(uname -s)" in
