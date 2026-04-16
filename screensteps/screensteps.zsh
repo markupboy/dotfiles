@@ -1,5 +1,9 @@
 # mise activation
-eval "$(mise activate zsh)"
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
 
 # add mysql client to PATH
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+if [ -d "/opt/homebrew/opt/mysql-client/bin" ]; then
+  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+fi
