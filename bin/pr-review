@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Simple shortcut to performing a Claude PR review on a remote branch locally
+#
+# usage - pr-review BRANCHNAME
+
+git fetch --all && git checkout -t origin/$1
+claude -p "/pr-review-autosave:review" --allowedTools "Read,Write"
