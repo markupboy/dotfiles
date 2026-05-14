@@ -7,3 +7,7 @@ fi
 if [ -d "/opt/homebrew/opt/mysql-client/bin" ]; then
   export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 fi
+
+if [ -d "/Applications/Cursor.app" ]; then
+  alias code="cursor"
+fi
