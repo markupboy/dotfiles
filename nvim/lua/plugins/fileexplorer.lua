@@ -20,6 +20,9 @@ return {
   config = function()
     require("nvim-tree").setup {
       hijack_directories = { enable = true, auto_open = true },
+      filters = {
+        git_ignored = false,
+      },
     }
   end,
 }
