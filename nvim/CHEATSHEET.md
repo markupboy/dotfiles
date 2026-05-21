@@ -115,16 +115,51 @@ In Telescope: type to filter, `Enter` to open, `Esc` to close.
 
 ### Which-Key (Keybinding Help)
 
-Press `Space` and wait — a popup shows all available keybindings.
+Press `Space` and wait — a popup shows all available keybindings, grouped by prefix:
+
+| Prefix           | Group                                    |
+|------------------|------------------------------------------|
+| `Space f`        | find (telescope)                         |
+| `Space h`        | hunks (git)                              |
+| `Space c`        | code                                     |
+| `Space r`        | rename                                   |
+| `Space w`        | workspace                                |
+| `Space d`        | diagnostics / document                   |
 
 ### Git Signs
 
 Git change indicators appear in the sign column (left gutter) for tracked files.
 
-| Key              | Action                           |
-|------------------|----------------------------------|
-| `] c`            | Next changed hunk                |
-| `[ c`            | Previous changed hunk            |
+| Key              | Action                                   |
+|------------------|------------------------------------------|
+| `] c`            | Next changed hunk                        |
+| `[ c`            | Previous changed hunk                    |
+| `Space h s`      | Stage hunk (works on visual range too)   |
+| `Space h r`      | Reset hunk (works on visual range too)   |
+| `Space h S`      | Stage entire buffer                      |
+| `Space h R`      | Reset entire buffer                      |
+| `Space h p`      | Preview hunk in a floating window        |
+| `Space h b`      | Blame current line (full)                |
+| `Space h d`      | Diff current file against index          |
+| `Space h D`      | Diff current file against last commit    |
+| `Space h t`      | Toggle inline blame for current line     |
+| `i h`            | Text object: "inside hunk" (e.g. `d i h`)|
+
+### LSP (active when a language server attaches)
+
+| Key              | Action                                   |
+|------------------|------------------------------------------|
+| `K`              | Hover documentation                      |
+| `g d`            | Go to definition                         |
+| `g D`            | Go to declaration                        |
+| `g r`            | References (Telescope)                   |
+| `g I`            | Go to implementation                     |
+| `g y`            | Go to type definition                    |
+| `Space r n`      | Rename symbol                            |
+| `Space c a`      | Code action                              |
+| `Space d`        | Buffer diagnostics (Telescope)           |
+| `Space d s`      | Document symbols (Telescope)             |
+| `Space w s`      | Workspace symbols (Telescope)            |
 
 ### Auto Features (just work)
 

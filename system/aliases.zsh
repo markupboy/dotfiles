@@ -24,7 +24,7 @@ fi
 # bat overrides for cat
 if command -v bat &>/dev/null
 then
-  alias cat="bat"
+  alias cat="bat --paging=never"
 fi
 
 

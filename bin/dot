@@ -16,15 +16,17 @@ displayUsageAndExit() {
 	echo "Usage: dot [options]"
 	echo ""
 	echo "Options:"
-	echo "  -e, --edit    Open dotfiles directory for editing"
-	echo "  -h, --help    Show this help message and exit"
+	echo "  -e, --edit     Open dotfiles directory for editing"
+	echo "  -q, --quick    Skip git pull and brew update/upgrade (just relink + run installers)"
+	echo "  -h, --help     Show this help message and exit"
 	exit
 }
 
 break_line() {
-	echo "\n"
+	print ""
 }
 
+QUICK=false
 while test $# -gt 0; do
 	case "$1" in
 		"-h"|"--help")
@@ -34,6 +36,9 @@ while test $# -gt 0; do
 			exec "$EDITOR" "$DOTFILES"
 			exit
 			;;
+		"-q"|"--quick")
+			QUICK=true
+			;;
 		*)
 			echo "Invalid option: $1"
 			displayUsageAndExit
@@ -42,15 +47,17 @@ while test $# -gt 0; do
 	shift
 done
 
-dotlog "info" "Pulling latest from origin/main"
-git -C "$DOTFILES" fetch origin main
-if git -C "$DOTFILES" status --porcelain | grep -q .; then
-	dotlog "info" "Local changes detected — rebasing onto origin/main"
-	git -C "$DOTFILES" rebase origin/main
-else
-	git -C "$DOTFILES" merge --ff-only origin/main
+if [[ "$QUICK" != "true" ]]; then
+	dotlog "info" "Pulling latest from origin/main"
+	git -C "$DOTFILES" fetch origin main
+	if git -C "$DOTFILES" status --porcelain | grep -q .; then
+		dotlog "info" "Local changes detected — rebasing onto origin/main"
+		git -C "$DOTFILES" rebase origin/main
+	else
+		git -C "$DOTFILES" merge --ff-only origin/main
+	fi
+	break_line
 fi
-break_line
 
 if ! [[ $LINUX || $WIN ]]; then
 	dotlog "info" "Set macOS defaults"
@@ -62,26 +69,28 @@ if ! [[ $LINUX || $WIN ]]; then
 	break_line
 fi
 
-# Install and update Homebrew (works on macOS and Linux)
-dotlog "info" "Install homebrew"
-"$DOTFILES/homebrew/install.sh" 2>&1
-break_line
-
-if command -v brew &>/dev/null; then
-	BREW_BIN="$(command -v brew)"
-
-	dotlog "info" "Upgrade homebrew"
-	dotlog "info" "brew update"
-	"$BREW_BIN" update
+if [[ "$QUICK" != "true" ]]; then
+	# Install and update Homebrew (works on macOS and Linux)
+	dotlog "info" "Install homebrew"
+	"$DOTFILES/homebrew/install.sh" 2>&1
 	break_line
 
-	dotlog "info" "brew upgrade"
-	"$BREW_BIN" upgrade
-	break_line
+	if command -v brew &>/dev/null; then
+		BREW_BIN="$(command -v brew)"
 
-	dotlog "info" "brew cleanup"
-	"$BREW_BIN" cleanup
-	break_line
+		dotlog "info" "Upgrade homebrew"
+		dotlog "info" "brew update"
+		"$BREW_BIN" update
+		break_line
+
+		dotlog "info" "brew upgrade"
+		"$BREW_BIN" upgrade
+		break_line
+
+		dotlog "info" "brew cleanup"
+		"$BREW_BIN" cleanup
+		break_line
+	fi
 fi
 
 dotlog "info" "Install software"
