@@ -9,5 +9,7 @@ if [ -d "/opt/homebrew/opt/mysql-client/bin" ]; then
 fi
 
 if [ -d "/Applications/Cursor.app" ]; then
+  echo "HI"
   alias code="cursor"
+  alias ccc="cursor ."
 fi
