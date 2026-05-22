@@ -27,6 +27,12 @@ then
   alias cat="bat --paging=never"
 fi
 
+# ide alias
+alias ccc="code ."
+if [ -d "/Applications/Cursor.app" ]; then
+  alias code="cursor"
+fi
+
 
 #nocorrect when you might get a new dir or file
 alias vim='nocorrect nvim'
