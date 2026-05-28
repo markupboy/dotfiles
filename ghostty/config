@@ -35,6 +35,9 @@ window-padding-balance = true
 window-save-state = always
 window-title-font-family = "Consolas"
 
+# Let our custom zsh hook own the title (see ghostty/ghostty.zsh)
+shell-integration-features = no-title
+
 # auto update settings
 auto-update = download
 auto-update-channel = stable
