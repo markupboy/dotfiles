@@ -1,3 +1,5 @@
 if command -v zoxide &>/dev/null; then
-  eval "$(zoxide init zsh)"
+  if [[ "$CLAUDECODE" != "1" ]]; then
+    eval "$(zoxide init zsh)"
+  fi
 fi
