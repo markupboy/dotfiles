@@ -27,3 +27,5 @@ node_modules/
 # direnv
 .direnv/
 
+
+**/.claude/settings.local.json
