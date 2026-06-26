@@ -1,6 +1,3 @@
-# wt configuration file
-# See: https://github.com/timvw/wt#configuration
-
 # Root directory for worktrees (default: ~/dev/worktrees)
 root = "~/Code/worktrees"
 
