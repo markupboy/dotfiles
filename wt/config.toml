@@ -1,0 +1,10 @@
+# wt configuration file
+# See: https://github.com/timvw/wt#configuration
+
+# Root directory for worktrees (default: ~/dev/worktrees)
+root = "~/Code/worktrees"
+
+[hooks]
+# copy .env files to worktrees if available
+post_create = ["test -f \"$WT_MAIN/.env\" && cp \"$WT_MAIN/.env\" \"$WT_PATH/.env\" || true"]
+
