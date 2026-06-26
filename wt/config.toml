@@ -1,7 +1,5 @@
-# Root directory for worktrees (default: ~/dev/worktrees)
-root = "~/Code/worktrees"
+worktree-path = "~/Code/worktrees/{{ repo }}/{{ branch | sanitzie }}"
 
-[hooks]
-# copy .env files to worktrees if available
-post_create = ["test -f \"$WT_MAIN/.env\" && cp \"$WT_MAIN/.env\" \"$WT_PATH/.env\" || true"]
+[post-create]
+env = "wt step copy-ignored"
 
