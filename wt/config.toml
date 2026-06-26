@@ -1,4 +1,4 @@
-worktree-path = "~/Code/worktrees/{{ repo }}/{{ branch | sanitzie }}"
+worktree-path = "~/Code/worktrees/{{ repo }}/{{ branch | sanitize }}"
 
 [post-create]
 env = "wt step copy-ignored"
