@@ -30,7 +30,7 @@ fi
 # ide alias
 alias ccc="code ."
 if [ -d "/Applications/Cursor.app" ]; then
-  alias code="cursor"
+  alias code="cursor --classic"
 fi
 
 
