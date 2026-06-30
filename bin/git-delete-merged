@@ -1,5 +1,26 @@
 #!/bin/sh
 #
-# Clear local repo of merged branches
+# Clear local repo of branches already merged into the default branch.
 
-git branch --merged | grep -v "\*" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -d
+# Determine the default branch (origin's HEAD), falling back to main/master.
+default_branch=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null | sed 's@^origin/@@')
+if [ -z "$default_branch" ]; then
+  if git show-ref --verify --quiet refs/heads/main; then
+    default_branch=main
+  elif git show-ref --verify --quiet refs/heads/master; then
+    default_branch=master
+  else
+    echo "Could not determine the default branch." >&2
+    exit 1
+  fi
+fi
+
+# List branches merged into the default branch, excluding the current branch
+# (marked with *) and the default branch itself, then delete each one.
+git branch --merged "$default_branch" \
+  | grep -v '^[*+]' \
+  | sed 's/^[[:space:]]*//' \
+  | grep -vxF "$default_branch" \
+  | while IFS= read -r branch; do
+      [ -n "$branch" ] && git branch -d "$branch"
+    done
