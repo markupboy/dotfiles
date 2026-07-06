@@ -22,7 +22,6 @@ link_claude() {
   dotlog "install" "Linked $dst"
 }
 
-chmod +x "$script_dir/statusline.sh" "$script_dir/hooks/"*.sh
+chmod +x "$script_dir/statusline.sh"
 
 link_claude "$script_dir/statusline.sh" "$claude_dir/statusline.sh"
-link_claude "$script_dir/hooks"         "$claude_dir/hooks"
