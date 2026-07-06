@@ -5,4 +5,4 @@
 # usage - pr-review BRANCHNAME
 
 git fetch --all && git checkout -t origin/$1
-claude -p "/pr-review-autosave:review" --allowedTools "Read,Write"
+claude -p "/pr-review" --allowedTools "Read,Write,Grep,Glob,Bash(git *),Bash(gh *)"

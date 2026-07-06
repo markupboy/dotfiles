@@ -1,0 +1,66 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(docker compose:*)",
+      "Bash(docker pull:*)",
+      "Bash(echo:*)",
+      "Bash(file:*)",
+      "Bash(find:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh run view:*)",
+      "Bash(git -C:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(python3:*)",
+      "Bash(wc:*)",
+      "Bash(xargs:*)",
+      "WebSearch"
+    ],
+    "defaultMode": "default",
+    "additionalDirectories": [
+      "/Users/blake/.local/share/nvim/mason/packages",
+      "/tmp"
+    ]
+  },
+  "enabledPlugins": {
+    "pr-review-toolkit@claude-plugins-official": true
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "model": "claude-fable-5[1m]",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt|idle_prompt|agent_needs_input",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify.sh",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify.sh",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  }
+}

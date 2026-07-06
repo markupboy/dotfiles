@@ -11,7 +11,7 @@ if [ ! -d "$HOME/.config/worktrunk" ]; then
   # Create or overwrite the symbolic link
   ln -s "$script_dir" "$HOME/.config/worktrunk"
 
-  dotlog "info" "Be sure to install worktrunk for your platform"
+  dotlog "info" "worktrunk binary is installed via the Brewfile"
 else
   dotlog "skip" "Skipping worktrunk"
 fi
