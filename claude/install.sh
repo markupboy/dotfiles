@@ -24,7 +24,5 @@ link_claude() {
 
 chmod +x "$script_dir/statusline.sh" "$script_dir/hooks/"*.sh
 
-link_claude "$script_dir/settings.json" "$claude_dir/settings.json"
-link_claude "$script_dir/CLAUDE.md"     "$claude_dir/CLAUDE.md"
 link_claude "$script_dir/statusline.sh" "$claude_dir/statusline.sh"
 link_claude "$script_dir/hooks"         "$claude_dir/hooks"
