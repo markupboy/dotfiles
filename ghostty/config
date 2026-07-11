@@ -14,6 +14,9 @@ cursor-invert-fg-bg = true
 mouse-hide-while-typing = true
 minimum-contrast = 1.3
 
+# local overrides
+config-file = ?local.ghostty
+
 # macOS-specific settings
 macos-option-as-alt = true
 macos-non-native-fullscreen = visible-menu

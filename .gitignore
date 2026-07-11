@@ -5,6 +5,7 @@ nvim/lazy-lock.json
 git/gitconfig.local.symlink
 .claude/settings.local.json
 zsh/*.local.*
+local.ghostty
 
 # Compiled source #
 ###################
