@@ -59,7 +59,7 @@ if [[ "$QUICK" != "true" ]]; then
 	break_line
 fi
 
-if ! [[ $LINUX || $WIN ]]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
 	dotlog "info" "Set macOS defaults"
 	"$DOTFILES/macos/set-defaults.sh"
 	break_line
