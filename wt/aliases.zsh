@@ -24,6 +24,15 @@ wtpr() {
     tmux send-keys -t "$session:.0" 'ai /pr-review' Enter
   fi
 
+  # Name the Ghostty window "repo - #PR". --git-common-dir resolves to the main
+  # repo's .git even from a linked worktree, so its parent is the repo name.
+  # tmux.conf reads @ghostty_title into set-titles-string.
+  # NB: no "=" prefix on the target — tmux set-option rejects "=name" with
+  # "no such session" (unlike has-session), so use the plain session name.
+  local repo
+  repo=$(basename "$(dirname "$(git -C "$wt_path" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)")")
+  tmux set-option -t "$session" @ghostty_title "$repo - #$pr"
+
   if [[ -n "$TMUX" ]]; then
     tmux switch-client -t "$session"
   else

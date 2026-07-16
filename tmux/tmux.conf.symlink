@@ -5,6 +5,12 @@ set -g mouse on                           # Enable mouse support for resizing pa
 set -s escape-time 0                      # Reduce escape key delay (important for Vim users)
 set -g history-limit 10000                # Increase scrollback buffer
 
+# --- Terminal (Ghostty) window title ---
+# Let tmux drive the outer terminal title. Use the session option @ghostty_title
+# when set (wtpr sets it to "repo - #PR"), else fall back to the pane's dir name.
+set -g set-titles on
+set -g set-titles-string "#{?@ghostty_title,#{@ghostty_title},#{b:pane_current_path}}"
+
 # --- Custom Key Bindings for Panes ---
 # Split panes horizontally and vertically using intuitive | and - keys
 bind | split-window -h -c "#{pane_current_path}" # Split vertical
