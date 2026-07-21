@@ -37,7 +37,35 @@ wtpr() {
     tmux switch-client -t "$session"
   else
     tmux attach-session -t "$session"
+    # If the session is gone once attach returns, it was killed (e.g. by wtprx)
+    # rather than detached, so exit this shell and let Ghostty close the window.
+    # A manual detach (prefix-d) leaves the session alive, so we fall through to
+    # the prompt instead.
+    tmux has-session -t "=$session" 2>/dev/null || exit
   fi
+}
+
+# Companion to wtpr: kill a PR's tmux session and close its terminal window.
+# Run it from inside the pr-<n> session, or pass the PR number explicitly.
+# Killing the session detaches the attached client; wtpr's attach branch then
+# sees the session is gone and exits the shell, which closes the Ghostty window.
+wtprx() {
+  local session
+  if [[ -n "$1" ]]; then
+    session="pr-$1"
+  elif [[ -n "$TMUX" ]]; then
+    session=$(tmux display-message -p '#S')
+  else
+    echo "usage: wtprx <pr-number>  (or run inside the pr-<n> tmux session)" >&2
+    return 1
+  fi
+
+  if ! tmux has-session -t "=$session" 2>/dev/null; then
+    echo "wtprx: no tmux session '$session'" >&2
+    return 1
+  fi
+
+  tmux kill-session -t "=$session"
 }
 
 alias wtc='wt switch --create --execute=ai'
