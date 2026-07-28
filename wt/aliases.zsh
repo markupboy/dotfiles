@@ -1,3 +1,41 @@
+# Fast-forward a PR worktree to the PR's current head. `wt switch` resolves or
+# creates a worktree but never refreshes an existing one, and there's no
+# `wt pull`, so wtpr does it with plain git. Always non-fatal: on anything
+# unexpected we warn and return 0 so the tmux session still comes up.
+_wtpr_sync() {
+  local pr="$1" wt_path="$2"
+
+  git -C "$wt_path" symbolic-ref --quiet HEAD >/dev/null || return 0  # detached
+
+  # -uno so /pr-review's untracked review_*.md files don't block the pull;
+  # modified tracked files do, and we leave them alone.
+  if [[ -n "$(git -C "$wt_path" status --porcelain -uno)" ]]; then
+    echo "wtpr: worktree has uncommitted changes — skipping pull" >&2
+    return 0
+  fi
+
+  # refs/pull/N/head covers same-repo and fork PRs alike, so we don't need a
+  # tracking branch — fork PRs often have none, since wt only sets pushRemote.
+  # The ref lives on the base repo, hence origin rather than the branch remote.
+  if ! git -C "$wt_path" fetch --quiet origin "refs/pull/$pr/head"; then
+    echo "wtpr: could not fetch refs/pull/$pr/head — skipping pull" >&2
+    return 0
+  fi
+
+  local before head
+  before=$(git -C "$wt_path" rev-parse HEAD)
+  head=$(git -C "$wt_path" rev-parse FETCH_HEAD)
+  [[ "$before" == "$head" ]] && return 0
+
+  # Swallow git's "can't be fast-forwarded" advice block — our message below
+  # says the same thing. Fetch errors stay visible; those are worth reading.
+  if git -C "$wt_path" merge --ff-only --quiet FETCH_HEAD 2>/dev/null; then
+    echo "wtpr: pulled $(git -C "$wt_path" rev-list --count "$before..HEAD") new commit(s) → $(git -C "$wt_path" rev-parse --short HEAD)"
+  else
+    echo "wtpr: local branch has diverged from PR #$pr — skipping pull" >&2
+  fi
+}
+
 wtpr() {
   local pr="$1"
   if [[ -z "$pr" ]]; then
@@ -15,6 +53,8 @@ wtpr() {
     echo "wtpr: could not resolve worktree path for pr:$pr" >&2
     return 1
   fi
+
+  _wtpr_sync "$pr" "$wt_path"
 
   local session="pr-$pr"
   if ! tmux has-session -t "=$session" 2>/dev/null; then
