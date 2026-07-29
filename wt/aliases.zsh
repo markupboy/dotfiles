@@ -58,8 +58,8 @@ wtpr() {
 
   local session="pr-$pr"
   if ! tmux has-session -t "=$session" 2>/dev/null; then
-    tmux new-session -d -s "$session" -c "$wt_path"     # pane 0 (left)
-    tmux split-window -h -t "$session:" -c "$wt_path"   # pane 1 (right, plain shell)
+    tmux new-session -d -s "$session" -c "$wt_path"     # pane 0 (top)
+    tmux split-window -v -t "$session:" -c "$wt_path"   # pane 1 (bottom, plain shell)
     tmux select-pane -t "$session:.0"
     tmux send-keys -t "$session:.0" 'ai /pr-review' Enter
   fi
