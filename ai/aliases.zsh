@@ -1,6 +1,12 @@
-alias ai="claude --dangerously-skip-permissions"
-alias aic="claude --dangerously-skip-permissions --continue"
-alias air="claude --dangerously-skip-permissions --resume"
+if [[ "$AI_CLI" == "cursor" ]]; then
+  ai_cli="cursor-agent --force"
+else
+  ai_cli="claude --dangerously-skip-permissions"
+fi
+
+alias ai="${ai_cli}"
+alias aic="${ai_cli} --continue"
+alias air="${ai_cli} --resume"
 
 # headless one-shot: aip "prompt" [extra claude flags]
 aip() {
