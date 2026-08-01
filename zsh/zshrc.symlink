@@ -32,8 +32,26 @@ then
   fpath=(~/.zsh/completions $fpath)
 fi
 autoload -Uz compinit
-# Filter missing fpath directories to suppress compinit warnings (e.g. Docker Desktop not running in WSL)
-fpath=(${^fpath[@]}(N-/))
+
+# fix for Docker Desktop's WSL integration interacting 
+# with zsh's compinit
+typeset -a _fpath_filtered
+for _fp_dir in ${^fpath[@]}(N-/); do
+  _fp_broken=(${_fp_dir}/*(N-@))
+  if (( $#_fp_broken )); then
+    _fp_safe="$HOME/.cache/zsh-fpath/${_fp_dir//\//_}"
+    mkdir -p "$_fp_safe"
+    command rm -f "$_fp_safe"/*(N)
+    for _fp_file in ${_fp_dir}/*(N^-@); do
+      ln -sf "$_fp_file" "$_fp_safe/${_fp_file:t}"
+    done
+    _fpath_filtered+=("$_fp_safe")
+  else
+    _fpath_filtered+=("$_fp_dir")
+  fi
+done
+fpath=($_fpath_filtered)
+unset _fpath_filtered _fp_dir _fp_broken _fp_safe _fp_file
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
   compinit
 else
