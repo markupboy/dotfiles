@@ -10,5 +10,5 @@ alias air="${ai_cli} --resume"
 
 # headless one-shot: aip "prompt" [extra claude flags]
 aip() {
-  claude -p "$@"
+  ai -p "$@"
 }
