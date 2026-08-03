@@ -46,7 +46,7 @@ vim.opt.listchars = { tab = "› ", eol = "¬", trail = "⋅" }
 -- misc
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 999
+vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
