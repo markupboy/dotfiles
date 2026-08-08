@@ -36,6 +36,6 @@ the full experience.
 
 ## Credits
 
-This has been a long-lived (now more than 15 years 🎉), much deviated
-fork of [Zach Holman's dotfiles](https://github.com/holman/dotfiles).
-Credit to him for the structure, some of the code, and the inspiration.
+This had long been a much deviated fork of [Zach Holman's dotfiles](https://github.com/holman/dotfiles)
+until the shift to [Fish](https://fishshell.com/) in 2026. Credit to Zach for
+the inspiration and some of the remaining code.
