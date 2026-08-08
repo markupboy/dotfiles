@@ -1,46 +1,44 @@
-#!/bin/zsh
+#!/usr/bin/env bash
+#
+# dotlog -- badge-prefixed log output for the dotfiles scripts
+#
+# Usage: dotlog <info|install|success|skip|user|error|divider> [message...]
 
-# Load colors if available
-autoload -U colors && colors
+FG_BLACK=$'\033[30m'
+BG_GREEN=$'\033[42m'
+BG_RED=$'\033[41m'
+BG_YELLOW=$'\033[43m'
+FG_CYAN=$'\033[36m'
+BG_CYAN=$'\033[46m'
+RESET=$'\033[0m'
 
-# Define colors
-FG_BLACK=$fg[black]
-FG_GREEN=$fg[green]
-BG_GREEN=$bg[green]
-FG_RED=$fg[red]
-BG_RED=$bg[red]
-FG_YELLOW=$fg[yellow]
-BG_YELLOW=$bg[yellow]
-FG_CYAN=$fg[cyan]
-BG_CYAN=$bg[cyan]
-RESET=$reset_color
-
-local type=$1
+type=$1
 shift
-local message="$@"
+message="$*"
+
 case $type in
     info)
-        echo -e "${BG_CYAN}${FG_BLACK} info ${RESET} $message"
+        printf '%s%s info %s %b\n' "$BG_CYAN" "$FG_BLACK" "$RESET" "$message"
         ;;
     install)
-        echo -e "${BG_GREEN}${FG_BLACK} install ${RESET} $message"
+        printf '%s%s install %s %b\n' "$BG_GREEN" "$FG_BLACK" "$RESET" "$message"
         ;;
     success)
-        echo -e "${BG_GREEN}${FG_BLACK} ok ${RESET} $message"
+        printf '%s%s ok %s %b\n' "$BG_GREEN" "$FG_BLACK" "$RESET" "$message"
         ;;
     skip)
-        echo -e "${BG_YELLOW}${FG_BLACK} skipping ${RESET} $message"
+        printf '%s%s skipping %s %b\n' "$BG_YELLOW" "$FG_BLACK" "$RESET" "$message"
         ;;
     user)
-        echo -e "${BG_YELLOW}${FG_BLACK} user ${RESET} $message"
+        printf '%s%s user %s %b\n' "$BG_YELLOW" "$FG_BLACK" "$RESET" "$message"
         ;;
     error)
-        echo -e "${BG_RED}${FG_BLACK} error ${RESET} $message"
+        printf '%s%s error %s %b\n' "$BG_RED" "$FG_BLACK" "$RESET" "$message"
         ;;
     divider)
-        echo -e "${FG_CYAN}_________________________________${RESET}"
+        printf '%s_________________________________%s\n' "$FG_CYAN" "$RESET"
         ;;
     *)
-        echo -e "${BG_CYAN} info ${RESET} $message"
+        printf '%s info %s %b\n' "$BG_CYAN" "$RESET" "$message"
         ;;
 esac

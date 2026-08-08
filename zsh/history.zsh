@@ -1,6 +1,0 @@
-HISTFILE=~/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
-DIRSTACKSIZE=20
-
-alias h="history 1"

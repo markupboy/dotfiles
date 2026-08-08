@@ -20,8 +20,16 @@ subtopic install scripts.
 The `dot` command will sync any changes, rerun the topic installers,
 and, on MacOS, set OS defaults and tend to homebrew updates.
 
-These dotfiles assume/require neovim, Starship prompt, and the zsh
-plugins zsh-autosuggestions and zsh-syntax-highlighting.
+These dotfiles assume/require fish, neovim, and the Starship prompt. Fish
+provides syntax highlighting, autosuggestions, and completions itself, so
+there is no plugin manager to bootstrap.
+
+`fish/install.sh` links `fish/` to `~/.config/fish`. On macOS, `dot` makes fish
+your login shell via `macos/set-shell.sh` once it's installed — it registers
+fish in `/etc/shells` and runs `chsh`, and does nothing at all if fish is
+already the login shell. The repo's own tooling
+(`script/bootstrap`, `bin/dot`, the topic installers) is bash, so it still
+runs on a machine where fish isn't installed yet.
 
 Be sure to install the `Consolas` and `Consolas Nerd Font Mono` fonts for
 the full experience.

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 #
 # dot
 #
@@ -23,7 +23,7 @@ displayUsageAndExit() {
 }
 
 break_line() {
-	print ""
+	echo ""
 }
 
 QUICK=false
@@ -66,6 +66,10 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 
 	dotlog "info" "Set macOS hostname"
 	"$DOTFILES/macos/set-hostname.sh"
+	break_line
+
+	dotlog "info" "Set login shell to fish"
+	"$DOTFILES/macos/set-shell.sh"
 	break_line
 fi
 

@@ -33,4 +33,4 @@ fmt_success "dotfiles cloned"
 # Run bootstrap
 fmt_info "running bootstrap..."
 cd "$DOTFILES_DIR"
-exec zsh script/bootstrap
+exec bash script/bootstrap

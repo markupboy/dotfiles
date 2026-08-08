@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 #
 # Run all dotfiles installers.
 
@@ -8,11 +8,12 @@ export DOTFILES="${DOTFILES:-$(cd "$(dirname "$0")/.." && pwd -P)}"
 
 cd "$DOTFILES"
 
-# find the installers and run them iteratively
-for installer in **/install.sh; do
+# find the installers and run them iteratively.
+# `find` rather than a `**` glob — macOS ships bash 3.2, which has no globstar.
+while IFS= read -r installer; do
   dotlog "install" "./${installer}"
   if ! ./"${installer}"; then
     dotlog "error" "Failed: ./${installer}"
     exit 1
   fi
-done
+done < <(find . -name install.sh -type f -not -path './.git/*' | sed 's|^\./||' | sort)

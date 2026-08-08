@@ -1,2 +1,0 @@
-# Disable Ubuntu's internal compinit run.
-skip_global_compinit=1

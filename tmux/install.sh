@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 set -e
 
 if [ ! -d "$HOME/.tmux/plugins" ]; then
