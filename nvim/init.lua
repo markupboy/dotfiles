@@ -42,6 +42,7 @@ vim.opt.showmatch = true
 vim.opt.showbreak = "↪"
 vim.opt.list = true
 vim.opt.listchars = { tab = "› ", eol = "¬", trail = "⋅" }
+vim.opt.fillchars:append({ eob = " " })
 
 -- misc
 vim.opt.termguicolors = true
