@@ -8,7 +8,3 @@ alias ai="${ai_cli}"
 alias aic="${ai_cli} --continue"
 alias air="${ai_cli} --resume"
 
-# headless one-shot: aip "prompt"
-aip() {
-  ai -p "$@"
-}

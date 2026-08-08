@@ -1,7 +1,6 @@
 # brew bundle --file ${PWD}/Brewfile
 
 # command line tools
-brew "aichat"
 brew "aria2"
 brew "atuin"
 brew "awscli"
@@ -26,7 +25,6 @@ brew "neovim"
 brew "nmap"
 brew "ripgrep"
 brew "starship"
-brew "tig"
 brew "tlrc"
 brew "vivid"
 brew "wakeonlan"
