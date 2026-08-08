@@ -83,7 +83,7 @@ if [[ "$QUICK" != "true" ]]; then
 		break_line
 
 		dotlog "info" "brew upgrade"
-		"$BREW_BIN" upgrade
+		"$BREW_BIN" upgrade --no-ask
 		break_line
 
 		dotlog "info" "brew cleanup"
