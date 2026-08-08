@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+#
+# Link topic directories into ~/.config.
+#
+# Each entry is a topic directory in this repo, linked to ~/.config/<same name>.
+# A topic that needs a config directory names itself after it.
+
+set -e
+
+export DOTFILES="${DOTFILES:-$(cd "$(dirname "$0")/.." && pwd -P)}"
+
+CONFIG_LINKS=(
+  fish
+  ghostty
+  nvim
+  worktrunk
+)
+
+link_config () {
+  local src="$DOTFILES/$1" dst="$HOME/.config/$1"
+
+  if [ -L "$dst" ]; then
+    if [ "$(readlink "$dst")" = "$src" ]; then
+      dotlog "skip" "$dst"
+      return 0
+    fi
+    rm -f "$dst"                          # stale or broken link
+  elif [ -e "$dst" ]; then
+    dotlog "error" "$dst exists and is not a symlink; move it aside and re-run"
+    return 1
+  fi
+
+  dotlog "install" "$dst -> $src"
+  ln -sfn "$src" "$dst"
+}
+
+mkdir -p "$HOME/.config"
+
+status=0
+for topic in "${CONFIG_LINKS[@]}"; do
+  link_config "$topic" || status=1
+done
+
+exit $status

@@ -40,12 +40,21 @@ Remote one-liner install: `curl -fsSL .../script/remote.sh | bash` — clones to
 1. **`*.symlink` files → `~/.<name>`**, linked by `script/bootstrap` (which finds
    them with `find`, prompts on collision, and offers skip/overwrite/backup).
    Example: `git/gitconfig.symlink` → `~/.gitconfig`.
-2. **Whole topic directories → `~/.config/<name>`**, linked by that topic's own
-   `install.sh`: `fish/` → `~/.config/fish`, `nvim/` → `~/.config/nvim`,
-   `ghostty/` → `~/.config/ghostty`, `wt/` → `~/.config/worktrunk`.
+2. **Whole topic directories → `~/.config/<same name>`**, linked by
+   `script/link-config` from its `CONFIG_LINKS` list: `fish`, `ghostty`, `nvim`,
+   `worktrunk`. Adding a config topic means adding one line to that list — the
+   topic directory is named after its `~/.config` entry, so there is no mapping to
+   maintain and no per-topic `install.sh`. `script/install` runs it before the
+   installer loop.
 
-Installers must stay idempotent — each one checks for an existing link/dir and
-`dotlog skip`s rather than re-linking, because `dot` runs them on every invocation.
+Both mechanisms must stay idempotent, because `dot` runs them on every invocation.
+`link_config` compares `readlink` against the intended target: same target →
+`dotlog skip`, stale or broken link → relink, real directory in the way → `dotlog
+error` and a non-zero exit (after trying the remaining topics).
+
+A topic only needs an `install.sh` when it does something *other* than config-dir
+linking — `git/` (sets `core.excludesFile`), `tmux/` (clones tpm), `homebrew/`
+(installs brew), `linux/` (apt build deps).
 
 ### Shell configuration
 
@@ -124,7 +133,7 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
 - **linux/** — Linuxbrew build dependencies for Debian/Ubuntu
 - **macos/** — `set-defaults.sh`, `set-hostname.sh`, `set-shell.sh`; run by `dot`,
   *not* by `script/install`
-- **wt/** — worktrunk config; drives the `wtpr`/`wtprx`/`wtclean` worktree +
+- **worktrunk/** — worktrunk config; drives the `wtpr`/`wtprx`/`wtclean` worktree +
   tmux PR-review workflow in `fish/functions/`
 
 ### Tooling

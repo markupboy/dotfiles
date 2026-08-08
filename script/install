@@ -8,6 +8,12 @@ export DOTFILES="${DOTFILES:-$(cd "$(dirname "$0")/.." && pwd -P)}"
 
 cd "$DOTFILES"
 
+dotlog "install" "./script/link-config"
+if ! ./script/link-config; then
+  dotlog "error" "Failed: ./script/link-config"
+  exit 1
+fi
+
 # find the installers and run them iteratively.
 # `find` rather than a `**` glob — macOS ships bash 3.2, which has no globstar.
 while IFS= read -r installer; do
