@@ -64,6 +64,7 @@ Your leader key is **Space**.
 | `n`         | Next search result                  |
 | `N`         | Previous search result              |
 | `*`         | Search for word under cursor        |
+| `<leader>/` | Clear the search highlight          |
 
 ## Files & Buffers
 
@@ -176,7 +177,7 @@ Git change indicators appear in the sign column (left gutter) for tracked files.
 | Leader key         | Space                            |
 | Tab width          | 2 spaces                         |
 | Line numbers       | Relative (with current line #)   |
-| Search highlight   | Off (clears after search)        |
+| Search highlight   | On (`<leader>/` to clear)        |
 | Undo history       | Persistent (survives restarts)   |
 | Colorcolumn        | 80 characters                    |
 | Scroll padding     | 8 lines from edge                |

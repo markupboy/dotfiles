@@ -2,7 +2,7 @@
 #
 # set up dotfiles
 
-export PATH=".:./bin:$PATH"
+export PATH="./bin:$PATH"
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT="$(pwd -P)"

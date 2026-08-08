@@ -9,7 +9,7 @@
   branch = auto
   ui = true
 [core]
-	excludesFile = $HOME/.gitignore
+  excludesFile = ~/.gitignore
   editor = nvim
   pager = delta
 [interactive]

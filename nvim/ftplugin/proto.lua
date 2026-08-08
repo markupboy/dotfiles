@@ -5,4 +5,4 @@ vim.opt_local.expandtab = true
 
 -- Fold via tree-sitter
 vim.opt_local.foldmethod = "expr"
-vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"

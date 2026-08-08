@@ -8,7 +8,7 @@ Tmux commands work by pressing the prefix first, releasing, then pressing the ac
 
 | Alias | Action                              |
 |-------|-------------------------------------|
-| `T`   | Run startup-tmux.sh script          |
+| `T`   | Start tmux                          |
 | `Ta`  | Attach to last tmux session         |
 | `Tr`  | Reload tmux config                  |
 

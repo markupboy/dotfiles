@@ -1,10 +1,8 @@
 # Project Specific Files #
 ##########################
-nvim/plugin
 nvim/lazy-lock.json
 git/gitconfig.local.symlink
 .claude/settings.local.json
-fish/*.local.*
 local.ghostty
 
 # fish writes runtime state into its config dir, which IS this repo

@@ -14,8 +14,8 @@ curl -fsSL https://raw.githubusercontent.com/markupboy/dotfiles/main/script/remo
 - `script/bootstrap`
 
 The bootstrap script will set up a gitconfig, symlink the appropriate
-files in `.dotfiles` to your home and .config directores, and optionally run
-the subtopic install scripts.
+files in `.dotfiles` to your home and .config directories, then run `dot`,
+which runs every topic install script.
 
 The `dot` command will sync any changes, rerun the topic installers,
 and, on MacOS, set OS defaults and tend to homebrew updates.

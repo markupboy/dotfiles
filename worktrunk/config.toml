@@ -1,5 +1,8 @@
 worktree-path = "~/Code/worktrees/{{ repo }}/{{ branch | sanitize }}"
 
-[post-create]
+[post-start]
 env = "wt step copy-ignored"
+
+[list]
+json-schema = 2
 

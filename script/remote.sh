@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # One-liner dotfiles install:
-#   curl -fsSL https://raw.githubusercontent.com/markupboy/dotfiles/main/script/remote-install | bash
+#   curl -fsSL https://raw.githubusercontent.com/markupboy/dotfiles/main/script/remote.sh | bash
 #
 
 set -e

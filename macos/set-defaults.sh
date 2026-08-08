@@ -22,9 +22,6 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder "_FXSortFoldersFirstOnDesktop" -bool "true" && killall Finder
 
-# Don't write to network shares
-defaults write com.apple.desktopservices DSDontWriteNetworkStores true
-
 # Dock settings
 defaults write com.apple.dock "autohide-delay" -float "0" && killall Dock
 defaults write com.apple.dock "autohide-time-modifier" -float "0.5" && killall Dock
