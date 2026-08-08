@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 set -e
 
 BREW_BIN="$(command -v brew || true)"

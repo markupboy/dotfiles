@@ -5,6 +5,15 @@ set -g mouse on                           # Enable mouse support for resizing pa
 set -s escape-time 0                      # Reduce escape key delay (important for Vim users)
 set -g history-limit 10000                # Increase scrollback buffer
 
+# --- Shell ---
+# New panes get fish wherever it lives, so tmux-continuum's restored sessions
+# don't keep spawning whatever shell tmux was originally started from.
+# Last matching line wins, so the preferred prefix is checked last.
+if-shell '[ -x /usr/bin/fish ]'                      'set -g default-shell /usr/bin/fish'
+if-shell '[ -x /home/linuxbrew/.linuxbrew/bin/fish ]' 'set -g default-shell /home/linuxbrew/.linuxbrew/bin/fish'
+if-shell '[ -x /usr/local/bin/fish ]'                'set -g default-shell /usr/local/bin/fish'
+if-shell '[ -x /opt/homebrew/bin/fish ]'             'set -g default-shell /opt/homebrew/bin/fish'
+
 # --- Terminal (Ghostty) window title ---
 # Let tmux drive the outer terminal title. Use the session option @ghostty_title
 # when set (wtpr sets it to "repo - #PR"), else fall back to the pane's dir name.

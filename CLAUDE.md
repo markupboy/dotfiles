@@ -4,93 +4,134 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a personal dotfiles repository that manages shell configuration, development tools, and system preferences for macOS and Linux (both bare metal and WSL). It's a fork of Zach Holman's dotfiles structure with significant customizations.
+A personal dotfiles repository managing shell configuration, development tools, and
+system preferences for macOS and Linux (bare metal and WSL). A long-lived, heavily
+deviated fork of Zach Holman's dotfiles structure.
+
+Fish is the login shell; neovim is the editor; starship is the prompt. There is no
+build step, no test suite, and no CI — changes are verified by running the setup
+scripts and opening a new shell.
 
 ## Key Commands
 
-### Initial Setup
+```sh
+script/bootstrap   # full setup: gitconfig prompt, symlinks, dot, brew bundle
+script/install     # run every topic install.sh (idempotent)
+bin/dot            # maintenance: pull, macOS defaults, brew update/upgrade, installers
+bin/dot -q         # skip git pull + brew; just relink and re-run installers
+bin/dot -e         # open the dotfiles repo in $EDITOR
 
-- `script/bootstrap` - Sets up the entire dotfiles system by symlinking all `.symlink` files to the home directory, configuring git (author name/email from template), and optionally running topic installers
-- `script/install` - Finds and runs all `install.sh` scripts in topic directories
-- `bin/dot` - Main maintenance command that updates macOS defaults, hostname, and homebrew
+brew bundle --file=$DOTFILES/homebrew/Brewfile   # install/refresh all packages
+```
 
-### Package Management
+`dot` and every topic installer depend on `dotlog` (in `bin/`) being on `PATH`.
+`script/bootstrap` prepends `./bin` for that reason; `dot` relies on
+`fish/conf.d/02-path.fish` having already added `$DOTFILES/bin`. Invoking an
+`install.sh` directly from a shell where `$DOTFILES/bin` isn't on `PATH` will fail
+on the first `dotlog` call.
 
-- `brew bundle --file=$DOTFILES/homebrew/Brewfile` - Install all applications and command line tools via Homebrew
-
-## Directory Structure
-
-The repository follows a topic-based organization where each directory represents a different area of configuration:
-
-- **atuin/**: Shell history management (Atuin config and zsh integration)
-- **bin/**: Utility scripts available in PATH (git helpers like `git-undo`, `git-amend`, `git-delete-merged`; network tools like `getIP`, `dns-flush`; `serve-here` HTTP server; `dotlog` logging utility)
-- **ghostty/**: Customizations for the Ghostty terminal
-- **git/**: Git configuration, global gitignore, and git aliases (`g`, `gb`, `gc`, `gco`, `gp`, `gl`, `gs`, `gd`, `ga`, etc.)
-- **go/**: Go language path configuration
-- **homebrew/**: Package management via Brewfile
-- **macos/**: macOS-specific settings and preferences
-- **node/**: Node.js configuration (uses fnm, not nvm)
-- **nvim/**: Neovim configuration managed with lazy.nvim (see Neovim section below)
-- **rust/**: Rust toolchain configuration (sources cargo env)
-- **script/**: Setup and installation scripts (`bootstrap`, `install`)
-- **starship/**: Starship prompt installation and configuration
-- **system/**: General system aliases (includes eza-based `ls` replacements) and PATH setup
-- **tmux/**: Tmux configuration and aliases (`T`, `Ta`, `Tr`)
-- **util/**: General utility scripts and tests
-- **zsh/**: Shell configuration with `.zsh` files that are automatically sourced
+Remote one-liner install: `curl -fsSL .../script/remote.sh | bash` — clones to
+`~/.dotfiles` and execs `script/bootstrap`.
 
 ## Architecture
 
-### Symlink System
+### Two symlink mechanisms
 
-Files ending in `.symlink` are automatically linked to the home directory as hidden files during bootstrap. For example:
+1. **`*.symlink` files → `~/.<name>`**, linked by `script/bootstrap` (which finds
+   them with `find`, prompts on collision, and offers skip/overwrite/backup).
+   Example: `git/gitconfig.symlink` → `~/.gitconfig`.
+2. **Whole topic directories → `~/.config/<name>`**, linked by that topic's own
+   `install.sh`: `fish/` → `~/.config/fish`, `nvim/` → `~/.config/nvim`,
+   `ghostty/` → `~/.config/ghostty`, `wt/` → `~/.config/worktrunk`.
 
-- `zsh/zshrc.symlink` → `~/.zshrc`
-- `git/gitconfig.symlink` → `~/.gitconfig`
-- `tmux/tmux.conf.symlink` → `~/.tmux.conf`
+Installers must stay idempotent — each one checks for an existing link/dir and
+`dotlog skip`s rather than re-linking, because `dot` runs them on every invocation.
 
-### Auto-sourcing
+### Shell configuration
 
-The zsh configuration (`zshrc.symlink`) automatically sources all `*.zsh` files found in any subdirectory of `$ZSH`, allowing modular configuration across topics. This means adding a `.zsh` file to any topic directory will automatically include it.
+Because `fish/` **is** `~/.config/fish`, fish's own conventions do all the loading —
+there is no sourcing loop to maintain:
 
-### Installation System
+- `fish/conf.d/*.fish` — auto-sourced in filename order, one file per topic. The
+  numeric prefixes are load-bearing: `00-env` defines `$DOTFILES` and platform
+  flags, `01-homebrew` must put the Homebrew prefix on `PATH` before later files
+  run their `type -q <tool>` guards, `02-path` sets the base `PATH`.
+- `fish/config.fish` — sourced last; interactive-only tail.
+- `fish/functions/*.fish` — autoloaded on first call, one function per file.
+  Anything whose body is a pipeline or takes arguments goes here rather than being
+  an alias (see `grm`, `wtpr`, `wtclean`).
+- `fish/completions/` — gitignored except `.gitkeep`. Homebrew installs completions
+  into its own `vendor_completions.d`, which fish already searches; anything landing
+  here is machine-local.
 
-Each topic directory can contain an `install.sh` script that handles topic-specific setup tasks. These are run by `script/install`.
+Three rules when adding config:
 
-### Neovim Configuration
+1. **`conf.d` is sourced for non-interactive shells too.** Wrap aliases, key
+   bindings, and prompt setup in `if status is-interactive`. Environment variables
+   and `fish_add_path` stay unguarded — `node.fish` deliberately leaves `fnm env`
+   unguarded so `fish -c 'node -v'` resolves.
+2. **Always pass `-g` to `fish_add_path`.** Its default is a *universal* variable,
+   which fish persists to `fish/fish_variables` — inside this repo, where it would
+   drift out of sync with the committed config.
+3. **Never rely on `conf.d` filename order for behavior between two tools.** Set the
+   contested value explicitly. `fzf.fish` sets `FZF_CTRL_R_COMMAND ""` outright so
+   atuin keeps `ctrl-r`, rather than depending on which file sorts last.
 
-Neovim config lives in `nvim/` and is symlinked to `~/.config/nvim` via `nvim/install.sh`.
+Since the repo is fish's live config dir, fish writes runtime state into it. The
+`.gitignore` covers `fish/fish_variables` and `fish/completions/*` for that reason.
 
-- `nvim/init.lua` - Main config: space as leader, relative line numbers, 2-space tabs, undofile, 80-char colorcolumn, lazy.nvim bootstrap
-- `nvim/colors/onedark_pro_night_flat.lua` - Custom One Dark Pro Night Flat colorscheme (Lua implementation)
-- `nvim/lua/plugins/` - Plugin configs managed by lazy.nvim:
-  - `colorscheme.lua` - Loads custom colorscheme
-  - `telescope.lua` - Fuzzy finder (leader+f bindings)
-  - `treesitter.lua` - Syntax highlighting with auto-install for common languages
-  - `filexexplorer.lua` - nvim-tree file explorer (leader+e)
-  - `statusline.lua` - lualine status bar
-  - `indentline.lua` - Visual indent guides
-  - `autopair.lua` - Bracket/quote auto-pairing
-  - `autotag.lua` - HTML/JSX tag auto-closing
+### Bash tooling, not fish
 
-### Shell Plugins and Tools
+The repo's own tooling — `script/bootstrap`, `script/install`, `script/remote.sh`,
+`bin/dot`, `bin/dotlog`, and every `install.sh` — is **bash or POSIX sh**, never
+fish, so bootstrapping works on a machine where fish isn't installed yet. Target
+bash 3.2 (the version macOS ships): no `globstar` (use `find`), no associative
+arrays.
 
-- **zsh-syntax-highlighting** and **zsh-autosuggestions** - Loaded from Homebrew or system paths depending on platform
-- **fnm** - Fast Node Manager (replaced nvm)
-- **atuin** - Shell history search and sync
-- **eza** - Modern `ls` replacement (aliased over `ls`, `ll`, `la`)
-- **vivid** - LS_COLORS generator using "one-dark" theme (cached in `~/.cache/ls_colors`)
-- **starship** - Cross-shell prompt
+The chicken-and-egg is explicit throughout: fish comes from the Brewfile, so on a
+fresh machine `dot` runs before fish exists. `macos/set-shell.sh` and
+`fish/install.sh` both no-op quietly in that case and pick it up on the next pass.
+Both read the login shell from the passwd/dscl record rather than `$SHELL`, which
+goes stale immediately after `chsh`.
 
-## Important Files
+### Local overrides
 
-- `zsh/zshrc.symlink` - Main shell configuration that sources all `.zsh` files
-- `zsh/config.zsh` - General zsh options (history sharing, prompt substitution, correction)
-- `zsh/history.zsh` - History configuration (100k entries)
-- `zsh/colors.zsh` - LS_COLORS via vivid with caching
-- `system/aliases.zsh` - System-wide aliases including eza-based ls replacements
-- `system/path.zsh` - PATH configuration
-- `script/bootstrap` - Primary setup script
-- `bin/dot` - System maintenance and update script
-- `homebrew/Brewfile` - Complete list of applications and tools to install
-- `nvim/init.lua` - Neovim entry point
+Machine-specific and secret config is gitignored and layered on top:
+
+- `~/.localrc.fish` — sourced by `00-env.fish`; secrets and per-machine env
+- `~/.gitconfig.local` — included by `git/gitconfig.symlink`; generated from
+  `gitconfig.local.symlink.example` during bootstrap
+- `fish/*.local.*`, `ghostty/local.ghostty` — gitignored local additions
+
+### Neovim
+
+`nvim/` → `~/.config/nvim`. `init.lua` holds all options and core keymaps (space
+leader, relative numbers, 2-space tabs, undofile, 80-col colorcolumn, trim-on-save
+autocmd) and ends by requiring `config.lazy`, which bootstraps lazy.nvim and
+imports every file in `nvim/lua/plugins/`. Each plugin file returns a lazy.nvim
+spec; adding a plugin means adding a file there, nothing else. `nvim/lazy-lock.json`
+is gitignored, so plugin versions are not pinned across machines. `nvim/ftplugin/`
+and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
+`tmux/CHEATSHEET.md`) for the keymaps.
+
+### Topic directories
+
+- **atuin/** — `config.toml`; `ATUIN_CONFIG_DIR` points here
+- **bin/** — scripts on `PATH`: git helpers (`git-undo`, `git-amend`,
+  `git-delete-merged`, `git-force-push`, `git-track-remote`), network tools
+  (`getIP`, `dns-flush`), plus `dot` and `dotlog`
+- **git/**, **homebrew/**, **starship/**, **tmux/**, **ghostty/** — as named
+- **linux/** — Linuxbrew build dependencies for Debian/Ubuntu
+- **macos/** — `set-defaults.sh`, `set-hostname.sh`, `set-shell.sh`; run by `dot`,
+  *not* by `script/install`
+- **wt/** — worktrunk config; drives the `wtpr`/`wtprx`/`wtclean` worktree +
+  tmux PR-review workflow in `fish/functions/`
+
+### Tooling
+
+Fish provides syntax highlighting, autosuggestions, and completions natively, so
+there is no plugin manager. Notable tools wired up in `conf.d`: **fnm** (node),
+**mise**, **atuin** (history search, owns `ctrl-r`), **fzf**, **zoxide** (as `cd`,
+disabled under `$CLAUDECODE`), **eza** (aliased over `ls`/`l`/`ll`/`la`), **bat**,
+**ripgrep**, **vivid** (`LS_COLORS`, cached at `~/.cache/ls_colors` and regenerated
+when `colors.fish` is newer), **starship**, **worktrunk**.

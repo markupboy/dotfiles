@@ -4,8 +4,13 @@ nvim/plugin
 nvim/lazy-lock.json
 git/gitconfig.local.symlink
 .claude/settings.local.json
-zsh/*.local.*
+fish/*.local.*
 local.ghostty
+
+# fish writes runtime state into its config dir, which IS this repo
+fish/fish_variables
+fish/completions/*
+!fish/completions/.gitkeep
 
 # Compiled source #
 ###################

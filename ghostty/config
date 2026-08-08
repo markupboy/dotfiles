@@ -39,7 +39,7 @@ window-padding-balance = true
 window-save-state = always
 window-title-font-family = "Consolas"
 
-# Let our custom zsh hook own the title (see ghostty/ghostty.zsh)
+# Let tmux own the title (see set-titles in tmux/tmux.conf.symlink)
 shell-integration-features = no-title
 
 # auto update settings

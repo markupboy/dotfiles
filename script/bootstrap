@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 #
 # set up dotfiles
 
@@ -15,7 +15,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     dotlog "info" "installing Xcode Command Line Tools..."
     xcode-select --install
     echo "Press any key when the installation has completed."
-    read -k 1 </dev/tty
+    read -r -n 1 </dev/tty
   fi
 fi
 
@@ -64,7 +64,8 @@ link_file () {
       else
         dotlog "user" "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read -k action </dev/tty
+        read -r -n 1 action </dev/tty
+        echo
 
         case "$action" in
           o) overwrite=true ;;
@@ -107,11 +108,12 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $DOTFILES_ROOT/**/*.symlink(.); do
-    [[ $src == */.git/* ]] && continue
+  # `find` rather than a `**` glob — macOS ships bash 3.2, which has no globstar.
+  local src dst
+  while IFS= read -r src; do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
-  done
+  done < <(find "$DOTFILES_ROOT" -name '*.symlink' -type f -not -path '*/.git/*' | sort)
 }
 
 setup_gitconfig
@@ -126,7 +128,7 @@ else
 fi
 
 # Locate the brew binary — it won't be on PATH in the current shell after
-# a fresh install since .zshrc hasn't been reloaded.
+# a fresh install since the shell config hasn't been reloaded.
 BREW_BIN="$(command -v brew 2>/dev/null || true)"
 if [[ -z "$BREW_BIN" ]]; then
   for p in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew "$HOME/.linuxbrew/bin/brew"; do
