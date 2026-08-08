@@ -1,4 +1,0 @@
-#!/bin/sh
-#
-# Simple shortcut to tracking a remote branch locally with the same name
-git fetch --all && git checkout -t origin/$1

@@ -15,5 +15,4 @@ if status is-interactive
     alias ga 'git add'
     alias gu 'git undo'
     alias gaa 'git add -A'
-    alias gtt git-track-remote
 end
