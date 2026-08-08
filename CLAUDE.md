@@ -8,7 +8,7 @@ A personal dotfiles repository managing shell configuration, development tools, 
 system preferences for macOS and Linux (bare metal and WSL). A long-lived, heavily
 deviated fork of Zach Holman's dotfiles structure.
 
-Fish is the login shell; neovim is the editor; starship is the prompt. There is no
+Fish is the login shell; neovim is the editor; bobthefish is the prompt. There is no
 build step, no test suite, and no CI — changes are verified by running the setup
 scripts and opening a new shell.
 
@@ -53,8 +53,8 @@ Both mechanisms must stay idempotent, because `dot` runs them on every invocatio
 error` and a non-zero exit (after trying the remaining topics).
 
 A topic only needs an `install.sh` when it does something *other* than config-dir
-linking — `git/` (sets `core.excludesFile`), `tmux/` (clones tpm), `homebrew/`
-(installs brew), `linux/` (apt build deps).
+linking — `git/` (sets `core.excludesFile`), `tmux/` (clones tpm), `fish/` (clones
+bobthefish), `homebrew/` (installs brew), `linux/` (apt build deps).
 
 ### Shell configuration
 
@@ -98,10 +98,9 @@ bash 3.2 (the version macOS ships): no `globstar` (use `find`), no associative
 arrays.
 
 The chicken-and-egg is explicit throughout: fish comes from the Brewfile, so on a
-fresh machine `dot` runs before fish exists. `macos/set-shell.sh` and
-`fish/install.sh` both no-op quietly in that case and pick it up on the next pass.
-Both read the login shell from the passwd/dscl record rather than `$SHELL`, which
-goes stale immediately after `chsh`.
+fresh machine `dot` runs before fish exists. `macos/set-shell.sh` no-ops quietly in
+that case and picks it up on the next pass. It reads the login shell from the
+passwd/dscl record rather than `$SHELL`, which goes stale immediately after `chsh`.
 
 ### Local overrides
 
@@ -129,7 +128,7 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
 - **bin/** — scripts on `PATH`: git helpers (`git-undo`, `git-amend`,
   `git-delete-merged`, `git-force-push`, `git-track-remote`), network tools
   (`getIP`, `dns-flush`), plus `dot` and `dotlog`
-- **git/**, **homebrew/**, **starship/**, **tmux/**, **ghostty/** — as named
+- **git/**, **homebrew/**, **tmux/**, **ghostty/** — as named
 - **linux/** — Linuxbrew build dependencies for Debian/Ubuntu
 - **macos/** — `set-defaults.sh`, `set-hostname.sh`, `set-shell.sh`; run by `dot`,
   *not* by `script/install`
@@ -143,4 +142,10 @@ there is no plugin manager. Notable tools wired up in `conf.d`: **fnm** (node),
 **mise**, **atuin** (history search, owns `ctrl-r`), **fzf**, **zoxide** (as `cd`,
 disabled under `$CLAUDECODE`), **eza** (aliased over `ls`/`l`/`ll`/`la`), **bat**,
 **ripgrep**, **vivid** (`LS_COLORS`, cached at `~/.cache/ls_colors` and regenerated
-when `colors.fish` is newer), **starship**, **worktrunk**.
+when `colors.fish` is newer), **worktrunk**.
+
+The prompt is **bobthefish**, cloned by `fish/install.sh` into
+`~/.local/share/theme-bobthefish` and put on `$fish_function_path` by
+`fish/conf.d/prompt.fish`, which also holds the `theme_*` settings. It is a
+vendored directory of autoloadable fish functions, not an oh-my-fish install —
+there is still no plugin manager.
