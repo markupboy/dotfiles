@@ -2,31 +2,49 @@ return {
   -- Treesitter for syntax highlighting and more
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      -- List of parsers to install
-      ensure_installed = { "lua", "javascript", "typescript", "html", "css", "bash", "json", "markdown", "go", "rust", "ruby" },
+    config = function()
+      require("nvim-treesitter").setup()
 
-      -- Automatically install missing parsers when entering buffer
-      auto_install = true,
+      require("nvim-treesitter").install({
+        "bash",
+        "css",
+        "dockerfile",
+        "gitcommit",
+        "gitignore",
+        "go",
+        "html",
+        "ini",
+        "javascript",
+        "jsdoc",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "regex",
+        "ruby",
+        "rust",
+        "terraform",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "yaml",
+      })
 
-      -- Highlighting
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-
-      -- Incremental selection
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "gnn",
-          node_incremental = "grn",
-          scope_incremental = "grc",
-          node_decremental = "grm",
-        },
-      },
-    },
+      -- Start highlighting for any filetype whose parser is actually present
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+          if lang and vim.treesitter.language.add(lang) then
+            vim.treesitter.start(args.buf, lang)
+          end
+        end,
+      })
+    end,
   },
 }
