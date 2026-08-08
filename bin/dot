@@ -16,7 +16,6 @@ displayUsageAndExit() {
 	echo "Usage: dot [options]"
 	echo ""
 	echo "Options:"
-	echo "  -e, --edit     Open dotfiles directory for editing"
 	echo "  -q, --quick    Skip git pull and brew update/upgrade (just relink + run installers)"
 	echo "  -h, --help     Show this help message and exit"
 	exit
@@ -31,10 +30,6 @@ while test $# -gt 0; do
 	case "$1" in
 		"-h"|"--help")
 			displayUsageAndExit
-			;;
-		"-e"|"--edit")
-			exec "$EDITOR" "$DOTFILES"
-			exit
 			;;
 		"-q"|"--quick")
 			QUICK=true
