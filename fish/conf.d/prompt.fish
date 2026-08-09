@@ -7,7 +7,8 @@ if status is-interactive; and test -d $bobthefish/functions
     function fish_greeting; end
 
     set -g theme_nerd_fonts yes
-    set -g theme_color_scheme nord
+    # Base scheme; fish/functions/bobthefish_colors.fish overrides it with One Dark Pro.
+    set -g theme_color_scheme dark
 
     set -g theme_display_user ssh
     set -g theme_display_hostname ssh
