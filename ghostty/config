@@ -1,10 +1,10 @@
 # appearance
 theme = "one-dark.conf"
-font-family = "Consolas Nerd Font Mono"
+font-family = "Consolas 7NF"
 font-size = 12
 adjust-cell-width = -11%
 background-opacity = 0.8
-unfocused-split-opacity = 0.8 
+unfocused-split-opacity = 0.8
 unfocused-split-fill = #333
 background-blur = true
 background-blur-radius = 40
@@ -37,7 +37,7 @@ window-padding-x = 5
 window-padding-y = 5
 window-padding-balance = true
 window-save-state = always
-window-title-font-family = "Consolas"
+window-title-font-family = "Consolas 7NF"
 
 # Let tmux own the title (see set-titles in tmux/tmux.conf.symlink)
 shell-integration-features = no-title
@@ -47,7 +47,7 @@ auto-update = download
 auto-update-channel = stable
 
 # custom keybindings
-keybind = super+r=reload_config 
+keybind = super+r=reload_config
 keybind = super+i=inspector:toggle
 keybind = super+f=toggle_fullscreen
 keybind = super+left=previous_tab

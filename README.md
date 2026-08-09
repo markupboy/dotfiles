@@ -26,8 +26,8 @@ default shell.
 The Brewfile covers fish, neovim, and worktrunk; Ghostty is not in it, so install
 the terminal itself for your platform.
 
-Be sure to install the `Consolas` and `Consolas Nerd Font Mono` fonts for
-the full experience.
+Be sure to install the [`consolas-powerline`](https://github.com/markupboy/consolas-powerline)
+font for the full experience.
 
 ## Credits
 
