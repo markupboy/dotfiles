@@ -19,6 +19,6 @@ if status is-interactive; and test -d $bobthefish/functions
     set -g theme_git_worktree_support yes
 
     set -g theme_display_node yes
-    set -g theme_display_k8s_context yes
+    set -g theme_display_k8s_context no
     set -g theme_display_ruby yes
 end
