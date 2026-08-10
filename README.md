@@ -1,3 +1,5 @@
+![Screenshot](https://raw.githubusercontent.com/markupboy/dotfiles/main/.github/images/screenshot.jpg)
+
 ## Installation
 
 ### Automated
