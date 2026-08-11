@@ -7,6 +7,7 @@ if status is-interactive; and test -d $bobthefish/functions
     function fish_greeting; end
 
     set -g theme_nerd_fonts yes
+
     # Base scheme; fish/functions/bobthefish_colors.fish overrides it with One Dark Pro.
     set -g theme_color_scheme dark
 
@@ -18,6 +19,7 @@ if status is-interactive; and test -d $bobthefish/functions
     set -g theme_git_default_branches main master
 
     set -g theme_git_worktree_support yes
+    set -g theme_use_abbreviated_branch_name yes
 
     set -g theme_display_node yes
     set -g theme_display_k8s_context no
