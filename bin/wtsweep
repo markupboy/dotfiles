@@ -1,0 +1,186 @@
+#!/usr/bin/env bash
+#
+# wtsweep -- remove worktrees and branches already integrated into the default branch
+#
+# Run from inside a repo to sweep that repo. Run from a directory that isn't a
+# repo to sweep every immediate child directory that is one (no recursion).
+#
+# A worktree with uncommitted changes never becomes a candidate: `wt` reports it
+# as "same_commit" rather than "empty", and an unmerged branch as "ahead". The
+# removal itself is `wt remove` without -f or -D, so it declines anyway.
+#
+# Usage: wtsweep [options] [dir]
+
+set -uo pipefail
+
+DRY_RUN=false
+FETCH=true
+
+usage() {
+	echo "wtsweep -- remove merged worktrees and branches"
+	echo ""
+	echo "Usage: wtsweep [options] [dir]"
+	echo ""
+	echo "Sweeps DIR (default: current directory) when it is a repo, otherwise"
+	echo "sweeps each immediate child directory that is a repo."
+	echo ""
+	echo "Options:"
+	echo "  -n, --dry-run   List what would be removed without removing it"
+	echo "      --no-fetch  Skip 'git fetch --prune' before checking merge status"
+	echo "  -h, --help      Show this help message and exit"
+	exit
+}
+
+target=""
+while test $# -gt 0; do
+	case "$1" in
+		"-h"|"--help")
+			usage
+			;;
+		"-n"|"--dry-run")
+			DRY_RUN=true
+			;;
+		"--no-fetch")
+			FETCH=false
+			;;
+		-*)
+			echo "wtsweep: invalid option: $1" >&2
+			exit 1
+			;;
+		*)
+			if [[ -n "$target" ]]; then
+				echo "wtsweep: only one directory may be given" >&2
+				exit 1
+			fi
+			target="$1"
+			;;
+	esac
+	shift
+done
+
+for tool in wt jq git; do
+	if ! command -v "$tool" &>/dev/null; then
+		echo "wtsweep: $tool is required but not installed" >&2
+		exit 1
+	fi
+done
+
+target="${target:-.}"
+if [[ ! -d "$target" ]]; then
+	echo "wtsweep: not a directory: $target" >&2
+	exit 1
+fi
+
+abs_path() {
+	(cd "$1" && pwd -P)
+}
+
+is_repo() {
+	git -C "$1" rev-parse --git-dir &>/dev/null
+}
+
+# Absolute path to the shared .git directory, which is the same for a repo and
+# all of its linked worktrees — so it doubles as the repo's identity.
+git_common_dir() {
+	git -C "$1" rev-parse --path-format=absolute --git-common-dir 2>/dev/null
+}
+
+# Every branch safe to delete: integrated into the default branch, or sitting on
+# the same commit with a clean tree. --branches includes branches that have no
+# worktree so those get swept too.
+#
+# The default branch is excluded by name, not just by worktree.main: when the
+# primary worktree sits on a feature branch, the default branch is an ordinary
+# row and reads as "integrated" into itself.
+# shellcheck disable=SC2016  # $default is a jq variable, not a shell one
+MERGED_QUERY='.repo.default_branch as $default
+	| .items[]
+	| select(.branch != null and .branch != $default)
+	| select((((.worktree.main // false) or (.worktree.current // false))) | not)
+	| select(.display.state == "integrated" or .display.state == "empty")
+	| .branch'
+
+removed_total=0
+failed_total=0
+
+sweep_repo() {
+	local dir="$1"
+	local label branches branch output json
+
+	label="$(basename "$(dirname "$(git_common_dir "$dir")")")"
+	echo "==> $label"
+
+	if [[ "$FETCH" == "true" ]]; then
+		git -C "$dir" fetch --prune --quiet &>/dev/null
+	fi
+
+	json="$(wt -C "$dir" list --format json --branches --config-set list.json-schema=2 2>/dev/null)"
+	if [[ -z "$json" ]]; then
+		echo "    could not list worktrees" >&2
+		failed_total=$((failed_total + 1))
+		return
+	fi
+
+	branches="$(printf '%s' "$json" | jq -r "$MERGED_QUERY")"
+	if [[ -z "$branches" ]]; then
+		echo "    nothing to sweep"
+		return
+	fi
+
+	while IFS= read -r branch; do
+		[[ -n "$branch" ]] || continue
+
+		if [[ "$DRY_RUN" == "true" ]]; then
+			echo "    would remove $branch"
+			removed_total=$((removed_total + 1))
+			continue
+		fi
+
+		if output="$(wt -C "$dir" remove --foreground --yes "$branch" 2>&1)"; then
+			echo "    removed $branch"
+			removed_total=$((removed_total + 1))
+		else
+			echo "    failed $branch" >&2
+			printf '%s\n' "$output" | sed 's/^/        /' >&2
+			failed_total=$((failed_total + 1))
+		fi
+	done <<< "$branches"
+}
+
+if is_repo "$target"; then
+	sweep_repo "$target"
+else
+	swept_repos=""
+	for child in "$target"/*/; do
+		[[ -d "$child" ]] || continue
+		child="${child%/}"
+
+		is_repo "$child" || continue
+
+		# Skip a child that only tests as a repo because an ancestor is one.
+		[[ "$(git -C "$child" rev-parse --show-toplevel 2>/dev/null)" == "$(abs_path "$child")" ]] || continue
+
+		# Sibling worktrees of one repo share a .git dir; sweep it once.
+		common_dir="$(git_common_dir "$child")"
+		if printf '%s' "$swept_repos" | grep -qxF "$common_dir"; then
+			continue
+		fi
+		swept_repos="$swept_repos$common_dir"$'\n'
+
+		sweep_repo "$child"
+	done
+
+	if [[ -z "$swept_repos" ]]; then
+		echo "wtsweep: no repos found in $target" >&2
+		exit 1
+	fi
+fi
+
+echo ""
+if [[ "$DRY_RUN" == "true" ]]; then
+	echo "$removed_total to remove, $failed_total error(s)"
+else
+	echo "$removed_total removed, $failed_total failed"
+fi
+
+[[ "$failed_total" -eq 0 ]]

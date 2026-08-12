@@ -131,9 +131,9 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
 
 - **atuin/** — `config.toml`; `ATUIN_CONFIG_DIR` points here
 - **bin/** — scripts on `PATH`: git helpers (`git-undo`, `git-amend`,
-  `git-delete-merged`, `git-force-push`), network tools (`getIP`, `dns-flush`),
-  `getkey` (SSH public key to clipboard, falling back to the 1Password CLI),
-  plus `dot` and `dotlog`
+  `git-delete-merged`, `git-force-push`), `wtsweep` (worktree/branch cleanup, see
+  worktrunk below), network tools (`getIP`, `dns-flush`), `getkey` (SSH public key
+  to clipboard, falling back to the 1Password CLI), plus `dot` and `dotlog`
 - **git/**, **homebrew/**, **tmux/**, **ghostty/** — as named
 - **linux/** — Linuxbrew build dependencies for Debian/Ubuntu
 - **macos/** — `set-defaults.sh`, `set-hostname.sh`, `set-shell.sh`; run by `dot`,
@@ -146,6 +146,18 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   `fish/conf.d/worktrunk.fish` holds only the `wtc`/`wtl` aliases. Completions come
   from Homebrew's `vendor_completions.d`, so `wt config show` reporting "Completions
   not configured" is a false negative — it only looks in `~/.config/fish/completions`.
+
+  Two things sweep merged worktrees and branches, both by asking `wt list --format
+  json` for rows whose state is `integrated` or `empty` and feeding them to `wt
+  remove`: `wtclean` (fish function, current repo) and `bin/wtsweep` (bash, adds
+  `--dry-run`, a `git fetch --prune` first, and multi-repo mode — run it in a
+  directory that isn't a repo and it sweeps each immediate child that is one). Both
+  filters must exclude `repo.default_branch` **by name**, not just rows where
+  `worktree.main` is true: when a repo's primary worktree sits on a feature branch,
+  the default branch is an ordinary row that reads as `integrated` into itself, and
+  a filter keyed only on `worktree.main` will happily delete it. Both also depend on
+  `[list] json-schema = 2` in `config.toml` — the schema 1 field names (`is_main`,
+  `main_state`) make jq error out against the schema 2 envelope.
 
 ### Tooling
 
