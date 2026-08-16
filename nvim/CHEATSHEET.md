@@ -96,7 +96,8 @@ Your leader key is **Space**.
 
 | Key              | Action                           |
 |------------------|----------------------------------|
-| `Space e`        | Toggle file explorer sidebar     |
+| `Space e`        | Focus file explorer (opens it)   |
+| `Space E`        | Toggle file explorer sidebar     |
 
 In the file explorer: `a` to create, `d` to delete, `r` to rename, `Enter` to open.
 
