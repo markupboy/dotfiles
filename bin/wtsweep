@@ -85,27 +85,49 @@ git_common_dir() {
 	git -C "$1" rev-parse --path-format=absolute --git-common-dir 2>/dev/null
 }
 
-# Every branch safe to delete: integrated into the default branch, or sitting on
-# the same commit with a clean tree. --branches includes branches that have no
-# worktree so those get swept too.
+# Every clean branch eligible for a safety check. --branches includes branches
+# that have no worktree so those get swept too.
 #
 # The default branch is excluded by name, not just by worktree.main: when the
 # primary worktree sits on a feature branch, the default branch is an ordinary
 # row and reads as "integrated" into itself.
 # shellcheck disable=SC2016  # $default is a jq variable, not a shell one
-MERGED_QUERY='.repo.default_branch as $default
+CANDIDATE_QUERY='.repo.default_branch as $default
 	| .items[]
 	| select(.branch != null and .branch != $default)
-	| select((((.worktree.main // false) or (.worktree.current // false))) | not)
-	| select(.display.state == "integrated" or .display.state == "empty")
-	| .branch'
+	| select(((.worktree.main // false) or (.worktree.current // false)) | not)
+	| select([.worktree.changes.staged,
+		.worktree.changes.modified,
+		.worktree.changes.untracked,
+		.worktree.changes.renamed,
+		.worktree.changes.deleted,
+		.worktree.changes.conflicted] | any(. == true) | not)
+	| [.branch, .display.state, $default]
+	| @tsv'
 
 removed_total=0
 failed_total=0
 
+has_merged_pr_for_tip() {
+	local dir="$1"
+	local branch="$2"
+	local default_branch="$3"
+	local tip="$4"
+
+	command -v gh &>/dev/null || return 1
+	(
+		cd "$dir" &&
+			gh pr list --state merged --base "$default_branch" --head "$branch" \
+				--json headRefOid --limit 100 \
+				--jq '.[].headRefOid' 2>/dev/null |
+			grep -qxF "$tip"
+	)
+}
+
 sweep_repo() {
 	local dir="$1"
-	local label branches branch output json
+	local label candidates branch state default_branch tip output json force_delete
+	local -a remove_args
 
 	label="$(basename "$(dirname "$(git_common_dir "$dir")")")"
 	echo "==> $label"
@@ -121,14 +143,23 @@ sweep_repo() {
 		return
 	fi
 
-	branches="$(printf '%s' "$json" | jq -r "$MERGED_QUERY")"
-	if [[ -z "$branches" ]]; then
+	candidates="$(printf '%s' "$json" | jq -r "$CANDIDATE_QUERY")"
+	if [[ -z "$candidates" ]]; then
 		echo "    nothing to sweep"
 		return
 	fi
 
-	while IFS= read -r branch; do
+	while IFS=$'\t' read -r branch state default_branch; do
 		[[ -n "$branch" ]] || continue
+
+		remove_args=(--foreground --yes)
+		force_delete=false
+		if [[ "$state" != "integrated" && "$state" != "empty" ]]; then
+			tip="$(git -C "$dir" rev-parse --verify "refs/heads/$branch" 2>/dev/null)" || continue
+			has_merged_pr_for_tip "$dir" "$branch" "$default_branch" "$tip" || continue
+			remove_args+=(-D)
+			force_delete=true
+		fi
 
 		if [[ "$DRY_RUN" == "true" ]]; then
 			echo "    would remove $branch"
@@ -136,7 +167,14 @@ sweep_repo() {
 			continue
 		fi
 
-		if output="$(wt -C "$dir" remove --foreground --yes "$branch" 2>&1)"; then
+		if [[ "$force_delete" == "true" ]] \
+			&& [[ "$(git -C "$dir" rev-parse --verify "refs/heads/$branch" 2>/dev/null)" != "$tip" ]]; then
+			echo "    skipped $branch (branch changed during PR check)" >&2
+			failed_total=$((failed_total + 1))
+			continue
+		fi
+
+		if output="$(wt -C "$dir" remove "${remove_args[@]}" "$branch" 2>&1)"; then
 			echo "    removed $branch"
 			removed_total=$((removed_total + 1))
 		else
@@ -144,7 +182,7 @@ sweep_repo() {
 			printf '%s\n' "$output" | sed 's/^/        /' >&2
 			failed_total=$((failed_total + 1))
 		fi
-	done <<< "$branches"
+	done <<< "$candidates"
 }
 
 if is_repo "$target"; then
