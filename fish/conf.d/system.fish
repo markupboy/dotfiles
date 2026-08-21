@@ -9,7 +9,7 @@ if status is-interactive
 
     # eza overrides for ls
     if type -q eza
-        alias ls "eza --icons --group-directories-first"
+        alias ls "eza --icons --group-directories-first -lAh"
         alias l "eza --icons --group-directories-first -lAh"
         alias ll "eza --icons --group-directories-first -lAh"
         alias la "eza --icons --group-directories-first -A"
