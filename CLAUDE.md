@@ -41,8 +41,8 @@ Remote one-liner install: `curl -fsSL .../script/remote.sh | bash` — clones to
    them with `find`, prompts on collision, and offers skip/overwrite/backup).
    Example: `git/gitconfig.symlink` → `~/.gitconfig`.
 2. **Whole topic directories → `~/.config/<same name>`**, linked by
-   `script/link-config` from its `CONFIG_LINKS` list: `fish`, `ghostty`, `nvim`,
-   `worktrunk`. Adding a config topic means adding one line to that list — the
+   `script/link-config` from its `CONFIG_LINKS` list: `fish`, `ghostty`, `herdr`,
+   `nvim`, `worktrunk`. Adding a config topic means adding one line to that list — the
    topic directory is named after its `~/.config` entry, so there is no mapping to
    maintain and no per-topic `install.sh`. `script/install` runs it before the
    installer loop.
@@ -135,6 +135,16 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   worktrunk below), network tools (`getIP`, `dns-flush`), `getkey` (SSH public key
   to clipboard, falling back to the 1Password CLI), plus `dot` and `dotlog`
 - **git/**, **homebrew/**, **tmux/**, **ghostty/** — as named
+- **herdr/** — herdr config (agent workspace multiplexer). `config.toml` sets the
+  One Dark Pro (Night Flat) palette via a `[theme.custom]` override on the built-in
+  `one-dark` base, so herdr matches nvim, ghostty, and bobthefish. `panel_bg =
+  "reset"` is deliberate: it leaves pane backgrounds to ghostty so
+  `background-opacity`/`background-blur` still apply. `[ui] accent` is a *separate*
+  setting from `[theme.custom] accent` and defaults to `cyan`, so both are set to
+  the same blue. Like `fish/`, this directory is herdr's live config dir — it
+  writes `session.json`, `.plugins.lock`, `herdr.sock`, and `herdr-*.log` here, all
+  gitignored. Validate with `herdr config check` (it names unknown keys); reload a
+  running server with `herdr server reload-config` or `prefix+shift+r`.
 - **linux/** — Linuxbrew build dependencies for Debian/Ubuntu
 - **macos/** — `set-defaults.sh`, `set-hostname.sh`, `set-shell.sh`; run by `dot`,
   *not* by `script/install`

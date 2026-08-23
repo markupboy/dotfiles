@@ -1,0 +1,40 @@
+onboarding = false
+
+[theme]
+# Start with one-dark then override it
+name = "one-dark"
+
+auto_switch = false
+# One Dark Pro (Night Flat) — my goto theme
+[theme.custom]
+panel_bg = "reset"
+sidebar_bg = "#21252b" # One Dark Pro sidebar gray
+active_row_bg = "#2c313c" # bg2 — cursor line
+selection_bg = "#3e4452" # bg3 — visual selection
+
+surface0 = "#2c313c" # bg2 — subtle dividers
+surface1 = "#3e4452" # bg3 — borders, focus ring
+surface_dim = "#1e2227" # bg1 — popups, inactive chrome
+overlay0 = "#6b717d" # fg3 — inactive foreground
+overlay1 = "#7f848e" # comment — dim foreground
+
+text = "#d7dae0" # fg1 — active foreground
+subtext0 = "#9da5b4" # fg2 — statusline foreground
+
+accent = "#98c379" # green
+red = "#e06c75"
+green = "#98c379"
+yellow = "#e5c07b"
+peach = "#d19a66" # orange
+blue = "#61afef"
+mauve = "#c678dd" # purple
+teal = "#56b6c2" # cyan
+
+[ui]
+accent = "#61afef"
+agent_panel_sort = "spaces"
+status_indicators = "symbols"
+
+show_agent_labels_on_pane_borders = true
+[ui.toast]
+delivery = "herdr"

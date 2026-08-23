@@ -12,6 +12,7 @@ export DOTFILES="${DOTFILES:-$(cd "$(dirname "$0")/.." && pwd -P)}"
 CONFIG_LINKS=(
   fish
   ghostty
+  herdr
   nvim
   worktrunk
 )
