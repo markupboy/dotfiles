@@ -1,18 +1,24 @@
-function wtprx --description "kill a PR's tmux session and close its terminal window"
-    set -l session
+function wtprx --description "close a PR's herdr workspace"
+    set -l ws
     if test -n "$argv[1]"
-        set session "pr-$argv[1]"
-    else if set -q TMUX
-        set session (tmux display-message -p '#S')
+        # Match the label wtpr set. Resolve by label rather than `wt switch`, which
+        # would re-create the very worktree we're tearing down. The anchored regex
+        # won't cross-match: "repo - #112" has a digit, not '#', before the "12".
+        set ws (herdr workspace list \
+            | jq -r --arg pr $argv[1] \
+                '.result.workspaces[] | select(.label | test("#" + $pr + "$")) | .workspace_id' \
+            | head -1)
+        if test -z "$ws"
+            echo "wtprx: no herdr workspace for PR #$argv[1]" >&2
+            return 1
+        end
+    else if set -q HERDR_WORKSPACE_ID
+        set ws $HERDR_WORKSPACE_ID
     else
-        echo "usage: wtprx <pr-number>  (or run inside the pr-<n> tmux session)" >&2
+        echo "usage: wtprx <pr-number>  (or run inside the PR workspace)" >&2
         return 1
     end
 
-    if not tmux has-session -t "=$session" 2>/dev/null
-        echo "wtprx: no tmux session '$session'" >&2
-        return 1
-    end
-
-    tmux kill-session -t "=$session"
+    # Closes the workspace only — the worktree stays for wtclean/wtsweep to reap.
+    herdr workspace close $ws >/dev/null
 end
