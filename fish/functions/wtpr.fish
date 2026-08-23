@@ -14,24 +14,44 @@ function wtpr --description 'quickly spawn a PR review session from an identifie
 
     _wtpr_sync $pr $wt_path
 
-    set -l session "pr-$pr"
-    if not tmux has-session -t "=$session" 2>/dev/null
-        tmux new-session -d -s $session -c $wt_path # pane 0 (top)
-        tmux split-window -v -t "$session:" -c $wt_path # pane 1 (bottom, vim)
-        tmux send-keys -t "$session:.1" 'vim .' Enter
-        tmux select-pane -t "$session:.0"
-        tmux send-keys -t "$session:.0" 'ai /pr-review' Enter
-    end
-
-    # Name the Ghostty window "repo - #PR"
+    # Workspace label — herdr shows this in the sidebar and the window title
     set -l common_dir (git -C $wt_path rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
     set -l repo (basename (dirname $common_dir))
-    tmux set-option -t $session @ghostty_title "$repo - #$pr"
 
-    if set -q TMUX
-        tmux switch-client -t $session
-    else
-        tmux attach-session -t $session
-        tmux has-session -t "=$session" 2>/dev/null; or exit
+    # worktree open is create-or-focus: `already_open` is the idempotence guard, and
+    # --label is (re)applied either way, so the label refreshes on every run.
+    set -l opened (herdr worktree open --path $wt_path --label "$repo - #$pr" --focus)
+    or return 1
+
+    set -l top (echo $opened | jq -r '.result.root_pane.pane_id')
+    set -l already (echo $opened | jq -r '.result.already_open')
+
+    if test "$already" != true
+        # A failed split yields a zero-element list, which would silently collapse
+        # the args and make 'vim .' read as the pane id — so check before using it.
+        set -l bottom (herdr pane split $top --direction down --cwd $wt_path --no-focus \
+            | jq -r '.result.pane.pane_id')
+        if test -n "$bottom"
+            herdr pane run $bottom 'vim .' >/dev/null
+        else
+            echo "wtpr: could not split the editor pane" >&2
+        end
+
+        # Mirrors conf.d/ai.fish — agent start takes a --kind, not the `ai` alias
+        set -l kind claude
+        set -l agent_args --dangerously-skip-permissions /pr-review
+        if test "$AI_CLI" = cursor
+            set kind cursor
+            set agent_args --force /pr-review
+        end
+        # Non-fatal: a startup approval prompt returns agent_not_ready but still
+        # leaves a usable pane, and the workspace is worth attaching regardless.
+        herdr agent start "pr-$pr" --kind $kind --pane $top -- $agent_args >/dev/null
+        or echo "wtpr: agent did not report ready — check the pane" >&2
+    end
+
+    # allow_nested is off, so only attach when we aren't already inside herdr
+    if not set -q HERDR_ENV
+        exec herdr
     end
 end
