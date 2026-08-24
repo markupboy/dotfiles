@@ -213,7 +213,7 @@ Git change indicators appear in the sign column (left gutter) for tracked files.
 | `g y`            | Go to type definition                    |
 | `Space r n`      | Rename symbol                            |
 | `Space c a`      | Code action                              |
-| `Space d`        | Buffer diagnostics (Telescope)           |
+| `Space d d`      | Buffer diagnostics (Telescope)           |
 | `Space d s`      | Document symbols (Telescope)             |
 | `Space w s`      | Workspace symbols (Telescope)            |
 

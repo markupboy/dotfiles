@@ -64,7 +64,7 @@ return {
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
           map("gD", vim.lsp.buf.declaration, "Go to Declaration")
-          map("<leader>d", function()
+          map("<leader>dd", function()
             require("telescope.builtin").diagnostics({ bufnr = 0 })
           end, "Buffer Diagnostics")
         end,
