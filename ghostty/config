@@ -19,7 +19,6 @@ config-file = ?local.ghostty
 
 # macOS-specific settings
 macos-option-as-alt = true
-# macos-titlebar-style = tabs
 macos-window-buttons = hidden
 macos-titlebar-proxy-icon = hidden
 macos-icon = custom-style
@@ -34,14 +33,9 @@ clipboard-paste-protection = false
 # window controls
 confirm-close-surface = true
 window-decoration = true
-window-padding-x = 5
-window-padding-y = 5
 window-padding-balance = true
 window-save-state = always
 window-title-font-family = "Consolas 7NF"
-
-# Let tmux own the title (see set-titles in tmux/tmux.conf.symlink)
-shell-integration-features = no-title
 
 # auto update settings
 auto-update = download
