@@ -1,4 +1,4 @@
-# brew bundle --file ${PWD}/Brewfile
+# brew bundle --file=$DOTFILES/homebrew/Brewfile
 
 # command line tools
 brew "aria2"
