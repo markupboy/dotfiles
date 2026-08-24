@@ -23,6 +23,6 @@ if status is-interactive; and test -d $bobthefish/functions
     set -g theme_use_abbreviated_branch_name yes
 
     set -g theme_display_node yes
-    set -g theme_display_k8s_context no
+    set -g theme_display_k8s_context no # one context named "default" — a constant
     set -g theme_display_ruby yes
 end
