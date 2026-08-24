@@ -27,10 +27,12 @@ script/bootstrap   # full setup: gitconfig prompt, symlinks, dot, brew bundle
 script/install     # run every topic install.sh (idempotent)
 bin/dot            # maintenance: pull, macOS defaults, brew update/upgrade, installers
 bin/dot -q         # skip git pull + brew; just relink and re-run installers
-bin/dot -e         # open the dotfiles repo in $EDITOR
 
 brew bundle --file=$DOTFILES/homebrew/Brewfile   # install/refresh all packages
 ```
+
+`dot` takes only `-q`/`--quick` and `-h`/`--help`. Opening the repo is a shell
+alias, not a flag: `dotcd`, `dotvim`, `dotcode` in `fish/conf.d/dotfiles.fish`.
 
 `dot` and every topic installer depend on `dotlog` (in `bin/`) being on `PATH`.
 `script/bootstrap` prepends `./bin` for that reason; `dot` relies on
