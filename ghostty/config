@@ -19,8 +19,9 @@ config-file = ?local.ghostty
 
 # macOS-specific settings
 macos-option-as-alt = true
-macos-non-native-fullscreen = visible-menu
-macos-titlebar-style = tabs
+# macos-titlebar-style = tabs
+macos-window-buttons = hidden
+macos-titlebar-proxy-icon = hidden
 macos-icon = custom-style
 macos-icon-ghost-color = #cf6757
 macos-icon-screen-color = #888888
