@@ -23,7 +23,7 @@ return {
       -- Extend default capabilities with cmp-nvim-lsp
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- Server configurations
+      -- Server configurations; automatic_enable above handles vim.lsp.enable
       local servers = {
         lua_ls = {
           settings = {
@@ -44,7 +44,6 @@ return {
       for server, config in pairs(servers) do
         config.capabilities = capabilities
         vim.lsp.config(server, config)
-        vim.lsp.enable(server)
       end
 
       -- Keymaps set on LSP attach
