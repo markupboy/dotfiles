@@ -1,3 +1,36 @@
 #!/bin/sh
-curl  https://ifconfig.io 2>/dev/null | awk '{print "wan: "$1}'
-ifconfig | grep netmask | awk '{print "lan: "$2}'
+#
+# getIP - print this machine's WAN address and its LAN addresses.
+
+status=1
+
+if command -v curl >/dev/null 2>&1; then
+  wan=$(curl -fsS --max-time 5 https://ifconfig.io 2>/dev/null)
+  if [ -n "$wan" ]; then
+    echo "wan: $wan"
+    status=0
+  else
+    echo "wan: lookup failed" >&2
+  fi
+else
+  echo "wan: curl not found" >&2
+fi
+
+if command -v ip >/dev/null 2>&1; then
+  lan=$(ip -4 -o addr show scope global 2>/dev/null \
+    | awk '{split($4, a, "/"); print "lan: " a[1] "  (" $2 ")"}')
+elif command -v ifconfig >/dev/null 2>&1; then
+  lan=$(ifconfig 2>/dev/null | awk '
+    /^[a-z0-9]+:/            { iface = $1; sub(":", "", iface) }
+    /^[[:space:]]*inet / && $2 != "127.0.0.1" { print "lan: " $2 "  (" iface ")" }')
+else
+  echo "lan: neither ip nor ifconfig found" >&2
+  lan=""
+fi
+
+if [ -n "$lan" ]; then
+  echo "$lan"
+  status=0
+fi
+
+exit $status
