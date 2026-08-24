@@ -54,6 +54,8 @@ Your leader key is **Space**.
 | `>>`        | Indent line                         |
 | `<<`        | Unindent line                       |
 | `~`         | Toggle case of character            |
+| `gcc`       | Toggle comment on this line         |
+| `gc`        | Toggle comment (operator, e.g. `gcap`, or over a visual selection) |
 
 ## Search
 
@@ -86,11 +88,63 @@ Your leader key is **Space**.
 | `:split`         | Horizontal split                 |
 | `:vsplit`        | Vertical split                   |
 | `Ctrl+w h/j/k/l`| Move between splits              |
+| `Ctrl+h/j/k/l`  | Move between splits (no `Ctrl+w`)|
 | `Ctrl+w q`       | Close split                      |
 
 ---
 
 ## Your Custom Keybindings
+
+### Core (init.lua)
+
+Set directly in `init.lua`, so these work even with every plugin disabled.
+
+**Leaving insert and terminal mode**
+
+| Key                                | Action                                   |
+|------------------------------------|------------------------------------------|
+| `jj` `jk` `jK` `Jj` `JJ` `Jk` `JK` | Escape to Normal mode — any of the seven |
+| `Esc`                              | Leave terminal mode (in `:terminal`)     |
+
+All seven chords leave terminal mode too, so the habit works in both places.
+
+**Windows and tabs**
+
+| Key              | Action                                   |
+|------------------|------------------------------------------|
+| `Ctrl+h/j/k/l`   | Move between splits, no `Ctrl+w` prefix  |
+| `Ctrl+t`         | New tab                                  |
+| `Ctrl+c`         | Close tab                                |
+| `[ t`            | Previous tab                             |
+| `] t`            | Next tab                                 |
+
+**Buffers, files and directories**
+
+| Key              | Action                                   |
+|------------------|------------------------------------------|
+| `Space b d`      | Delete the current buffer                |
+| `Space o t`      | Open a terminal                          |
+| `Space c d`      | `cd` to the current file's directory     |
+| `Space l c d`    | `lcd` to it — this window only           |
+
+**Command line**
+
+| Key              | Action                                   |
+|------------------|------------------------------------------|
+| `%%`             | Expands to the current file's directory  |
+| `w!!`            | Re-save the open file through `sudo`     |
+
+**Movement and inspection**
+
+| Key              | Action                                   |
+|------------------|------------------------------------------|
+| `j` / `k`        | Move by display line (`gj`/`gk`)         |
+| `Space /`        | Clear search highlight                   |
+| `Space s p`      | Print the syntax groups under the cursor |
+
+`j`/`k` move by display line, so on a wrapped line `5j` travels five screen rows
+while the relative-number gutter counts five real lines. They disagree only where
+a line wraps.
 
 ### File Explorer (nvim-tree)
 
@@ -168,6 +222,10 @@ Git change indicators appear in the sign column (left gutter) for tracked files.
 - **Autopairs** - Typing `(`, `[`, `{`, or `"` auto-closes them
 - **Autotag** - In HTML/JSX, closing tags are auto-inserted and renamed
 - **Treesitter** - Syntax highlighting for most languages
+- **Trailing whitespace** - Stripped on every save; cursor and scroll position are kept
+- **Folds** - Every buffer opens fully unfolded
+- **Undo** - History is written to disk and survives restarts
+- **Autoread** - Files edited outside nvim are picked up automatically
 
 ---
 
@@ -182,3 +240,7 @@ Git change indicators appear in the sign column (left gutter) for tracked files.
 | Undo history       | Persistent (survives restarts)   |
 | Colorcolumn        | 80 characters                    |
 | Scroll padding     | 8 lines from edge                |
+| Clipboard          | Shared with the system           |
+| Wrapping           | On, at word boundaries, `↪` marker |
+| New splits         | Open below and to the right      |
+| Whitespace         | Tabs, line ends and trailing shown |
