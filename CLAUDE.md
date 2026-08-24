@@ -154,8 +154,10 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   `one-dark` base, so herdr matches nvim, ghostty, and bobthefish. `panel_bg =
   "reset"` is deliberate: it leaves pane backgrounds to ghostty so
   `background-opacity`/`background-blur` still apply. `[ui] accent` is a *separate*
-  setting from `[theme.custom] accent` and defaults to `cyan`, so both are set to
-  the same blue. Like `fish/`, this directory is herdr's live config dir — it
+  setting from `[theme.custom] accent` and defaults to `cyan`, so it is set
+  explicitly. The two hold different values on purpose: `[ui] accent` is the blue,
+  `[theme.custom] accent` the green. Like `fish/`, this directory is herdr's live
+  config dir — it
   writes `session.json`, `.plugins.lock`, `herdr.sock`, and `herdr-*.log` here, all
   gitignored. Validate with `herdr config check` (it names unknown keys); reload a
   running server with `herdr server reload-config` or `prefix+shift+r`.
@@ -204,6 +206,14 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   a filter keyed only on `worktree.main` will happily delete it. Both also depend on
   `[list] json-schema = 2` in `config.toml` — the schema 1 field names (`is_main`,
   `main_state`) make jq error out against the schema 2 envelope.
+
+The palette is duplicated across four files by hand. `ghostty/themes/one-dark.conf`
+is the source for the six hues — onedarkpro.nvim's vivid variant, except blue, which
+is ghostty's own `#4a90d9` and not upstream. `nvim/colors/onedark_pro_night_flat.lua`
+(including its `M.terminal` table), `herdr/config.toml`, and
+`fish/functions/bobthefish_colors.fish` copy them. Backgrounds and greys stay Night
+Flat — vivid's `#282c34` background is much lighter and is deliberately not used.
+Change a hue in one file, change it in all four.
 
 ### Tooling
 

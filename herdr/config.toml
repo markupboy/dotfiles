@@ -21,17 +21,17 @@ overlay1 = "#7f848e" # comment — dim foreground
 text = "#d7dae0" # fg1 — active foreground
 subtext0 = "#9da5b4" # fg2 — statusline foreground
 
-accent = "#98c379" # green
-red = "#e06c75"
-green = "#98c379"
+accent = "#89ca78" # green
+red = "#ef596f"
+green = "#89ca78"
 yellow = "#e5c07b"
 peach = "#d19a66" # orange
-blue = "#61afef"
-mauve = "#c678dd" # purple
-teal = "#56b6c2" # cyan
+blue = "#4a90d9"
+mauve = "#d55fde" # purple
+teal = "#2bbac5" # cyan
 
 [ui]
-accent = "#61afef"
+accent = "#4a90d9"
 agent_panel_sort = "spaces"
 status_indicators = "symbols"
 

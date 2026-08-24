@@ -1,19 +1,19 @@
 # One Dark Pro (Night Flat) prompt colors, matching nvim/colors/onedark_pro_night_flat.lua
 # and ghostty/themes/one-dark.conf.
 function bobthefish_colors -S -d 'One Dark Pro color scheme for bobthefish'
-    set -l bg0 16191d # editor background
+    set -l bg0 17191d # editor background
     set -l bg2 2c313c # cursor line
     set -l bg3 3e4452 # visual selection
     set -l fg0 abb2bf # editor foreground
     set -l fg1 d7dae0 # bright foreground
 
-    set -l red e06c75
-    set -l green 98c379
+    set -l red ef596f
+    set -l green 89ca78
     set -l yellow e5c07b
     set -l orange d19a66
-    set -l blue 61afef
-    set -l purple c678dd
-    set -l cyan 56b6c2
+    set -l blue 4a90d9
+    set -l purple d55fde
+    set -l cyan 2bbac5
 
     # Leading segment: light background, colored text.
     set -x color_initial_segment_exit $fg1 $red --bold

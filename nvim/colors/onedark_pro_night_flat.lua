@@ -9,7 +9,7 @@ local M = {}
 -- Palette
 -- ==========================================================================
 M.palette = {
-  bg0       = '#16191d',  -- editor background
+  bg0       = '#17191d',  -- editor background
   bg1       = '#1e2227',  -- popups, widgets
   bg2       = '#2c313c',  -- cursor line, inlay hints
   bg3       = '#3e4452',  -- focus border, visual
@@ -20,13 +20,13 @@ M.palette = {
   fg3       = '#6b717d',  -- inactive fg
   gutter    = '#667187',  -- line numbers
   guide     = '#3b4048',  -- indent guides
-  red       = '#e06c75',
-  green     = '#98c379',
+  red       = '#ef596f',
+  green     = '#89ca78',
   yellow    = '#e5c07b',
   orange    = '#d19a66',
-  blue      = '#61afef',
-  purple    = '#c678dd',
-  cyan      = '#56b6c2',
+  blue      = '#4a90d9',
+  purple    = '#d55fde',
+  cyan      = '#2bbac5',
   comment   = '#7f848e',
   cursor    = '#528bff',
   err       = '#c24038',
@@ -37,10 +37,10 @@ M.palette = {
 
 -- Terminal colors
 M.terminal = {
-  '#3f4451', '#e05561', '#8cc265', '#d18f52',
-  '#4aa5f0', '#c162de', '#42b3c2', '#d7dae0',
-  '#4f5666', '#ff616e', '#a5e075', '#f0a45d',
-  '#4dc4ff', '#de73ff', '#4cd1e0', '#e6e6e6',
+  '#000000', '#ef596f', '#89ca78', '#e5c07b',
+  '#4a90d9', '#d55fde', '#2bbac5', '#abb2bf',
+  '#434852', '#f38897', '#a9d89d', '#edd4a6',
+  '#6baee8', '#e089e7', '#4bced8', '#c8cdd5',
 }
 
 function M.setup()
