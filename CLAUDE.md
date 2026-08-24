@@ -12,6 +12,14 @@ Fish is the login shell; neovim is the editor; bobthefish is the prompt. There i
 build step, no test suite, and no CI — changes are verified by running the setup
 scripts and opening a new shell.
 
+## Conventions
+
+Comments are sparse here on purpose. Most functions and config files have none.
+Write one only when the code is genuinely non-obvious, keep it to a single short
+line, and never add a multi-line block reconstructing the reasoning behind a
+change — that belongs in the commit message, or in this file when it's a
+standing architectural fact.
+
 ## Key Commands
 
 ```sh
@@ -134,7 +142,11 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   `git-delete-merged`, `git-force-push`), `wtsweep` (worktree/branch cleanup, see
   worktrunk below), network tools (`getIP`, `dns-flush`), `getkey` (SSH public key
   to clipboard, falling back to the 1Password CLI), plus `dot` and `dotlog`
-- **git/**, **homebrew/**, **tmux/**, **ghostty/** — as named
+- **git/**, **homebrew/**, **ghostty/** — as named
+- **tmux/** — still here on purpose. The herdr migration (`bceb4c4`, `7d40d97`)
+  moved the worktree/PR-review workflow off tmux but did not retire tmux itself,
+  so `tmux.conf.symlink`, `install.sh` (which clones tpm on every `dot` run),
+  `CHEATSHEET.md`, and the `T`/`Ta`/`Tr` aliases in `conf.d/tmux.fish` all stay.
 - **herdr/** — herdr config (agent workspace multiplexer). `config.toml` sets the
   One Dark Pro (Night Flat) palette via a `[theme.custom]` override on the built-in
   `one-dark` base, so herdr matches nvim, ghostty, and bobthefish. `panel_bg =
@@ -199,6 +211,11 @@ there is no plugin manager. Notable tools wired up in `conf.d`: **fnm** (node),
 disabled under `$CLAUDECODE`), **eza** (aliased over `ls`/`l`/`ll`/`la`), **bat**,
 **ripgrep**, **vivid** (`LS_COLORS`, cached at `~/.cache/ls_colors` and regenerated
 when `colors.fish` is newer), **worktrunk**.
+
+**mise** is deliberately not in the Brewfile. It's installed per-machine on the
+other systems that share this repo, not on every one, and `mise.fish` is `type -q`
+guarded so it no-ops where mise is absent. Adding `brew "mise"` would install it
+everywhere, including machines where fnm already covers node.
 
 The prompt is **bobthefish**, cloned by `fish/install.sh` into
 `~/.local/share/theme-bobthefish` and put on `$fish_function_path` by
