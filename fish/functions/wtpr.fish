@@ -14,13 +14,10 @@ function wtpr --description 'quickly spawn a PR review session from an identifie
 
     _wtpr_sync $pr $wt_path
 
-    # Workspace label — herdr shows this in the sidebar and the window title
-    set -l common_dir (git -C $wt_path rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
-    set -l repo (basename (dirname $common_dir))
-
     # worktree open is create-or-focus: `already_open` is the idempotence guard, and
     # --label is (re)applied either way, so the label refreshes on every run.
-    set -l opened (herdr worktree open --path $wt_path --label "$repo #$pr" --focus)
+    # herdr nests the workspace under its repo, so the label needn't name it again.
+    set -l opened (herdr worktree open --path $wt_path --label "PR #$pr" --focus)
     or return 1
 
     set -l top (echo $opened | jq -r '.result.root_pane.pane_id')

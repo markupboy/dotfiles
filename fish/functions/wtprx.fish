@@ -3,7 +3,7 @@ function wtprx --description "close a PR's herdr workspace"
     if test -n "$argv[1]"
         # Match the label wtpr set. Resolve by label rather than `wt switch`, which
         # would re-create the very worktree we're tearing down. The anchored regex
-        # won't cross-match: "repo #112" has a digit, not '#', before the "12".
+        # won't cross-match: "PR #112" has a digit, not '#', before the "12".
         set ws (herdr workspace list \
             | jq -r --arg pr $argv[1] \
                 '.result.workspaces[] | select(.label | test("#" + $pr + "$")) | .workspace_id' \
