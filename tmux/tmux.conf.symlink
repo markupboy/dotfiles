@@ -1,9 +1,9 @@
 # --- General Tmux Settings ---
-set -g default-terminal "tmux-256color"                # Enable 256 colors
-set -sa terminal-overrides ",*-256color*:RGB"          # True color support
-set -g mouse on                           # Enable mouse support for resizing panes, scrolling
-set -s escape-time 0                      # Reduce escape key delay (important for Vim users)
-set -g history-limit 10000                # Increase scrollback buffer
+set -g default-terminal "tmux-256color"
+set -sa terminal-overrides ",*-256color*:RGB"          # true color
+set -g mouse on
+set -s escape-time 0                      # no ESC delay in vim
+set -g history-limit 10000
 
 # --- Shell ---
 # New panes get fish wherever it lives, so tmux-continuum's restored sessions
@@ -20,32 +20,30 @@ set -g set-titles on
 set -g set-titles-string "#{b:pane_current_path}"
 
 # --- Custom Key Bindings for Panes ---
-# Split panes horizontally and vertically using intuitive | and - keys
-bind | split-window -h -c "#{pane_current_path}" # Split vertical
-bind - split-window -v -c "#{pane_current_path}" # Split horizontal
-unbind '"'                                       # Unbind default split keys
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+unbind '"'
 unbind %
 
 # --- Pane Navigation with Alt + Arrow Keys ---
-# This allows quick pane switching without the Tmux prefix key (Ctrl+b)
+# -n binds without the prefix key
 bind -n M-Left select-pane -L
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
 
-# --- Status Bar Styling (Optional: For a cleaner look) ---
+# --- Status Bar Styling ---
 set -g status-style bg=default
 set -g status-left-length 40
-set -g status-left "#[fg=green]Session: #S #[fg=yellow]• " # Session name
-set -g status-right "#[fg=cyan]%H:%M #[fg=magenta]%d-%b-%y" # Time and date
+set -g status-left "#[fg=green]Session: #S #[fg=yellow]• "
+set -g status-right "#[fg=cyan]%H:%M #[fg=magenta]%d-%b-%y"
 
 # --- Tmux Plugin Manager (TPM) & Plugins ---
-# List of plugins to be installed by TPM
-set -g @plugin 'tmux-plugins/tpm'           # Tmux Plugin Manager itself
-set -g @plugin 'tmux-plugins/tmux-resurrect' # Save and restore Tmux environment
-set -g @plugin 'tmux-plugins/tmux-continuum' # Continuously save Tmux environment
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
 
-# Configure tmux-continuum to automatically restore sessions on Tmux start
+# continuum drives resurrect automatically — restore on tmux start
 set -g @continuum-restore 'on'
 
 # Initialize TPM. This line MUST be at the very end of .tmux.conf
