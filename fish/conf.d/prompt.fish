@@ -4,6 +4,7 @@ set -l bobthefish $HOME/.local/share/theme-bobthefish
 if status is-interactive; and test -d $bobthefish/functions
     set -g fish_function_path $bobthefish/functions $fish_function_path
 
+    # bobthefish ships its own fish_greeting; config.fish's var doesn't reach it
     function fish_greeting; end
 
     set -g theme_nerd_fonts yes
