@@ -1,4 +1,4 @@
-# use the vendored bobthefish theme, if not available, fallback to default
+# vendored bobthefish; if it's missing this block is skipped and fish's own prompt runs
 set -l bobthefish $HOME/.local/share/theme-bobthefish
 
 if status is-interactive; and test -d $bobthefish/functions
