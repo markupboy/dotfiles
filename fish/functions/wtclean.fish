@@ -19,10 +19,11 @@ function wtclean --description 'remove worktrees whose branches are merged into 
         set -l default_branch $fields[3]
         set -l remove_args --foreground
         set -l force_delete false
+        set -l head ""
 
         if not contains -- $state integrated empty
             type -q gh; or continue
-            set -l head (git rev-parse --verify "refs/heads/$branch" 2>/dev/null)
+            set head (git rev-parse --verify "refs/heads/$branch" 2>/dev/null)
             or continue
             gh pr list --state merged --base $default_branch --head $branch \
                 --json headRefOid --limit 100 \
