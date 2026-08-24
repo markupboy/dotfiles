@@ -75,9 +75,9 @@ for _, chord in ipairs(insertEscapeChords) do
   vim.keymap.set("i", chord, "<Esc>")
 end
 
--- move by display line instead of physical line (nicer with wrap enabled)
-vim.keymap.set({ "n", "x" }, "j", "gj")
-vim.keymap.set({ "n", "x" }, "k", "gk")
+-- move by display line, except with a count, so 5j matches the relnumber gutter
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- cd to the directory containing the current buffer's file
 vim.keymap.set("n", "<leader>cd", "<cmd>cd %:h<CR>", { desc = "cd to buffer's directory" })

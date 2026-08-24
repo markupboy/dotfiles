@@ -138,13 +138,13 @@ All seven chords leave terminal mode too, so the habit works in both places.
 
 | Key              | Action                                   |
 |------------------|------------------------------------------|
-| `j` / `k`        | Move by display line (`gj`/`gk`)         |
+| `j` / `k`        | Move by display line; with a count, by real line |
 | `Space /`        | Clear search highlight                   |
 | `Space s p`      | Print the syntax groups under the cursor |
 
-`j`/`k` move by display line, so on a wrapped line `5j` travels five screen rows
-while the relative-number gutter counts five real lines. They disagree only where
-a line wraps.
+Bare `j`/`k` move by display line, which is what you want with wrapping on. Give
+them a count and they fall back to real lines, so `5j` lands where the
+relative-number gutter says it will.
 
 ### File Explorer (nvim-tree)
 
