@@ -26,9 +26,9 @@ if status is-interactive
         alias cat "bat --paging=never"
     end
 
-    # ide alias
-    alias ccc 'code .'
-    if test -d /Applications/Cursor.app
+    # ide alias; type -q so a missing cursor doesn't shadow a working code
+    if test "$DEV_TOOLS" = cursor; and type -q cursor
         alias code "cursor --classic"
     end
+    alias ccc 'code .'
 end

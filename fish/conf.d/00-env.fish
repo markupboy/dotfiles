@@ -18,3 +18,8 @@ end
 if test -f ~/.localrc.fish
     source ~/.localrc.fish
 end
+
+# cursor on work machines, defaults everywhere else; set DEV_TOOLS in ~/.localrc.fish
+if not set -q DEV_TOOLS
+    set -gx DEV_TOOLS $AI_CLI # AI_CLI is the previous name
+end

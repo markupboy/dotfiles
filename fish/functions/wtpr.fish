@@ -40,7 +40,7 @@ function wtpr --description 'quickly spawn a PR review session from an identifie
         # Mirrors conf.d/ai.fish — agent start takes a --kind, not the `ai` alias
         set -l kind claude
         set -l agent_args --dangerously-skip-permissions /pr-review
-        if test "$AI_CLI" = cursor
+        if test "$DEV_TOOLS" = cursor
             set kind cursor
             set agent_args --force /pr-review
         end

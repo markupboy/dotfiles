@@ -123,6 +123,15 @@ Machine-specific and secret config is gitignored and layered on top:
   `gitconfig.local.symlink.example` during bootstrap
 - `ghostty/local.ghostty` — gitignored, pulled in by `config-file = ?local.ghostty`
 
+`DEV_TOOLS` is the work-vs-personal switch. Put `set -gx DEV_TOOLS cursor` in
+`~/.localrc.fish` and `conf.d/ai.fish` runs `cursor-agent`, `wtpr` starts herdr
+agents with `--kind cursor`, and `conf.d/system.fish` aliases `code` to `cursor
+--classic`. Unset, everything defaults to claude and VS Code. `00-env.fish`
+resolves it just after sourcing `~/.localrc.fish` and still accepts the previous
+name, `AI_CLI`. The `code` alias additionally requires `type -q cursor`, so a
+machine where the Cursor CLI isn't installed keeps a working `code` instead of
+shadowing it with a missing binary.
+
 There is no per-file local override for fish: `conf.d` is fish's own load mechanism,
 so machine-local fish config goes in `~/.localrc.fish`.
 
@@ -176,7 +185,7 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   Panes only split `right` or `down`; there is no `left`/`up`. `herdr agent start`
   needs a pane already sitting at an interactive prompt and blocks until the agent is
   ready (30s default), so it takes a `--kind` rather than the `ai` alias — meaning
-  `conf.d/ai.fish`'s `AI_CLI=cursor` switch has to be mirrored by hand in `wtpr`.
+  `conf.d/ai.fish`'s `DEV_TOOLS=cursor` switch has to be mirrored by hand in `wtpr`.
   `HERDR_ENV=1` is the "am I inside herdr" guard (the `$TMUX` analogue), alongside
   `HERDR_WORKSPACE_ID`/`HERDR_TAB_ID`/`HERDR_PANE_ID`. Since `[experimental]
   allow_nested` is off, bare `herdr` may only be run when `HERDR_ENV` is unset.
@@ -223,6 +232,11 @@ there is no plugin manager. Notable tools wired up in `conf.d`: **fnm** (node),
 disabled under `$CLAUDECODE`), **eza** (aliased over `ls`/`l`/`ll`/`la`), **bat**,
 **ripgrep**, **vivid** (`LS_COLORS`, cached at `~/.cache/ls_colors` and regenerated
 when `colors.fish` is newer), **worktrunk**.
+
+The Brewfile is formulae only — casks break too often on update to be worth
+declaring. The cost is `op`: 1Password's CLI ships only as a cask, so `bin/getkey`
+can't have it installed for it and guards with `command -v op` instead. Ghostty is
+absent for the same reason and is called out in the README.
 
 **mise** is deliberately not in the Brewfile. It's installed per-machine on the
 other systems that share this repo, not on every one, and `mise.fish` is `type -q`
