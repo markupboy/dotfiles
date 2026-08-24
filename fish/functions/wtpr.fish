@@ -20,7 +20,7 @@ function wtpr --description 'quickly spawn a PR review session from an identifie
 
     # worktree open is create-or-focus: `already_open` is the idempotence guard, and
     # --label is (re)applied either way, so the label refreshes on every run.
-    set -l opened (herdr worktree open --path $wt_path --label "$repo - #$pr" --focus)
+    set -l opened (herdr worktree open --path $wt_path --label "$repo #$pr" --focus)
     or return 1
 
     set -l top (echo $opened | jq -r '.result.root_pane.pane_id')
