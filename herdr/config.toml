@@ -1,5 +1,7 @@
 onboarding = false
 
+######## THEMING ########
+
 [theme]
 # Start with one-dark then override it
 name = "one-dark"
@@ -30,6 +32,8 @@ blue = "#4a90d9"
 mauve = "#d55fde" # purple
 teal = "#2bbac5" # cyan
 
+####### UI ########
+
 [ui]
 accent = "#4a90d9"
 agent_panel_sort = "spaces"
@@ -38,3 +42,14 @@ status_indicators = "symbols"
 show_agent_labels_on_pane_borders = true
 [ui.toast]
 delivery = "herdr"
+
+######## KEYBINDING ########
+
+[keys]
+prefix = "ctrl+a"
+goto = "prefix+g"
+new_tab = "prefix+t"
+next_tab = ["prefix+n", "ctrl+alt+cmd+]"]
+previous_tab = ["prefix+p", "ctrl+alt+cmd+["]
+
+
