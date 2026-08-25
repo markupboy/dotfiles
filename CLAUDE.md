@@ -64,9 +64,10 @@ error` and a non-zero exit (after trying the remaining topics).
 
 A topic only needs an `install.sh` when it does something *other* than config-dir
 linking — `tmux/` (clones tpm), `fish/` (clones bobthefish), `homebrew/` (installs
-brew), `linux/` (apt build deps). `git/` has none: its settings are declared in the
-tracked `gitconfig.symlink`, and `git config --global` would write *into* that file
-(`~/.gitconfig` symlinks to it), so an installer there only churns the repo.
+brew), `linux/` (apt build deps), `herdr/` (installs the worktrunk plugin). `git/`
+has none: its settings are declared in the tracked `gitconfig.symlink`, and `git
+config --global` would write *into* that file (`~/.gitconfig` symlinks to it), so an
+installer there only churns the repo.
 
 ### Shell configuration
 
@@ -166,26 +167,45 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   setting from `[theme.custom] accent` and defaults to `cyan`, so it is set
   explicitly. The two hold different values on purpose: `[ui] accent` is the blue,
   `[theme.custom] accent` the green. Like `fish/`, this directory is herdr's live
-  config dir — it
-  writes `session.json`, `.plugins.lock`, `herdr.sock`, and `herdr-*.log` here, all
-  gitignored. Validate with `herdr config check` (it names unknown keys); reload a
-  running server with `herdr server reload-config` or `prefix+shift+r`.
+  config dir — it writes `session.json`, `.plugins.lock`, `herdr.sock`,
+  `herdr-*.log`, and the `plugins/` tree plus `plugins.json` here, all gitignored —
+  `plugins/github/*/` is a full git clone. `herdr/install.sh` reinstalls the
+  `herdr-worktrunk` plugin instead, which backs the `wtc`/`wtpr` workspace layout.
+  Validate with `herdr config check` (it names unknown keys); reload a running server
+  with `herdr server reload-config` or `prefix+shift+r`.
 
-  `wtpr`/`wtprx` script herdr over its socket API. Three things about that API make
-  those functions short. Every `workspace`/`tab`/`pane`/`agent`/`worktree` command
-  already prints one line of JSON to stdout — `--json` is a no-op — and reports
-  failure as JSON on stderr with exit 1 (a CLI syntax error exits 2), so `jq` plus
-  `or return 1` is the whole error contract. `herdr worktree open --path P --label L`
-  is create-or-focus: its `already_open` field is the idempotence guard, so nothing
-  needs to probe for an existing workspace first, and `--label` is re-applied on
-  reuse, so the label refreshes for free. IDs are opaque handles (`w1`, `w1:t1`,
-  `w1:p1`) that must be read out of the responses — `.result.root_pane.pane_id` on
-  open, `.result.pane.pane_id` on split — never constructed by hand.
+  `wtpr`/`wtc`/`wtprx` script herdr over its socket API. Every
+  `workspace`/`tab`/`pane`/`agent`/`worktree` command already prints one line of JSON
+  to stdout — `--json` is a no-op — and reports failure as JSON on stderr with exit 1
+  (a CLI syntax error exits 2), so `jq` plus `or return 1` is the whole error
+  contract. IDs are opaque handles (`w1`, `w1:t1`, `w1:p1`) that must be read out of
+  the responses — `.result.root_pane.pane_id` on open, `.result.pane.pane_id` on
+  split — never constructed by hand. Note `herdr api schema` **understates** the
+  responses: it omits `root_pane` and `tab` from `worktree_opened`, which the server
+  does send. Trust a live response over the schema.
+
+  `herdr worktree open` is create-or-focus — its `already_open` field is the
+  idempotence guard, and `--label` is re-applied on reuse — but it resolves `--path`
+  only against a repo it already tracks, so **it needs `--cwd <repo_root>`**. Without
+  it the call fails `worktree_not_found`, and passing the *worktree's* own workspace
+  is rejected too: a linked-worktree workspace can't be a source. Resolve the root
+  with `herdr worktree list --cwd <checkout>` (`.result.source.repo_root`) and, when
+  `.result.source.source_workspace_id` is absent, pre-create the parent with
+  `herdr workspace create --cwd <root> --label <repo>` — left alone herdr auto-creates
+  it labelled with the directory basename, which is where stray workspaces come from.
+  `_wt_herdr_open` does all of this; `wtpr` and `wtc` just call it.
 
   Panes only split `right` or `down`; there is no `left`/`up`. `herdr agent start`
   needs a pane already sitting at an interactive prompt and blocks until the agent is
   ready (30s default), so it takes a `--kind` rather than the `ai` alias — meaning
-  `conf.d/ai.fish`'s `DEV_TOOLS=cursor` switch has to be mirrored by hand in `wtpr`.
+  `conf.d/ai.fish`'s `DEV_TOOLS=cursor` switch has to be mirrored by hand in
+  `_wt_herdr_agent`. A checkout worktrunk just created is a directory the agent has
+  never seen, so it opens on its trust prompt — which `--dangerously-skip-permissions`
+  does *not* cover. `agent start` reports that as `agent_not_ready` but keeps the name
+  registered, so `_wt_herdr_agent` answers it with `agent send-keys <name> enter` and
+  then `agent wait`. Focus the workspace *after* the layout is built, not via
+  `worktree open --focus`: focusing first strands the calling pane mid-run, which is
+  what made these functions look like they hung.
   `HERDR_ENV=1` is the "am I inside herdr" guard (the `$TMUX` analogue), alongside
   `HERDR_WORKSPACE_ID`/`HERDR_TAB_ID`/`HERDR_PANE_ID`. Since `[experimental]
   allow_nested` is off, bare `herdr` may only be run when `HERDR_ENV` is unset.
@@ -200,9 +220,18 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   autoloaded stub at `fish/functions/wt.fish`, generated by `wt config shell install
   fish` — it sources the full definition from the binary on first call. Putting it in
   `conf.d` instead is deprecated and forks a `wt` subprocess on every shell startup.
-  `fish/conf.d/worktrunk.fish` holds only the `wtc`/`wtl` aliases. Completions come
-  from Homebrew's `vendor_completions.d`, so `wt config show` reporting "Completions
-  not configured" is a false negative — it only looks in `~/.config/fish/completions`.
+  `fish/conf.d/worktrunk.fish` holds only the `wtl` alias — `wtc` takes an argument
+  and needs a guard (a bare `wt switch` opens an fzf picker with nowhere to draw), so
+  it lives in `fish/functions/` with the rest. Completions come from Homebrew's
+  `vendor_completions.d`, so `wt config show` reporting "Completions not configured"
+  is a false negative — it only looks in `~/.config/fish/completions`.
+
+  `wtc` and `wtpr` run `wt switch` **uncaptured**. The `[post-start]` hook copies
+  ignored files into the new checkout, and swallowing that output in a command
+  substitution reads as a hung shell — so the path is looked up afterwards with
+  `_wt_path` instead. worktrunk always creates the checkout and runs the hooks first;
+  herdr only registers the finished directory with `herdr worktree open`. Never
+  `herdr worktree create`, which would cut worktrunk out and skip the hooks.
 
   Two things sweep merged worktrees and branches, both by asking `wt list --format
   json` for rows whose state is `integrated` or `empty` and feeding them to `wt
