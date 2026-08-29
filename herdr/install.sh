@@ -16,3 +16,10 @@ else
   dotlog "install" "Installing herdr-worktrunk"
   herdr plugin install devashish2203/herdr-worktrunk
 fi
+
+if herdr plugin list 2>/dev/null | grep -q ; then
+  dotlog "skip" "Skipping herdr-reviewr
+else
+  dotlog "install" "Installing herdr-reviewr"
+  herdr plugin install persiyanov/herdr-reviewr
+fii
