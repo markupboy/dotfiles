@@ -1,5 +1,5 @@
 # appearance
-theme = "one-dark.conf"
+theme = "dracula-pro.conf"
 font-family = "Consolas 7NF"
 font-size = 12
 adjust-cell-width = -11%
@@ -22,7 +22,7 @@ macos-option-as-alt = true
 macos-window-buttons = hidden
 macos-titlebar-proxy-icon = hidden
 macos-icon = custom-style
-macos-icon-ghost-color = #cf6757
+macos-icon-ghost-color = #9580ff
 macos-icon-screen-color = #888888
 macos-icon-frame = aluminum
 

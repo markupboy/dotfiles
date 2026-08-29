@@ -3,39 +3,39 @@ onboarding = false
 ######## THEMING ########
 
 [theme]
-# Start with one-dark then override it
-name = "one-dark"
+# Start with dracula then override it
+name = "dracula"
 
 auto_switch = false
-# One Dark Pro (Night Flat) — my goto theme
+# Dracula Pro — my goto theme
 [theme.custom]
-panel_bg = "reset"
-sidebar_bg = "#21252b" # One Dark Pro sidebar gray
-active_row_bg = "#2c313c" # bg2 — cursor line
-selection_bg = "#3e4452" # bg3 — visual selection
+# panel_bg = "reset"
+sidebar_bg = "#1e1d27" # Dracula Pro sidebar
+active_row_bg = "#343143" # bg2 — cursor line
+selection_bg = "#454158" # bg3 — visual selection
 
-surface0 = "#2c313c" # bg2 — subtle dividers
-surface1 = "#3e4452" # bg3 — borders, focus ring
-surface_dim = "#1e2227" # bg1 — popups, inactive chrome
-overlay0 = "#6b717d" # fg3 — inactive foreground
-overlay1 = "#7f848e" # comment — dim foreground
+surface0 = "#343143" # bg2 — subtle dividers
+surface1 = "#454158" # bg3 — borders, focus ring
+surface_dim = "#282734" # bg1 — popups, inactive chrome
+overlay0 = "#6e6a8c" # fg3 — inactive foreground
+overlay1 = "#7970a9" # comment — dim foreground
 
-text = "#d7dae0" # fg1 — active foreground
-subtext0 = "#9da5b4" # fg2 — statusline foreground
+text = "#ffffff" # fg1 — active foreground
+subtext0 = "#b5b0ce" # fg2 — statusline foreground
 
-accent = "#89ca78" # green
-red = "#ef596f"
-green = "#89ca78"
-yellow = "#e5c07b"
-peach = "#d19a66" # orange
-blue = "#4a90d9"
-mauve = "#d55fde" # purple
-teal = "#2bbac5" # cyan
+accent = "#8aff80" # green
+red = "#ff9580"
+green = "#8aff80"
+yellow = "#ffff80"
+peach = "#ffca80" # orange
+blue = "#9580ff" # purple
+mauve = "#ff80bf" # pink
+teal = "#80ffea" # cyan
 
 ####### UI ########
 
 [ui]
-accent = "#4a90d9"
+accent = "#9580ff"
 agent_panel_sort = "spaces"
 status_indicators = "symbols"
 

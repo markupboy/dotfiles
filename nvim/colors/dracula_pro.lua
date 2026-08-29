@@ -1,7 +1,7 @@
--- Name:       One Dark Pro Night Flat
--- Description: Converted from VS Code One Dark Pro (Night Flat variant)
+-- Name:       Dracula Pro
+-- Description: Converted from the Dracula Pro theme
 -- License:     MIT
--- Website:     https://github.com/Binaryify/OneDark-Pro
+-- Website:     https://draculatheme.com/pro
 
 local M = {}
 
@@ -9,38 +9,38 @@ local M = {}
 -- Palette
 -- ==========================================================================
 M.palette = {
-  bg0       = '#17191d',  -- editor background
-  bg1       = '#1e2227',  -- popups, widgets
-  bg2       = '#2c313c',  -- cursor line, inlay hints
-  bg3       = '#3e4452',  -- focus border, visual
-  bg4       = '#515a6b',  -- bracket match
-  fg0       = '#abb2bf',  -- editor foreground
-  fg1       = '#d7dae0',  -- active/bright foreground
-  fg2       = '#9da5b4',  -- statusline fg
-  fg3       = '#6b717d',  -- inactive fg
-  gutter    = '#667187',  -- line numbers
-  guide     = '#3b4048',  -- indent guides
-  red       = '#ef596f',
-  green     = '#89ca78',
-  yellow    = '#e5c07b',
-  orange    = '#d19a66',
-  blue      = '#4a90d9',
-  purple    = '#d55fde',
-  cyan      = '#2bbac5',
-  comment   = '#7f848e',
-  cursor    = '#528bff',
-  err       = '#c24038',
-  git_add   = '#109868',
-  git_mod   = '#948b60',
-  git_del   = '#9a353d',
+  bg0       = '#22212c',  -- editor background
+  bg1       = '#282734',  -- popups, widgets
+  bg2       = '#343143',  -- cursor line, inlay hints
+  bg3       = '#454158',  -- focus border, visual
+  bg4       = '#565073',  -- bracket match
+  fg0       = '#f8f8f2',  -- editor foreground
+  fg1       = '#ffffff',  -- active/bright foreground
+  fg2       = '#b5b0ce',  -- statusline fg
+  fg3       = '#6e6a8c',  -- inactive fg
+  gutter    = '#6c6783',  -- line numbers
+  guide     = '#322f40',  -- indent guides
+  red       = '#ff9580',
+  green     = '#8aff80',
+  yellow    = '#ffff80',
+  orange    = '#ffca80',
+  blue      = '#9580ff',
+  purple    = '#ff80bf',
+  cyan      = '#80ffea',
+  comment   = '#7970a9',
+  cursor    = '#f8f8f2',
+  err       = '#ff5555',
+  git_add   = '#63b85c',
+  git_mod   = '#b8915c',
+  git_del   = '#b86b5c',
 }
 
 -- Terminal colors
 M.terminal = {
-  '#000000', '#ef596f', '#89ca78', '#e5c07b',
-  '#4a90d9', '#d55fde', '#2bbac5', '#abb2bf',
-  '#434852', '#f38897', '#a9d89d', '#edd4a6',
-  '#6baee8', '#e089e7', '#4bced8', '#c8cdd5',
+  '#22212c', '#ff9580', '#8aff80', '#ffff80',
+  '#9580ff', '#ff80bf', '#80ffea', '#f8f8f2',
+  '#7970a9', '#ffaa99', '#a2ff99', '#ffff99',
+  '#aa99ff', '#ff99cc', '#99ffee', '#ffffff',
 }
 
 function M.setup()
@@ -49,7 +49,7 @@ function M.setup()
     vim.cmd('syntax reset')
   end
   vim.o.background = 'dark'
-  vim.g.colors_name = 'onedark_pro_night_flat'
+  vim.g.colors_name = 'dracula_pro'
 
   local c = M.palette
   local hl = vim.api.nvim_set_hl
@@ -67,32 +67,32 @@ function M.setup()
   hl(0, 'NormalFloat',   { fg = c.fg0, bg = c.bg1 })
   hl(0, 'FloatBorder',   { fg = c.bg3, bg = c.bg1 })
   hl(0, 'FloatTitle',    { fg = c.blue, bg = c.bg1, bold = true })
-  hl(0, 'Cursor',        { fg = '#ffffff', bg = c.cursor })
-  hl(0, 'lCursor',       { fg = '#ffffff', bg = c.cursor })
-  hl(0, 'CursorIM',      { fg = '#ffffff', bg = c.cursor })
+  hl(0, 'Cursor',        { fg = c.bg0, bg = c.cursor })
+  hl(0, 'lCursor',       { fg = c.bg0, bg = c.cursor })
+  hl(0, 'CursorIM',      { fg = c.bg0, bg = c.cursor })
   hl(0, 'CursorLine',    { bg = c.bg2 })
   hl(0, 'CursorColumn',  { bg = c.bg2 })
   hl(0, 'ColorColumn',   { bg = c.bg2 })
   hl(0, 'LineNr',        { fg = c.gutter })
   hl(0, 'CursorLineNr',  { fg = c.fg0, bg = c.bg2 })
   hl(0, 'SignColumn',     { bg = c.bg0 })
-  hl(0, 'VertSplit',     { fg = '#181a1f', bg = c.bg0 })
-  hl(0, 'WinSeparator',  { fg = '#181a1f', bg = c.bg0 })
+  hl(0, 'VertSplit',     { fg = '#1a1924', bg = c.bg0 })
+  hl(0, 'WinSeparator',  { fg = '#1a1924', bg = c.bg0 })
 
   hl(0, 'StatusLine',    { fg = c.fg2, bg = c.bg0 })
   hl(0, 'StatusLineNC',  { fg = c.fg3, bg = c.bg0 })
   hl(0, 'TabLine',       { fg = c.fg0, bg = c.bg0 })
   hl(0, 'TabLineFill',   { bg = c.bg0 })
-  hl(0, 'TabLineSel',    { fg = '#dcdcdc', bg = '#23272e' })
+  hl(0, 'TabLineSel',    { fg = c.fg0, bg = '#2d2b3a' })
 
   hl(0, 'Pmenu',         { fg = c.fg0, bg = c.bg1 })
-  hl(0, 'PmenuSel',      { fg = c.fg0, bg = '#2c313a' })
+  hl(0, 'PmenuSel',      { fg = c.fg0, bg = '#343143' })
   hl(0, 'PmenuSbar',     { bg = c.bg1 })
-  hl(0, 'PmenuThumb',    { bg = '#4e5666' })
+  hl(0, 'PmenuThumb',    { bg = '#565073' })
 
   hl(0, 'Visual',        { bg = c.bg3 })
   hl(0, 'VisualNOS',     { bg = c.bg3 })
-  hl(0, 'Search',        { bg = '#3d3028' })
+  hl(0, 'Search',        { bg = '#53463e' })
   hl(0, 'IncSearch',     { fg = c.bg0, bg = c.orange })
   hl(0, 'CurSearch',     { fg = c.bg0, bg = c.yellow })
   hl(0, 'Substitute',    { fg = c.bg0, bg = c.orange })
@@ -120,10 +120,10 @@ function M.setup()
   -- ========================================================================
   -- Diff
   -- ========================================================================
-  hl(0, 'DiffAdd',       { bg = '#162e25' })
-  hl(0, 'DiffChange',    { bg = '#2c2a23' })
-  hl(0, 'DiffDelete',    { fg = c.git_del, bg = '#2c1c1f' })
-  hl(0, 'DiffText',      { bg = '#3f3b2a' })
+  hl(0, 'DiffAdd',       { bg = '#324239' })
+  hl(0, 'DiffChange',    { bg = '#434239' })
+  hl(0, 'DiffDelete',    { fg = c.git_del, bg = '#433239' })
+  hl(0, 'DiffText',      { bg = '#605f44' })
   hl(0, 'diffAdded',     { fg = c.green })
   hl(0, 'diffRemoved',   { fg = c.red })
   hl(0, 'diffChanged',   { fg = c.yellow })
@@ -141,10 +141,10 @@ function M.setup()
   hl(0, 'DiagnosticUnderlineWarn',  { sp = c.orange, undercurl = true })
   hl(0, 'DiagnosticUnderlineInfo',  { sp = c.blue, undercurl = true })
   hl(0, 'DiagnosticUnderlineHint',  { sp = c.cyan, undercurl = true })
-  hl(0, 'DiagnosticVirtualTextError', { fg = c.err, bg = '#1d1a1d' })
-  hl(0, 'DiagnosticVirtualTextWarn',  { fg = c.orange, bg = '#1e1c1e' })
-  hl(0, 'DiagnosticVirtualTextInfo',  { fg = c.blue, bg = '#1b1e24' })
-  hl(0, 'DiagnosticVirtualTextHint',  { fg = c.cyan, bg = '#1a1e20' })
+  hl(0, 'DiagnosticVirtualTextError', { fg = c.err, bg = '#2f242e' })
+  hl(0, 'DiagnosticVirtualTextWarn',  { fg = c.orange, bg = '#2f2b31' })
+  hl(0, 'DiagnosticVirtualTextInfo',  { fg = c.blue, bg = '#292739' })
+  hl(0, 'DiagnosticVirtualTextHint',  { fg = c.cyan, bg = '#282e37' })
 
   -- ========================================================================
   -- Git signs (gutter)
@@ -287,7 +287,7 @@ function M.setup()
   hl(0, 'TelescopePromptTitle',  { fg = c.bg0, bg = c.blue, bold = true })
   hl(0, 'TelescopePreviewTitle', { fg = c.bg0, bg = c.green, bold = true })
   hl(0, 'TelescopeResultsTitle', { fg = c.bg1, bg = c.bg1 })
-  hl(0, 'TelescopeSelection',    { fg = c.fg1, bg = '#2c313a' })
+  hl(0, 'TelescopeSelection',    { fg = c.fg1, bg = '#343143' })
   hl(0, 'TelescopeMatching',     { fg = c.orange, bold = true })
 
   -- ========================================================================

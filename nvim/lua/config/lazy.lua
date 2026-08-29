@@ -20,6 +20,6 @@ require("lazy").setup({
     { import = "plugins" },
   },
   -- colorscheme shown while plugins install
-  install = { colorscheme = { "onedark_pro_night_flat" } },
+  install = { colorscheme = { "dracula_pro" } },
   checker = { enabled = true, notify = false },
 })

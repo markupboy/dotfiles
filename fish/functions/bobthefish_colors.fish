@@ -1,19 +1,19 @@
-# One Dark Pro (Night Flat) prompt colors, matching nvim/colors/onedark_pro_night_flat.lua
-# and ghostty/themes/one-dark.conf.
-function bobthefish_colors -S -d 'One Dark Pro color scheme for bobthefish'
-    set -l bg0 17191d # editor background
-    set -l bg2 2c313c # cursor line
-    set -l bg3 3e4452 # visual selection
-    set -l fg0 abb2bf # editor foreground
-    set -l fg1 d7dae0 # bright foreground
+# Dracula Pro prompt colors, matching nvim/colors/dracula_pro.lua
+# and ghostty/themes/dracula-pro.conf.
+function bobthefish_colors -S -d 'Dracula Pro color scheme for bobthefish'
+    set -l bg0 22212c # editor background
+    set -l bg2 343143 # cursor line
+    set -l bg3 454158 # visual selection
+    set -l fg0 f8f8f2 # editor foreground
+    set -l fg1 ffffff # bright foreground
 
-    set -l red ef596f
-    set -l green 89ca78
-    set -l yellow e5c07b
-    set -l orange d19a66
-    set -l blue 4a90d9
-    set -l purple d55fde
-    set -l cyan 2bbac5
+    set -l red ff9580
+    set -l green 8aff80
+    set -l yellow ffff80
+    set -l orange ffca80
+    set -l blue 9580ff
+    set -l purple ff80bf
+    set -l cyan 80ffea
 
     # Leading segment: light background, colored text.
     set -x color_initial_segment_exit $fg1 $red --bold

@@ -160,8 +160,8 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   so `tmux.conf.symlink`, `install.sh` (which clones tpm on every `dot` run),
   `CHEATSHEET.md`, and the `T`/`Ta`/`Tr` aliases in `conf.d/tmux.fish` all stay.
 - **herdr/** — herdr config (agent workspace multiplexer). `config.toml` sets the
-  One Dark Pro (Night Flat) palette via a `[theme.custom]` override on the built-in
-  `one-dark` base, so herdr matches nvim, ghostty, and bobthefish. `panel_bg =
+  Dracula Pro palette via a `[theme.custom]` override on the built-in
+  `dracula` base, so herdr matches nvim, ghostty, and bobthefish. `panel_bg =
   "reset"` is deliberate: it leaves pane backgrounds to ghostty so
   `background-opacity`/`background-blur` still apply. `[ui] accent` is a *separate*
   setting from `[theme.custom] accent` and defaults to `cyan`, so it is set
@@ -245,12 +245,14 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   `[list] json-schema = 2` in `config.toml` — the schema 1 field names (`is_main`,
   `main_state`) make jq error out against the schema 2 envelope.
 
-The palette is duplicated across four files by hand. `ghostty/themes/one-dark.conf`
-is the source for the six hues — onedarkpro.nvim's vivid variant, except blue, which
-is ghostty's own `#4a90d9` and not upstream. `nvim/colors/onedark_pro_night_flat.lua`
-(including its `M.terminal` table), `herdr/config.toml`, and
-`fish/functions/bobthefish_colors.fish` copy them. Backgrounds and greys stay Night
-Flat — vivid's `#282c34` background is much lighter and is deliberately not used.
+The palette is duplicated across four files by hand. `ghostty/themes/dracula-pro.conf`
+is the source for the seven Dracula Pro hues. `nvim/colors/dracula_pro.lua` (including
+its `M.terminal` table), `herdr/config.toml`, and
+`fish/functions/bobthefish_colors.fish` copy them. Dracula has no blue, so the `blue`
+role everywhere is Dracula's purple `#9580ff` and the `purple` role is its pink
+`#ff80bf` — that keeps the ANSI slots correct while preserving seven distinct hues.
+Only the background `#22212c`, the selection `#454158`, the comment `#7970a9`, and
+the seven hues are upstream; the rest of the grey ramp is interpolated between them.
 Change a hue in one file, change it in all four.
 
 ### Tooling

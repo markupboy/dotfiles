@@ -1,3 +1,3 @@
-vim.cmd.colorscheme("onedark_pro_night_flat")
+vim.cmd.colorscheme("dracula_pro")
 
 return {}

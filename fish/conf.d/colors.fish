@@ -5,7 +5,7 @@ if type -q vivid
 
     if not test -f $cache; or test (path mtime $src) -gt (path mtime $cache)
         mkdir -p $HOME/.cache
-        vivid generate one-dark >$cache
+        vivid generate dracula >$cache
     end
 
     set -gx LS_COLORS (cat $cache)
