@@ -29,19 +29,19 @@ function _wt_herdr_open --description "open a worktrunk checkout as a herdr work
     set -l ws (echo $opened | jq -r '.result.workspace.workspace_id')
 
     if test (echo $opened | jq -r '.result.already_open') != true
-        set -l top (echo $opened | jq -r '.result.root_pane.pane_id')
+        set -l left (echo $opened | jq -r '.result.root_pane.pane_id')
 
         # A failed split yields a zero-element list, which would silently collapse
         # the args and make 'vim .' read as the pane id — so check before using it.
-        set -l bottom (herdr pane split $top --direction down --cwd $wt_path --no-focus \
+        set -l right (herdr pane split $left --direction right --cwd $wt_path --no-focus \
             | jq -r '.result.pane.pane_id')
-        if test -n "$bottom"
-            herdr pane run $bottom 'vim .' >/dev/null
+        if test -n "$right"
+            herdr pane run $right 'vim .' >/dev/null
         else
             echo "$agent: could not split the editor pane" >&2
         end
 
-        _wt_herdr_agent $agent $top $wt_path $prompt
+        _wt_herdr_agent $agent $left $wt_path $prompt
     end
 
     # Focus last — until the layout is built, the pane we were called from is busy.
