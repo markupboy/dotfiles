@@ -10,7 +10,11 @@ herdr/session.json
 herdr/.plugins.lock
 herdr/*.sock
 herdr/plugins.json
-herdr/plugins/
+herdr/plugins/*
+!herdr/plugins/config/
+herdr/plugins/config/**
+!herdr/plugins/config/**/
+!herdr/plugins/config/**/*.toml
 
 # fish writes runtime state into its config dir, which IS this repo
 fish/fish_variables
