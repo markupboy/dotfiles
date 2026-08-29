@@ -9,6 +9,8 @@ set -e
 
 export DOTFILES="${DOTFILES:-$(cd "$(dirname "$0")/.." && pwd -P)}"
 
+source "$DOTFILES/script/lib.sh"
+
 CONFIG_LINKS=(
   fish
   ghostty
@@ -17,6 +19,7 @@ CONFIG_LINKS=(
   worktrunk
 )
 
+# 0 linked or skipped, 1 failed, 2 user asked to quit
 link_config () {
   local src="$DOTFILES/$1" dst="$HOME/.config/$1"
 
@@ -27,8 +30,22 @@ link_config () {
     fi
     rm -f "$dst"                          # stale or broken link
   elif [ -e "$dst" ]; then
-    dotlog "error" "$dst exists and is not a symlink; move it aside and re-run"
-    return 1
+    prompt_collision "$dst" || return $?
+
+    case "$collision_action" in
+      skip)
+        dotlog "skip" "$dst"
+        return 0
+        ;;
+      overwrite)
+        rm -rf "$dst"
+        dotlog "success" "removed $dst"
+        ;;
+      backup)
+        mv "$dst" "$dst.backup"
+        dotlog "success" "moved $dst to $dst.backup"
+        ;;
+    esac
   fi
 
   dotlog "install" "$dst -> $src"
@@ -39,7 +56,13 @@ mkdir -p "$HOME/.config"
 
 status=0
 for topic in "${CONFIG_LINKS[@]}"; do
-  link_config "$topic" || status=1
+  rc=0
+  link_config "$topic" || rc=$?
+  case $rc in
+    0) ;;
+    2) exit 1 ;;
+    *) status=1 ;;
+  esac
 done
 
 exit $status

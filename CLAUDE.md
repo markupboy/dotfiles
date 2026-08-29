@@ -48,8 +48,7 @@ Remote one-liner install: `curl -fsSL .../script/remote.sh | bash` — clones to
 ### Two symlink mechanisms
 
 1. **`*.symlink` files → `~/.<name>`**, linked by `script/bootstrap` (which finds
-   them with `find`, prompts on collision, and offers skip/overwrite/backup).
-   Example: `git/gitconfig.symlink` → `~/.gitconfig`.
+   them with `find`). Example: `git/gitconfig.symlink` → `~/.gitconfig`.
 2. **Whole topic directories → `~/.config/<same name>`**, linked by
    `script/link-config` from its `CONFIG_LINKS` list: `fish`, `ghostty`, `herdr`,
    `nvim`, `worktrunk`. Adding a config topic means adding one line to that list — the
@@ -58,9 +57,19 @@ Remote one-liner install: `curl -fsSL .../script/remote.sh | bash` — clones to
    installer loop.
 
 Both mechanisms must stay idempotent, because `dot` runs them on every invocation.
-`link_config` compares `readlink` against the intended target: same target →
-`dotlog skip`, stale or broken link → relink, real directory in the way → `dotlog
-error` and a non-zero exit (after trying the remaining topics).
+Each compares `readlink` against the intended target: same target → `dotlog skip`,
+stale or broken link → relink.
+
+Anything else in the way — a real `~/.config/fish`, a `~/.gitconfig` someone
+already wrote — goes through `prompt_collision` in `script/lib.sh`, the one prompt
+both mechanisms source: `[s]kip`, `[o]verwrite` (`rm -rf`), `[b]ackup` (`mv` to
+`<dst>.backup`), `[q]uit`, plus sticky `[S]`/`[O]`/`[B]` "all" variants. It reads
+from `/dev/tty`, not stdin, so it still works under `curl … | bash`. Its two
+non-zero returns mean different things and callers must keep them apart: `2` is an
+explicit quit and stops the run where it stands, `1` means there was nobody to ask
+(no usable `/dev/tty`) and is the old fail-fast behavior — that topic is left
+alone and the run continues, exiting non-zero at the end. Test the prompt over a
+pty; piping into stdin does not reach it.
 
 A topic only needs an `install.sh` when it does something *other* than config-dir
 linking — `tmux/` (clones tpm), `fish/` (clones bobthefish), `homebrew/` (installs

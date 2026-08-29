@@ -9,6 +9,8 @@ DOTFILES_ROOT="$(pwd -P)"
 
 set -e
 
+source "$DOTFILES_ROOT/script/lib.sh"
+
 # Ensure Xcode Command Line Tools are installed on macOS
 if [[ "$(uname)" == "Darwin" ]]; then
   if ! xcode-select -p &>/dev/null; then
@@ -52,61 +54,40 @@ setup_gitconfig () {
 
 link_file () {
   local src=$1 dst=$2
-  local overwrite= backup= skip=
-  local action=
 
-  if [[ -e "$dst" ]]; then
-    if [[ "$overwrite_all" != "true" && "$backup_all" != "true" && "$skip_all" != "true" ]]; then
-      local currentSrc="$(readlink "$dst")"
-
-      if [[ "$currentSrc" == "$src" ]]; then
-        skip=true
-      else
-        dotlog "user" "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
-        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read -r -n 1 action </dev/tty
-        echo
-
-        case "$action" in
-          o) overwrite=true ;;
-          O) overwrite_all=true ;;
-          b) backup=true ;;
-          B) backup_all=true ;;
-          s) skip=true ;;
-          S) skip_all=true ;;
-        esac
-      fi
+  # -e alone is false for a broken symlink, which would then fail the ln below.
+  if [[ -e "$dst" || -L "$dst" ]]; then
+    if [[ "$(readlink "$dst")" == "$src" ]]; then
+      dotlog "skip" "$dst"
+      return 0
     fi
 
-    overwrite=${overwrite:-$overwrite_all}
-    backup=${backup:-$backup_all}
-    skip=${skip:-$skip_all}
-
-    if [[ "$overwrite" == "true" ]]; then
-      rm -rf "$dst"
-      dotlog "success" "removed $dst"
+    if ! prompt_collision "$dst"; then
+      exit 1
     fi
 
-    if [[ "$backup" == "true" ]]; then
-      mv "$dst" "${dst}.backup"
-      dotlog "success" "moved $dst to ${dst}.backup"
-    fi
-
-    if [[ "$skip" == "true" ]]; then
-      dotlog "success" "skipped $src"
-    fi
+    case "$collision_action" in
+      skip)
+        dotlog "skip" "$dst"
+        return 0
+        ;;
+      overwrite)
+        rm -rf "$dst"
+        dotlog "success" "removed $dst"
+        ;;
+      backup)
+        mv "$dst" "$dst.backup"
+        dotlog "success" "moved $dst to $dst.backup"
+        ;;
+    esac
   fi
 
-  if [[ "$skip" != "true" ]]; then
-    ln -s "$1" "$2"
-    dotlog "success" "linked $1 to $2"
-  fi
+  ln -s "$src" "$dst"
+  dotlog "success" "linked $src to $dst"
 }
 
 install_dotfiles () {
   dotlog "info" 'installing dotfiles'
-
-  local overwrite_all=false backup_all=false skip_all=false
 
   # `find` rather than a `**` glob — macOS ships bash 3.2, which has no globstar.
   local src dst
