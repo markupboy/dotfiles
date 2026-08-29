@@ -73,8 +73,10 @@ pty; piping into stdin does not reach it.
 
 A topic only needs an `install.sh` when it does something *other* than config-dir
 linking — `tmux/` (clones tpm), `fish/` (clones bobthefish), `homebrew/` (installs
-brew), `linux/` (apt build deps), `herdr/` (installs the worktrunk plugin). `git/`
-has none: its settings are declared in the tracked `gitconfig.symlink`, and `git
+brew), `linux/` (apt build deps), `herdr/` (installs its plugins). The `find` in
+`script/install` skips `herdr/plugins/` as well as `.git/`: that tree is herdr's own
+gitignored clone of each plugin, and the plugins ship `install.sh` files of their own
+that are not ours to run on every `dot`. `git/` has none: its settings are declared in the tracked `gitconfig.symlink`, and `git
 config --global` would write *into* that file (`~/.gitconfig` symlinks to it), so an
 installer there only churns the repo.
 
@@ -178,8 +180,10 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   `[theme.custom] accent` the green. Like `fish/`, this directory is herdr's live
   config dir — it writes `session.json`, `.plugins.lock`, `herdr.sock`,
   `herdr-*.log`, and the `plugins/` tree plus `plugins.json` here, all gitignored —
-  `plugins/github/*/` is a full git clone. `herdr/install.sh` reinstalls the
-  `herdr-worktrunk` plugin instead, which backs the `wtc`/`wtpr` workspace layout.
+  `plugins/github/*/` is a full git clone. `herdr/install.sh` installs the plugins
+  instead: `herdr-worktrunk`, which backs the `wtc`/`wtpr` workspace layout, and
+  `herdr-reviewr`. Its `install_plugin` greps `herdr plugin list` for the plugin's
+  own id, which is not the repo name (`persiyanov.reviewr`, not `herdr-reviewr`).
   Validate with `herdr config check` (it names unknown keys); reload a running server
   with `herdr server reload-config` or `prefix+shift+r`.
 

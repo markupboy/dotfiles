@@ -16,10 +16,12 @@ fi
 
 # find the installers and run them iteratively.
 # `find` rather than a `**` glob — macOS ships bash 3.2, which has no globstar.
+# herdr/plugins is herdr's own gitignored clone tree; its plugins ship install.sh
+# files of their own, which are not ours to run.
 while IFS= read -r installer; do
   dotlog "install" "./${installer}"
   if ! ./"${installer}"; then
     dotlog "error" "Failed: ./${installer}"
     exit 1
   fi
-done < <(find . -name install.sh -type f -not -path './.git/*' | sed 's|^\./||' | sort)
+done < <(find . -name install.sh -type f -not -path './.git/*' -not -path './herdr/plugins/*' | sed 's|^\./||' | sort)
