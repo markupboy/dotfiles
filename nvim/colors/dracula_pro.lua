@@ -9,9 +9,9 @@ local M = {}
 -- Palette
 -- ==========================================================================
 M.palette = {
-  bg0       = '#22212c',  -- editor background
-  bg1       = '#282734',  -- popups, widgets
-  bg2       = '#343143',  -- cursor line, inlay hints
+  bg0       = '#1c1b24',  -- editor background, darkened from Pro's #22212c
+  bg1       = '#23222d',  -- popups, widgets
+  bg2       = '#312e3f',  -- cursor line, inlay hints
   bg3       = '#454158',  -- focus border, visual
   bg4       = '#565073',  -- bracket match
   fg0       = '#f8f8f2',  -- editor foreground
@@ -19,7 +19,7 @@ M.palette = {
   fg2       = '#b5b0ce',  -- statusline fg
   fg3       = '#6e6a8c',  -- inactive fg
   gutter    = '#6c6783',  -- line numbers
-  guide     = '#322f40',  -- indent guides
+  guide     = '#2e2c3b',  -- indent guides
   red       = '#ff9580',
   green     = '#8aff80',
   yellow    = '#ffff80',
@@ -37,7 +37,7 @@ M.palette = {
 
 -- Terminal colors
 M.terminal = {
-  '#22212c', '#ff9580', '#8aff80', '#ffff80',
+  '#1c1b24', '#ff9580', '#8aff80', '#ffff80',
   '#9580ff', '#ff80bf', '#80ffea', '#f8f8f2',
   '#7970a9', '#ffaa99', '#a2ff99', '#ffff99',
   '#aa99ff', '#ff99cc', '#99ffee', '#ffffff',
@@ -76,23 +76,23 @@ function M.setup()
   hl(0, 'LineNr',        { fg = c.gutter })
   hl(0, 'CursorLineNr',  { fg = c.fg0, bg = c.bg2 })
   hl(0, 'SignColumn',     { bg = c.bg0 })
-  hl(0, 'VertSplit',     { fg = '#1a1924', bg = c.bg0 })
-  hl(0, 'WinSeparator',  { fg = '#1a1924', bg = c.bg0 })
+  hl(0, 'VertSplit',     { fg = '#16161d', bg = c.bg0 })
+  hl(0, 'WinSeparator',  { fg = '#16161d', bg = c.bg0 })
 
   hl(0, 'StatusLine',    { fg = c.fg2, bg = c.bg0 })
   hl(0, 'StatusLineNC',  { fg = c.fg3, bg = c.bg0 })
   hl(0, 'TabLine',       { fg = c.fg0, bg = c.bg0 })
   hl(0, 'TabLineFill',   { bg = c.bg0 })
-  hl(0, 'TabLineSel',    { fg = c.fg0, bg = '#2d2b3a' })
+  hl(0, 'TabLineSel',    { fg = c.fg0, bg = '#292734' })
 
   hl(0, 'Pmenu',         { fg = c.fg0, bg = c.bg1 })
-  hl(0, 'PmenuSel',      { fg = c.fg0, bg = '#343143' })
+  hl(0, 'PmenuSel',      { fg = c.fg0, bg = '#312e3f' })
   hl(0, 'PmenuSbar',     { bg = c.bg1 })
   hl(0, 'PmenuThumb',    { bg = '#565073' })
 
   hl(0, 'Visual',        { bg = c.bg3 })
   hl(0, 'VisualNOS',     { bg = c.bg3 })
-  hl(0, 'Search',        { bg = '#53463e' })
+  hl(0, 'Search',        { bg = '#4e4238' })
   hl(0, 'IncSearch',     { fg = c.bg0, bg = c.orange })
   hl(0, 'CurSearch',     { fg = c.bg0, bg = c.yellow })
   hl(0, 'Substitute',    { fg = c.bg0, bg = c.orange })
@@ -120,10 +120,10 @@ function M.setup()
   -- ========================================================================
   -- Diff
   -- ========================================================================
-  hl(0, 'DiffAdd',       { bg = '#324239' })
-  hl(0, 'DiffChange',    { bg = '#434239' })
-  hl(0, 'DiffDelete',    { fg = c.git_del, bg = '#433239' })
-  hl(0, 'DiffText',      { bg = '#605f44' })
+  hl(0, 'DiffAdd',       { bg = '#2c3d32' })
+  hl(0, 'DiffChange',    { bg = '#3e3d32' })
+  hl(0, 'DiffDelete',    { fg = c.git_del, bg = '#3e2d32' })
+  hl(0, 'DiffText',      { bg = '#5c5b3e' })
   hl(0, 'diffAdded',     { fg = c.green })
   hl(0, 'diffRemoved',   { fg = c.red })
   hl(0, 'diffChanged',   { fg = c.yellow })
@@ -141,10 +141,10 @@ function M.setup()
   hl(0, 'DiagnosticUnderlineWarn',  { sp = c.orange, undercurl = true })
   hl(0, 'DiagnosticUnderlineInfo',  { sp = c.blue, undercurl = true })
   hl(0, 'DiagnosticUnderlineHint',  { sp = c.cyan, undercurl = true })
-  hl(0, 'DiagnosticVirtualTextError', { fg = c.err, bg = '#2f242e' })
-  hl(0, 'DiagnosticVirtualTextWarn',  { fg = c.orange, bg = '#2f2b31' })
-  hl(0, 'DiagnosticVirtualTextInfo',  { fg = c.blue, bg = '#292739' })
-  hl(0, 'DiagnosticVirtualTextHint',  { fg = c.cyan, bg = '#282e37' })
+  hl(0, 'DiagnosticVirtualTextError', { fg = c.err, bg = '#2a1e27' })
+  hl(0, 'DiagnosticVirtualTextWarn',  { fg = c.orange, bg = '#2a262a' })
+  hl(0, 'DiagnosticVirtualTextInfo',  { fg = c.blue, bg = '#232131' })
+  hl(0, 'DiagnosticVirtualTextHint',  { fg = c.cyan, bg = '#222930' })
 
   -- ========================================================================
   -- Git signs (gutter)
@@ -287,7 +287,7 @@ function M.setup()
   hl(0, 'TelescopePromptTitle',  { fg = c.bg0, bg = c.blue, bold = true })
   hl(0, 'TelescopePreviewTitle', { fg = c.bg0, bg = c.green, bold = true })
   hl(0, 'TelescopeResultsTitle', { fg = c.bg1, bg = c.bg1 })
-  hl(0, 'TelescopeSelection',    { fg = c.fg1, bg = '#343143' })
+  hl(0, 'TelescopeSelection',    { fg = c.fg1, bg = '#312e3f' })
   hl(0, 'TelescopeMatching',     { fg = c.orange, bold = true })
 
   -- ========================================================================

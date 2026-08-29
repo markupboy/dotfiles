@@ -1,8 +1,8 @@
 # Dracula Pro prompt colors, matching nvim/colors/dracula_pro.lua
 # and ghostty/themes/dracula-pro.conf.
 function bobthefish_colors -S -d 'Dracula Pro color scheme for bobthefish'
-    set -l bg0 22212c # editor background
-    set -l bg2 343143 # cursor line
+    set -l bg0 1c1b24 # editor background, darkened from Pro's #22212c
+    set -l bg2 312e3f # cursor line
     set -l bg3 454158 # visual selection
     set -l fg0 f8f8f2 # editor foreground
     set -l fg1 ffffff # bright foreground

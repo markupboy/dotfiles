@@ -251,8 +251,10 @@ its `M.terminal` table), `herdr/config.toml`, and
 `fish/functions/bobthefish_colors.fish` copy them. Dracula has no blue, so the `blue`
 role everywhere is Dracula's purple `#9580ff` and the `purple` role is its pink
 `#ff80bf` — that keeps the ANSI slots correct while preserving seven distinct hues.
-Only the background `#22212c`, the selection `#454158`, the comment `#7970a9`, and
-the seven hues are upstream; the rest of the grey ramp is interpolated between them.
+The selection `#454158`, the comment `#7970a9`, and the seven hues are upstream. The
+background is `#1c1b24` — Pro's `#22212c` scaled to 82%, keeping its hue and
+saturation — and the rest of the grey ramp is interpolated between the two, so
+darkening the background again means recomputing `bg1`/`bg2`/`guide` off it.
 Change a hue in one file, change it in all four.
 
 ### Tooling

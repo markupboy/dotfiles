@@ -10,13 +10,13 @@ auto_switch = false
 # Dracula Pro — my goto theme
 [theme.custom]
 # panel_bg = "reset"
-sidebar_bg = "#1e1d27" # Dracula Pro sidebar
-active_row_bg = "#343143" # bg2 — cursor line
+sidebar_bg = "#191820" # Dracula Pro sidebar
+active_row_bg = "#312e3f" # bg2 — cursor line
 selection_bg = "#454158" # bg3 — visual selection
 
-surface0 = "#343143" # bg2 — subtle dividers
+surface0 = "#312e3f" # bg2 — subtle dividers
 surface1 = "#454158" # bg3 — borders, focus ring
-surface_dim = "#282734" # bg1 — popups, inactive chrome
+surface_dim = "#23222d" # bg1 — popups, inactive chrome
 overlay0 = "#6e6a8c" # fg3 — inactive foreground
 overlay1 = "#7970a9" # comment — dim foreground
 
