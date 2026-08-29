@@ -21,6 +21,9 @@ config-file = ?local.ghostty
 macos-option-as-alt = true
 macos-window-buttons = hidden
 macos-titlebar-proxy-icon = hidden
+macos-titlebar-style = hidden
+
+# macOS app icon
 macos-icon = custom-style
 macos-icon-ghost-color = #9580ff
 macos-icon-screen-color = #888888
