@@ -10,9 +10,8 @@ background-blur = 40
 cursor-style = block
 cursor-style-blink = false
 mouse-hide-while-typing = true
-cursor-color = cell-foreground
-cursor-text = cell-background
-minimum-contrast = 1.3
+cursor-color = #f8f8f2
+cursor-text = #1c1b24
 
 # local overrides
 config-file = ?local.ghostty
