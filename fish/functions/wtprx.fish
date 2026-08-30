@@ -19,6 +19,6 @@ function wtprx --description "close a PR's herdr workspace"
         return 1
     end
 
-    # Closes the workspace only — the worktree stays for wtclean/wtsweep to reap.
+    # Closes the workspace only — the worktree stays for wtclean to reap.
     herdr workspace close $ws >/dev/null
 end

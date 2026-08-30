@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# wtsweep -- remove worktrees and branches already integrated into the default branch
+# wtclean -- remove worktrees and branches already integrated into the default branch
 #
 # Run from inside a repo to sweep that repo. Run from a directory that isn't a
 # repo to sweep every immediate child directory that is one (no recursion).
@@ -9,7 +9,7 @@
 # as "same_commit" rather than "empty", and an unmerged branch as "ahead". The
 # removal itself is `wt remove` without -f or -D, so it declines anyway.
 #
-# Usage: wtsweep [options] [dir]
+# Usage: wtclean [options] [dir]
 
 set -uo pipefail
 
@@ -17,9 +17,9 @@ DRY_RUN=false
 FETCH=true
 
 usage() {
-	echo "wtsweep -- remove merged worktrees and branches"
+	echo "wtclean -- remove merged worktrees and branches"
 	echo ""
-	echo "Usage: wtsweep [options] [dir]"
+	echo "Usage: wtclean [options] [dir]"
 	echo ""
 	echo "Sweeps DIR (default: current directory) when it is a repo, otherwise"
 	echo "sweeps each immediate child directory that is a repo."
@@ -44,12 +44,12 @@ while test $# -gt 0; do
 			FETCH=false
 			;;
 		-*)
-			echo "wtsweep: invalid option: $1" >&2
+			echo "wtclean: invalid option: $1" >&2
 			exit 1
 			;;
 		*)
 			if [[ -n "$target" ]]; then
-				echo "wtsweep: only one directory may be given" >&2
+				echo "wtclean: only one directory may be given" >&2
 				exit 1
 			fi
 			target="$1"
@@ -60,14 +60,14 @@ done
 
 for tool in wt jq git; do
 	if ! command -v "$tool" &>/dev/null; then
-		echo "wtsweep: $tool is required but not installed" >&2
+		echo "wtclean: $tool is required but not installed" >&2
 		exit 1
 	fi
 done
 
 target="${target:-.}"
 if [[ ! -d "$target" ]]; then
-	echo "wtsweep: not a directory: $target" >&2
+	echo "wtclean: not a directory: $target" >&2
 	exit 1
 fi
 
@@ -209,7 +209,7 @@ else
 	done
 
 	if [[ -z "$swept_repos" ]]; then
-		echo "wtsweep: no repos found in $target" >&2
+		echo "wtclean: no repos found in $target" >&2
 		exit 1
 	fi
 fi
