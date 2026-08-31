@@ -12,13 +12,14 @@ function _wt_herdr_agent --description "start an agent in a herdr pane, clearing
         set flags --force
     end
 
-    set -l err (herdr agent start $agent --kind $kind --pane $pane -- $flags $prompt 2>&1 >/dev/null)
+    set -l err (herdr agent start $agent --kind $kind --pane $pane --timeout 5000 -- $flags $prompt 2>&1 >/dev/null)
     test -z "$err"; and return 0
 
     # A checkout worktrunk just made is a directory the agent has never seen, so it
     # opens on its "do you trust this folder" prompt — which the skip-permissions
     # flags above do not cover. agent start reports that as agent_not_ready but keeps
     # the name registered, so answer it rather than parking the user on a dialog.
+    # This is the expected path, so the timeout above is short rather than herdr's 30s.
     if string match -q '*agent_not_ready*' -- "$err"
         echo "$agent: trusting $wt_path"
         herdr agent send-keys $agent enter >/dev/null

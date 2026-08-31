@@ -216,9 +216,11 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   never seen, so it opens on its trust prompt — which `--dangerously-skip-permissions`
   does *not* cover. `agent start` reports that as `agent_not_ready` but keeps the name
   registered, so `_wt_herdr_agent` answers it with `agent send-keys <name> enter` and
-  then `agent wait`. Focus the workspace *after* the layout is built, not via
-  `worktree open --focus`: focusing first strands the calling pane mid-run, which is
-  what made these functions look like they hung.
+  then `agent wait`. That makes `agent_not_ready` the *expected* outcome on a fresh
+  checkout, so `_wt_herdr_agent` overrides the 30s default with `--timeout 5000` —
+  waiting out the full default first is pure delay. Focus the workspace *after* the
+  layout is built, not via `worktree open --focus`: focusing first strands the
+  calling pane mid-run, which is what made these functions look like they hung.
   `HERDR_ENV=1` is the "am I inside herdr" guard (the `$TMUX` analogue), alongside
   `HERDR_WORKSPACE_ID`/`HERDR_TAB_ID`/`HERDR_PANE_ID`. Since `[experimental]
   allow_nested` is off, bare `herdr` may only be run when `HERDR_ENV` is unset.
