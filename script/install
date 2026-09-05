@@ -20,7 +20,8 @@ fi
 # files of their own, which are not ours to run.
 while IFS= read -r installer; do
   dotlog "install" "./${installer}"
-  if ! ./"${installer}"; then
+  # installers are non-interactive; prompt via /dev/tty, never stdin.
+  if ! ./"${installer}" </dev/null; then
     dotlog "error" "Failed: ./${installer}"
     exit 1
   fi

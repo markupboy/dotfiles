@@ -19,7 +19,8 @@ install_plugin () {
     dotlog "skip" "Skipping $name"
   else
     dotlog "install" "Installing $name"
-    herdr plugin install "$repo"
+    # --yes must follow the repo; herdr rejects it before the positional, --help notwithstanding.
+    herdr plugin install "$repo" --yes
   fi
 }
 
