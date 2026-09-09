@@ -182,8 +182,11 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   `herdr-*.log`, and the `plugins/` tree plus `plugins.json` here, all gitignored —
   `plugins/github/*/` is a full git clone. `herdr/install.sh` installs the plugins
   instead: `herdr-worktrunk`, which backs the `wtc`/`wtpr` workspace layout, and
-  `herdr-reviewr`. Its `install_plugin` greps `herdr plugin list` for the plugin's
-  own id, which is not the repo name (`persiyanov.reviewr`, not `herdr-reviewr`).
+  `herdr-reviewr`. Each is checked individually, so a machine missing only one
+  gets only that one: `install_plugin` asks `herdr plugin list --plugin <id> --json`
+  and looks for that exact `plugin_id`. The id is the plugin's own, not the repo
+  name (`persiyanov.reviewr`, not `herdr-reviewr`), and `plugin list` exits 0
+  whether or not the plugin is there — hence matching on the response body.
   Validate with `herdr config check` (it names unknown keys); reload a running server
   with `herdr server reload-config` or `prefix+shift+r`.
 

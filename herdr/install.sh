@@ -11,12 +11,17 @@ if ! command -v herdr >/dev/null; then
   exit 0
 fi
 
-# $1 matches against `plugin list`, which names a plugin by its own id, not its repo.
-install_plugin () {
-  local match=$1 repo=$2 name="${2##*/}"
+# `plugin list` names a plugin by its own id, not its repo, and exits 0 either
+# way — so ask for the one id and look for it in the response.
+plugin_installed () {
+  herdr plugin list --plugin "$1" --json 2>/dev/null | grep -q "\"plugin_id\":\"$1\""
+}
 
-  if herdr plugin list 2>/dev/null | grep -q "$match"; then
-    dotlog "skip" "Skipping $name"
+install_plugin () {
+  local id=$1 repo=$2 name="${2##*/}"
+
+  if plugin_installed "$id"; then
+    dotlog "skip" "$name already installed"
   else
     dotlog "install" "Installing $name"
     # --yes must follow the repo; herdr rejects it before the positional, --help notwithstanding.
@@ -24,5 +29,5 @@ install_plugin () {
   fi
 }
 
-install_plugin worktrunk devashish2203/herdr-worktrunk
-install_plugin reviewr   persiyanov/herdr-reviewr
+install_plugin worktrunk          devashish2203/herdr-worktrunk
+install_plugin persiyanov.reviewr persiyanov/herdr-reviewr
