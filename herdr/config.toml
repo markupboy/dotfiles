@@ -62,7 +62,7 @@ previous_tab = ["prefix+p", "ctrl+alt+cmd+["]
 [[keys.command]]
 key = "prefix+shift+g"
 type = "plugin_action"
-command = "worktrunk.open"
+command = "worktrunk.open-with-remotes"
 description = "Worktree: switch / create from default branch"
 
 # bind current-branch creation separately.
