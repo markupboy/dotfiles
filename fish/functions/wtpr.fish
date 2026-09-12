@@ -21,7 +21,7 @@ function wtpr --description 'quickly spawn a PR review session from an identifie
     end
 
     _wtpr_sync $pr $wt_path
-    _wt_herdr_open $wt_path "PR #$pr" "pr-$pr" /pr-review
+    _wt_herdr_open $wt_path "PR #$pr" "pr-$pr" /review-code-assistant
     or return 1
 
     # allow_nested is off, so only attach when we aren't already inside herdr

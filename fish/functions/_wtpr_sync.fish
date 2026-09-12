@@ -5,8 +5,7 @@ function _wtpr_sync --description "fast-forward a PR worktree to the PR's curren
     # detached HEAD — nothing to fast-forward
     git -C $wt_path symbolic-ref --quiet HEAD >/dev/null; or return 0
 
-    # -uno so stray untracked files don't block the pull. /pr-review's output
-    # lands in pr_reviews/, which ~/.gitignore already covers.
+    # -uno so stray untracked files don't block the pull.
     set -l dirty (git -C $wt_path status --porcelain -uno)
     if test (count $dirty) -gt 0
         echo "wtpr: worktree has uncommitted changes — skipping pull" >&2
