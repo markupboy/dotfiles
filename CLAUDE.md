@@ -295,6 +295,15 @@ other systems that share this repo, not on every one, and `mise.fish` is `type -
 guarded so it no-ops where mise is absent. Adding `brew "mise"` would install it
 everywhere, including machines where fnm already covers node.
 
+Where both are installed, **mise wins over fnm** and `node.fish` skips `fnm env`
+entirely — the two otherwise both prepend a node directory to `PATH` and whichever
+ran last would win, which is the order dependence rule 3 above forbids. Homebrew's
+mise formula also ships `vendor_conf.d/mise-activate.fish`, so on a brew machine
+mise activates twice; that snippet is what used to make mise win, and it doesn't
+exist where mise came from its own installer. `mise.fish` therefore activates in
+non-interactive shells too — with `--shims`, since the prompt hook `mise activate`
+installs never fires there — so `fish -c 'node -v'` resolves without it.
+
 The prompt is **bobthefish**, cloned by `fish/install.sh` into
 `~/.local/share/theme-bobthefish` and put on `$fish_function_path` by
 `fish/conf.d/prompt.fish`, which also holds the `theme_*` settings. It is a

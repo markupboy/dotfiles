@@ -1,5 +1,6 @@
 # fnm — unguarded by `status is-interactive` so `fish -c 'node -v'` resolves.
-if type -q fnm
+# Skipped where mise is installed: mise owns node there, whatever the conf.d order.
+if not type -q mise; and type -q fnm
     fnm env --use-on-cd --shell fish | source
 end
 
