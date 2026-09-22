@@ -27,6 +27,9 @@ function _wt_herdr_agent --description "start an agent in a herdr pane, clearing
         and return 0
     end
 
+    # Herdr timeout JSON: the agent can still become usable.
+    string match -q '*"code":"timeout"*' -- "$err"; and return 0
+
     echo "$agent: agent did not start — $err" >&2
     return 0
 end
