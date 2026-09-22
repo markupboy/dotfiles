@@ -1,5 +1,6 @@
 # claude generated PR reviews
 pr_reviews/
+.agents/
 
 # macOS
 .DS_Store
