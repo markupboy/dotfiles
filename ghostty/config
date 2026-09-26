@@ -1,3 +1,6 @@
+# shell settings
+shell-integration-features = ssh-terminfo,ssh-env
+
 # appearance
 theme = "dracula-pro.conf"
 font-family = "Consolas 7NF"
