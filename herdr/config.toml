@@ -84,6 +84,12 @@ type = "plugin_action"
 command = "worktrunk.merge"
 description = "Worktree: merge into the target branch"
 
+[[keys.command]]
+key = "prefix+alt+x"
+type = "shell"
+command = "fish -c wtprx"
+description = "Close the current workspace"
+
 ### REVIEWR ####
 
 # Shortcut for herdr-review

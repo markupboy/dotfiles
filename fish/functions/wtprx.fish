@@ -14,6 +14,9 @@ function wtprx --description "close a PR's herdr workspace"
         end
     else if set -q HERDR_WORKSPACE_ID
         set ws $HERDR_WORKSPACE_ID
+    else if set -q HERDR_ACTIVE_WORKSPACE_ID
+        # Keybindings get this, not the pane's HERDR_WORKSPACE_ID.
+        set ws $HERDR_ACTIVE_WORKSPACE_ID
     else
         echo "usage: wtprx <pr-number>  (or run inside the PR workspace)" >&2
         return 1
