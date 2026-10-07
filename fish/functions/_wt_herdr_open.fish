@@ -30,6 +30,9 @@ function _wt_herdr_open --description "open a worktrunk checkout as a herdr work
 
     if test (echo $opened | jq -r '.result.already_open') != true
         set -l pane (echo $opened | jq -r '.result.root_pane.pane_id')
+        set -l git_pane (herdr pane split $pane --direction right --cwd $wt_path --no-focus \
+            | jq -r '.result.pane.pane_id')
+        and herdr pane run $git_pane lazygit >/dev/null
         _wt_herdr_agent $agent $pane $wt_path $prompt
     end
 

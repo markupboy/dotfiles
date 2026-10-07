@@ -181,12 +181,11 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   config dir — it writes `session.json`, `.plugins.lock`, `herdr.sock`,
   `herdr-*.log`, and the `plugins/` tree plus `plugins.json` here, all gitignored —
   `plugins/github/*/` is a full git clone. `herdr/install.sh` installs the plugins
-  instead: `herdr-worktrunk`, which backs the `wtc`/`wtpr` workspace layout, and
-  `herdr-reviewr`. Each is checked individually, so a machine missing only one
-  gets only that one: `install_plugin` asks `herdr plugin list --plugin <id> --json`
-  and looks for that exact `plugin_id`. The id is the plugin's own, not the repo
-  name (`persiyanov.reviewr`, not `herdr-reviewr`), and `plugin list` exits 0
-  whether or not the plugin is there — hence matching on the response body.
+  instead: `herdr-worktrunk`, which backs the `wtc`/`wtpr` workspace layout. Each
+  plugin is checked individually: `install_plugin` asks `herdr plugin list --plugin
+  <id> --json` and looks for that exact `plugin_id`. The id is the plugin's own, not
+  the repo name, and `plugin list` exits 0 whether or not the plugin is there —
+  hence matching on the response body.
   Validate with `herdr config check` (it names unknown keys); reload a running server
   with `herdr server reload-config` or `prefix+shift+r`.
 
@@ -226,6 +225,10 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   `_wt_herdr_agent` returns silently. Focus the workspace *after* the layout is
   built, not via `worktree open --focus`: focusing first strands the calling pane
   mid-run, which is what made these functions look like they hung.
+  `_wt_herdr_open` lays out a fresh workspace as the agent on the left and lazygit
+  in a right split, both in the checkout. herdr-reviewr is deliberately not
+  installed: it hooks `worktree.opened` and adds its own pane to every worktree
+  workspace.
   `HERDR_ENV=1` is the "am I inside herdr" guard (the `$TMUX` analogue), alongside
   `HERDR_WORKSPACE_ID`/`HERDR_TAB_ID`/`HERDR_PANE_ID`. Since `[experimental]
   allow_nested` is off, bare `herdr` may only be run when `HERDR_ENV` is unset.

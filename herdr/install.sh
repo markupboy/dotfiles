@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #
-# Install the herdr plugins: worktrunk backs the wtc/wtpr workspace layout,
-# reviewr the PR review flow.
+# Install the herdr plugins: worktrunk backs the wtc/wtpr workspace layout.
 
 set -e
 
@@ -30,4 +29,3 @@ install_plugin () {
 }
 
 install_plugin worktrunk          devashish2203/herdr-worktrunk
-install_plugin persiyanov.reviewr persiyanov/herdr-reviewr

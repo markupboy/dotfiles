@@ -89,11 +89,3 @@ key = "prefix+alt+x"
 type = "shell"
 command = "fish -c wtprx"
 description = "Close the current workspace"
-
-### REVIEWR ####
-
-# Shortcut for herdr-review
-[[keys.command]]
-key = "cmd+r"
-type = "plugin_action"
-command = "persiyanov.reviewr.toggle"   # <plugin_id>.<action_id> — note the id, not the name
