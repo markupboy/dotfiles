@@ -46,6 +46,12 @@ return {
         vim.lsp.config(server, config)
       end
 
+      -- Not a Mason package, so automatic_enable never sees it
+      if vim.fn.executable("tilt") == 1 then
+        vim.lsp.config("tilt_ls", { capabilities = capabilities })
+        vim.lsp.enable("tilt_ls")
+      end
+
       -- Keymaps set on LSP attach
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),

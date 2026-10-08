@@ -28,6 +28,7 @@ return {
         "regex",
         "ruby",
         "rust",
+        "starlark",
         "terraform",
         "toml",
         "tsx",
@@ -36,6 +37,8 @@ return {
         "vimdoc",
         "yaml",
       })
+
+      vim.treesitter.language.register("starlark", "tiltfile")
 
       -- Start highlighting for any filetype whose parser is actually present
       vim.api.nvim_create_autocmd("FileType", {
