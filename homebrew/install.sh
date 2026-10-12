@@ -20,6 +20,11 @@ if [[ -n "$BREW_BIN" && -f "$BREW_BIN" ]]; then
 else
   dotlog "install" "Installing Homebrew for you"
 
+  # stdin is /dev/null here, so Homebrew runs non-interactive and can't prompt for a sudo password
+  if [[ "$(uname)" == "Linux" && "$EUID" -ne 0 ]]; then
+    sudo -v </dev/tty
+  fi
+
   # Install the correct homebrew for Mac or Linux
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
