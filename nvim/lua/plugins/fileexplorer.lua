@@ -13,7 +13,7 @@ return {
     vim.api.nvim_create_autocmd("VimEnter", {
       callback = function(data)
         if vim.fn.isdirectory(data.file) == 1 then
-          require("nvim-tree.api").tree.open()
+          require("nvim-tree.api").tree.open({ path = vim.fn.fnamemodify(data.file, ":p") })
         end
       end,
     })
