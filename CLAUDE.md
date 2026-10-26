@@ -163,8 +163,10 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
 - **atuin/** — `config.toml`; `ATUIN_CONFIG_DIR` points here
 - **bin/** — scripts on `PATH`: git helpers (`git-undo`, `git-amend`,
   `git-delete-merged`, `git-force-push`), `wtclean` (worktree/branch cleanup, see
-  worktrunk below), network tools (`getIP`, `dns-flush`), `getkey` (SSH public key
-  to clipboard, falling back to the 1Password CLI), plus `dot` and `dotlog`
+  worktrunk below), `git-crypt-wt` (git-crypt wrapper that makes the filters work
+  in linked worktrees; see below), network tools (`getIP`, `dns-flush`), `getkey`
+  (SSH public key to clipboard, falling back to the 1Password CLI), plus `dot` and
+  `dotlog`
 - **git/**, **homebrew/**, **ghostty/** — as named
 - **tmux/** — still here on purpose. The herdr migration (`bceb4c4`, `7d40d97`)
   moved the worktree/PR-review workflow off tmux but did not retire tmux itself,
@@ -268,6 +270,15 @@ and `nvim/ftdetect/` hold per-filetype settings. See `nvim/CHEATSHEET.md` (and
   a filter keyed only on `worktree.main` will happily delete it. The jq is written
   against schema 2, so the list call pins it with `--config-set list.json-schema=2`
   rather than trusting `[list] json-schema` in `config.toml`.
+
+ git-crypt repos need one more piece: git-crypt looks for its key only in `git
+ rev-parse --git-dir`, which for a linked worktree has no key, so `git worktree add`
+ dies in the smudge filter before any worktrunk hook runs. `bin/git-crypt-wt`
+ symlinks the main repo's `git-crypt/` dir into the worktree's git dir and then
+ execs `git-crypt`. It is wired up per repo, in that repo's `.git/config` (shared by
+ all its worktrees): point `filter.git-crypt.smudge`/`clean` and
+ `diff.git-crypt.textconv` at `"git-crypt-wt" <smudge|clean|diff>`. `git-crypt
+ unlock` rewrites those keys back to plain `git-crypt`, so re-apply them after.
 
 The palette is duplicated across four files by hand. `ghostty/themes/dracula-pro.conf`
 is the source for the seven Dracula Pro hues. `nvim/colors/dracula_pro.lua` (including
