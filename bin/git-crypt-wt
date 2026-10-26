@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# git-crypt wrapper for linked worktrees. git-crypt only looks in
+# `git rev-parse --git-dir`, which for a worktree has no key. Link the main
+# repo's key dir in first, then hand off. Use as the git-crypt filter/diff command.
+
+gitdir=$(git rev-parse --absolute-git-dir 2>/dev/null)
+common=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+
+if [ -n "$gitdir" ] && [ "$gitdir" != "$common" ] &&
+	[ ! -e "$gitdir/git-crypt" ] && [ -d "$common/git-crypt" ]; then
+	ln -s "$common/git-crypt" "$gitdir/git-crypt"
+fi
+
+exec git-crypt "$@"
