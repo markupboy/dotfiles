@@ -38,8 +38,9 @@ teal = "#80ffea" # cyan
 accent = "#9580ff"
 agent_panel_sort = "spaces"
 status_indicators = "symbols"
-
+copy_on_select = false
 show_agent_labels_on_pane_borders = true
+
 [ui.toast]
 delivery = "terminal"
 
