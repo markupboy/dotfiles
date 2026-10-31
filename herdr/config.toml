@@ -144,11 +144,3 @@ type = "plugin_action"
 command = "herdr-projects.open"
 description = "work board"
 # <<< herdr-projects key
-
-# >>> herdr-projects sidebar (added by the herdr-projects plugin; `herdr-projects remove-extras` removes it)
-[ui.sidebar.agents]
-rows = [["state_icon", "machine", "workspace", { token = "tab", rules = [{ equals = "Agent", hide = true }, { starts_with = "Reviewer #", hide = true }] }], ["agent"], [{ token = "$summary", dim = true }, "$progress"]]
-
-[ui.sidebar.spaces]
-rows = [["state_icon", "workspace"], ["branch", "git_status"], [{ token = "$summary", dim = true }, "$progress"]]
-# <<< herdr-projects sidebar

@@ -17,5 +17,5 @@ function _wtpr_open --description "open one PR as a worktree and herdr workspace
     end
 
     _wtpr_sync $pr $wt_path
-    _wt_herdr_open $wt_path "PR #$pr" "pr-$pr" /review-code-assistant
+    _wt_herdr_open $wt_path "PR #$pr" "pr-$pr" /pr-review
 end
