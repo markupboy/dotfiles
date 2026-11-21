@@ -3,7 +3,7 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   cmd = "Telescope",
   keys = {
-    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+    { "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
     { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Find by Grep" },
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
     { "<leader>fh", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Hidden Files" },
@@ -23,5 +23,11 @@ return {
       desc = "Find WORD",
     },
   },
-  opts = {},
+  opts = {
+    pickers = {
+      find_files = {
+        file_ignore_patterns = { "^%.git/" },
+      },
+    },
+  },
 }
